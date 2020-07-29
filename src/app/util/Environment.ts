@@ -1,7 +1,7 @@
 import { AbstractEnvironmentVariables } from '@cade-tecnologia/essentials';
 
 class Environment extends AbstractEnvironmentVariables {
-  public readonly APP_NAME: string = 'Veterinário';
+  public readonly APP_NAME: string = 'Veterinario';
 
   public readonly API_URL: string = this.getVariable('API_URL');
 

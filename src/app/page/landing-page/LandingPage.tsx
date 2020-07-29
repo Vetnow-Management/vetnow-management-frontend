@@ -3,10 +3,10 @@ import React, { ReactElement } from 'react';
 import { Button, Grid, Hidden, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { ChillingWithDogReady } from '../../assets';
+import { ChillingWithDogReady } from '../../asset';
 import { Divider, LandingPagePaper, WhiteSpace, WithMargin } from '../../component';
 import { Environment } from '../../util';
-import { useRoutes } from '../../hooks';
+import { useRoutes } from '../../hook';
 
 const useStyles = makeStyles({
   leftGridBGColor: {
@@ -20,10 +20,6 @@ const useStyles = makeStyles({
 export default function LandingPage(): ReactElement {
   const classes = useStyles();
   const { goToSignUp } = useRoutes();
-
-  function onEnter(): void {
-    goToSignUp();
-  }
 
   return (
     <LandingPagePaper
@@ -51,10 +47,22 @@ export default function LandingPage(): ReactElement {
         <>
           <Grid className={classes.withMargin} container item xs={10} md={ 8 } alignContent='center' justify='center' spacing={ 2 } id='GGWP'>
             <Grid item md={ 8 } xs={10}>
-              <Button fullWidth variant='contained' size='large' color='primary'> Entrar</Button>
+              <Button fullWidth
+                      variant='contained'
+                      size='large'
+                      color='primary'
+              >
+                Entrar
+              </Button>
             </Grid>
             <Grid item md={ 8 } xs={10}>
-              <Button fullWidth variant='outlined' size='large'> Criar Conta</Button>
+              <Button fullWidth
+                      variant='outlined'
+                      size='large'
+                      onClick={goToSignUp}
+              >
+                Criar Conta
+              </Button>
             </Grid>
           </Grid>
         </>

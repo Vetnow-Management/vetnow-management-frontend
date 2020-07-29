@@ -17,7 +17,6 @@ export default function AuthRoutes({ match, location }: RouteComponentProps): Re
     pathname === AUTH_PATH_PREFIX ||
     pathname === `${ AUTH_PATH_PREFIX }/`;
 
-  console.log('1: ', canRedirectToSignIn);
   return (
     <Switch>
       {

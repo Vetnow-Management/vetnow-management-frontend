@@ -9,7 +9,8 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@cade-tecnologia/essentials": "^1.0.17",
+    "@cade-tecnologia/essentials": "^1.0.19",
+    "@cade-tecnologia/react-library": "^1.0.10",
     "@date-io/date-fns": "^2.6.2",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -19,9 +20,12 @@
     "@testing-library/user-event": "^7.1.2",
     "date-fns": "^2.14.0",
     "history": "^4.10.1",
+    "mobx": "^5.15.4",
+    "mobx-react": "^6.2.2",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^6.0.8",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
@@ -31,7 +35,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
-    "typescript": "~3.7.2"
+    "typescript": "^3.9.7"
   },
   "eslintConfig": {
     "extends": "react-app"

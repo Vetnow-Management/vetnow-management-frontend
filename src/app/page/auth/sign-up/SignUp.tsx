@@ -1,27 +1,94 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 
-import { Button, Grid, Paper, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { LandingPagePaper } from '../../../component';
+import {
+  Grid,
+  Button,
+} from '@material-ui/core';
+import { observer } from 'mobx-react';
 
-const useStyles = makeStyles({
-  leftGridBGColor: {
-    backgroundColor: 'yellow',
-  },
-});
+import StepperSignUp from './stepper/StepperSignUp';
+import { LandingPagePaper, WithMargin } from '../../../component';
+import { useStores } from '../../../hook';
+import { FormDadosEmpresariais, FormDadosPagamentos, FormDadosPessoais } from './form';
 
-export default function SignUp(): ReactElement {
-  const classes = useStyles();
+
+function SignUp(): ReactElement {
+  const {
+    stepperStore: {
+      stepsAvailable,
+      currentStep,
+      proximoStep,
+      voltarStep,
+    },
+    cadastroStore: {
+      dadosPessoais,
+    },
+  } = useStores();
+
+  useEffect(() => {
+    return () => dadosPessoais.limparCampos();
+  }, []);
+
+  function onSubmit(event): void {
+    event.preventDefault();
+    console.log('DATA: ', dadosPessoais);
+  }
+
+  function getForm(): ReactElement {
+    switch (currentStep) {
+      case 0: return <FormDadosPessoais />;
+      case 1: return <FormDadosEmpresariais />;
+      default: return <FormDadosPagamentos />;
+    }
+  }
 
   return (
     <LandingPagePaper
-      leftGridColor='yellow'
-      renderLeftSide={() => (
-        <Typography>Agora vai</Typography>
-      )}
+      renderLeftSide={() => <StepperSignUp currentStepper={currentStep} steps={stepsAvailable}/>}
       renderRightSide={() => (
-        <Typography>Form</Typography>
+        <WithMargin margin='10px'>
+          <form noValidate onSubmit={ onSubmit }>
+            { getForm() }
+            <Grid item container direction='row' justify='flex-start' xs={8} spacing={2}>
+              {currentStep === 2 && (
+                <Grid item md={4}>
+                  <Button fullWidth
+                          type='submit'
+                          variant='contained'
+                          color='primary'
+                  >
+                    Salvar
+                  </Button>
+                </Grid>
+              )}
+              { currentStep < 2 && (
+                <Grid item md={4}>
+                  <Button fullWidth
+                          variant='contained'
+                          color='primary'
+                          onClick={proximoStep}
+                  >
+                    Proximo
+                  </Button>
+                </Grid>
+              )}
+              {currentStep > 0 && (
+                <Grid item md={4}>
+                  <Button fullWidth
+                          variant='outlined'
+                          color='primary'
+                          onClick={voltarStep}
+                  >
+                    Voltar
+                  </Button>
+                </Grid>
+              )}
+            </Grid>
+          </form>
+        </WithMargin>
       )}
     />
   )
 }
+
+export default observer(SignUp);
