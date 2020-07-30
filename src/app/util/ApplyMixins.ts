@@ -10,7 +10,7 @@ export default function applyMixins(derivedCtor: any, ...baseCtors): void {
       .forEach((name) => Object.defineProperty(
         derivedCtor.prototype,
         name,
-        // @ts-ignore
+        // @ts-ignore Algum erro de tipagem
         Object.getOwnPropertyDescriptor(baseCtor.prototype, name))
       )
   });
