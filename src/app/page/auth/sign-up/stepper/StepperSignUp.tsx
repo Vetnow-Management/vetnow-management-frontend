@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react';
+import React, { ReactElement, useContext } from 'react';
 
 import {
   Stepper,
@@ -9,16 +9,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { useBreakpoints } from '../../../../hook';
 import { signUpContext } from '../context';
-
-export interface Steps {
-  label: string,
-  id: number,
-}
-
-interface StepperSignUpProps {
-  currentStepper: number,
-  steps: Steps[]
-}
 
 const useStyles = makeStyles({
   root: {
@@ -47,7 +37,7 @@ export default function StepperSignUp(): ReactElement {
   }
 
   return (
-    <Stepper className={classes.root} activeStep={currentStep} orientation={getOrientation()} id='kill_me'>
+    <Stepper className={classes.root} activeStep={currentStep} orientation={getOrientation()}>
       {stepsAvailable.map(({label, id}) => (
         <Step key={id}>
           <StepLabel>{getLabel(label)}</StepLabel>

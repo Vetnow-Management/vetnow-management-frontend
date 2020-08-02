@@ -104,9 +104,6 @@
     "webpack-manifest-plugin": "2.2.0",
     "workbox-webpack-plugin": "4.3.1"
   },
-  "eslintConfig": {
-    "extends": "@cade-tecnologia/eslint-config/react-typescript"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
