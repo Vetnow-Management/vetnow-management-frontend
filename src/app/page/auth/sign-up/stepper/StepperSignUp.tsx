@@ -1,14 +1,14 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useContext, useState } from 'react';
 
 import {
   Stepper,
   Step,
-  StepLabel, useMediaQuery, Orientation,
+  StepLabel, Orientation,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { ChillingWithDogReady } from '../../../../asset';
 import { useBreakpoints } from '../../../../hook';
+import { signUpContext } from '../context';
 
 export interface Steps {
   label: string,
@@ -26,14 +26,15 @@ const useStyles = makeStyles({
   }
 });
 
-export default function StepperSignUp({ currentStepper, steps }: StepperSignUpProps): ReactElement {
+export default function StepperSignUp(): ReactElement {
   const classes = useStyles();
-  const match = useBreakpoints().up('sm')
-  const [ _, setSize ] = useState<number>(0);
-
-  window.addEventListener('resize', () => {
-    setSize(window.innerHeight);
-  });
+  const match = useBreakpoints(true).up('sm')
+  const {
+    stepperStore: {
+      currentStep,
+      stepsAvailable,
+    }
+  } = useContext(signUpContext);
 
   function getOrientation(): Orientation {
     if (match) return 'vertical';
@@ -46,8 +47,8 @@ export default function StepperSignUp({ currentStepper, steps }: StepperSignUpPr
   }
 
   return (
-    <Stepper className={classes.root} activeStep={currentStepper} orientation={getOrientation()} id='kill_me'>
-      {steps.map(({label, id}) => (
+    <Stepper className={classes.root} activeStep={currentStep} orientation={getOrientation()} id='kill_me'>
+      {stepsAvailable.map(({label, id}) => (
         <Step key={id}>
           <StepLabel>{getLabel(label)}</StepLabel>
         </Step>

@@ -1,64 +1,59 @@
-import React, { ReactElement } from 'react';
-import { Grid, TextField, Typography } from '@material-ui/core';
+import React, { ReactElement, useContext } from 'react';
+import { Grid, TextField } from '@material-ui/core';
 import { observer } from 'mobx-react';
-
-import { useStores } from '../../../../hook';
+import { signUpContext } from '../context';
+import { FormEndereco, FormContato, FormContainer, } from './components';
 
 function FormDadosPessoais(): ReactElement {
   const {
     cadastroStore: {
-      dadosPessoais: {
-        nome,
-        TAMANHO_NOME,
-        celular,
-        cpf,
-        setCampo,
-        setCampoComCondicao
-      },
+      setCampo: setCamposCadastro,
+      nome,
+      documento,
+      dtNascimento,
+      endereco,
+      contato,
     },
-  } = useStores();
+  } = useContext(signUpContext);
 
-  function atingiuTamanhoMaximo(value: string): boolean {
-    return value.length === TAMANHO_NOME + 1;
-  }
 
   return (
-    <Grid item container direction='row' alignItems='center' justify='center' spacing={2}>
-      <Grid item md={12}>
-        <TextField fullWidth
-                   required
-                   name='nome'
-                   label='Nome e sobrenome'
-                   value={nome}
-                   onChange={setCampoComCondicao(atingiuTamanhoMaximo)}
-        />
-        <span style={{fontSize: 12, color: nome.length === TAMANHO_NOME ? 'red' : 'purple'}}>
-          {nome.length === TAMANHO_NOME
-            ? `Tamanho maximo: ${TAMANHO_NOME}`
-            : `Tamanho: ${nome.length}`
-          }
-        </span>
-      </Grid>
-      <Grid item md={6}>
-        <TextField fullWidth
-                   required
-                   label='Celular'
-                   name='celular'
-                   value={celular}
-                   onChange={setCampo}
-        />
-      </Grid>
-      <Grid item md={6}>
-        <TextField fullWidth
-                   required
-                   name='cpf'
-                   label='CPF'
-                   value={cpf}
-                   onChange={setCampo}
-        />
-      </Grid>
-    </Grid>
+    <>
+      <FormContainer>
+        <Grid item container direction='row' alignItems='center' justify='center' spacing={ 2 }>
+          <Grid item xs={ 12 }>
+            <TextField fullWidth
+                       required
+                       name='nome'
+                       label='Nome e sobrenome'
+                       value={ nome }
+                       onChange={ setCamposCadastro }
+            />
+          </Grid>
+          <Grid item xs={ 12 } sm={ 6 }>
+            <TextField fullWidth
+                       required
+                       label='Data de nascimento'
+                       name='dtNascimento'
+                       value={ dtNascimento }
+                       onChange={ setCamposCadastro }
+            />
+          </Grid>
+          <Grid item xs={ 12 } sm={ 6 }>
+            <TextField fullWidth
+                       required
+                       name='documento'
+                       label='Documento (CPF ou CNPJ)'
+                       value={ documento }
+                       onChange={ setCamposCadastro }
+            />
+          </Grid>
+        </Grid>
+      </FormContainer>
+      <FormContato contatoStore={contato} />
+      <FormEndereco enderecoStore={endereco} />
+    </>
   );
 }
 
-export default React.memo(observer(FormDadosPessoais))
+export default observer(FormDadosPessoais)

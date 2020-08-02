@@ -29,5 +29,6 @@ export default function Hidden({ component, isVisible }: HiddenProps): ReactElem
     return 'fadeOut';
   }
 
+  // @ts-ignore: Tipagem desnecessaria
   return <span className={classes[getFade()]}>{component}</span>
 }

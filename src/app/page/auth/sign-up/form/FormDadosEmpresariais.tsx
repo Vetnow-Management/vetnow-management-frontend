@@ -1,22 +1,71 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useContext } from 'react';
+
 import { Grid, TextField } from '@material-ui/core';
 import { observer } from 'mobx-react';
 
+import { signUpContext } from '../context';
+import { FormContainer, FormContato, FormEndereco } from './components';
+
 function FormDadosEmpresariais(): ReactElement {
+  const {
+    cadastroStore: {
+      empresa: {
+        setCampo: setCamposEmpresa,
+        dataAbertura,
+        documento,
+        nitPisPasep,
+        razaoSocial,
+        endereco,
+        contato,
+      }
+    }
+  } = useContext(signUpContext);
   return (
-    <form noValidate>
-      <Grid item container direction='row' alignItems='center' justify='center' spacing={2}>
-        <Grid item md={12}>
-          <TextField label='Nome Fantasia' fullWidth/>
+    <>
+      <FormContainer>
+        <Grid item container direction='row' alignItems='center' justify='center' spacing={ 2 }>
+          <Grid item xs={ 12 }>
+            <TextField fullWidth
+                       required
+                       name='razaoSocial'
+                       label='Razão social'
+                       value={ razaoSocial }
+                       onChange={ setCamposEmpresa }
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField fullWidth
+                       required
+                       name='documento'
+                       label='CNPJ'
+                       value={ documento }
+                       onChange={ setCamposEmpresa }
+            />
+
+          </Grid>
+          <Grid item xs={12}>
+            <TextField fullWidth
+                       required
+                       name='dataAbertura'
+                       label='Data de abertura'
+                       value={ dataAbertura }
+                       onChange={ setCamposEmpresa }
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField fullWidth
+                       required
+                       name='nitPisPasep'
+                       label='nitPisPasep'
+                       value={ nitPisPasep }
+                       onChange={ setCamposEmpresa }
+            />
+          </Grid>
         </Grid>
-        <Grid item md={6}>
-          <TextField label='Razao Socail' fullWidth/>
-        </Grid>
-        <Grid item md={6}>
-          <TextField label='CNPJ' fullWidth/>
-        </Grid>
-      </Grid>
-    </form>
+      </FormContainer>
+      <FormContato contatoStore={contato} />
+      <FormEndereco enderecoStore={endereco}/>
+    </>
   );
 }
 

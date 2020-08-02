@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { Grid, Paper } from '@material-ui/core';
+import { Grid, GridSize, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import { Supplier } from '@cade-tecnologia/essentials';
@@ -24,12 +24,16 @@ interface ILandingPagePaper {
   leftGridColor?: string,
   renderLeftSide: Supplier<ReactElement>,
   renderRightSide: Supplier<ReactElement>,
+  smLeftSide: GridSize,
+  smRightSide: GridSize,
 }
 
 export default function LandingPagePaper(props: ILandingPagePaper): ReactElement {
   const {
     renderLeftSide,
     renderRightSide,
+    smLeftSide,
+    smRightSide,
     leftGridColor = 'pink',
   } = props;
 
@@ -39,12 +43,12 @@ export default function LandingPagePaper(props: ILandingPagePaper): ReactElement
     <Grid container className={ classes.root } alignItems='center' justify='center'>
       <Paper elevation={ 6 } variant='elevation'>
         <Grid item container direction='row'>
-          <Grid item xs={12} sm={4} className={classes.leftGridBGColor}>
+          <Grid item xs={12} sm={smLeftSide} className={classes.leftGridBGColor}>
             {renderLeftSide()}
           </Grid>
           <Grid item
                 container
-                sm={8}
+                sm={smRightSide}
                 xs={12}
                 justify='center'
           >
@@ -54,4 +58,9 @@ export default function LandingPagePaper(props: ILandingPagePaper): ReactElement
       </Paper>
     </Grid>
   );
+}
+
+LandingPagePaper.defaultProps = {
+  smLeftSide: 4,
+  smRightSide: 8,
 }

@@ -1,4 +1,4 @@
-import { action, computed, observable, toJS } from 'mobx';
+import { action, observable } from 'mobx';
 
 interface Steps {
   label: string,
@@ -9,7 +9,7 @@ export default class StepperStore {
   public readonly stepsAvailable: Steps[] = [
     { label: 'Dados Pessoais', id: 0 },
     { label: 'Dados Empresariais', id: 1 },
-    { label: 'Dados Pagamento', id: 2 },
+    { label: 'Dados Usuário', id: 2 },
   ];
 
   @observable

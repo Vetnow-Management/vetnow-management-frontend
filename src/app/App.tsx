@@ -1,5 +1,6 @@
 import React from 'react';
 
+import 'mobx-react-lite/batchingForReactDom'
 import { MuiThemeProvider, StylesProvider, createGenerateClassName } from '@material-ui/core';
 import { Router } from 'react-router-dom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
