@@ -1,6 +1,11 @@
 import { action } from 'mobx';
-import { Supplier, Func, Consumer, ConsumerImpl } from '@cade-tecnologia/essentials';
+import { Consumer, ConsumerImpl, Func, Supplier, Verify } from '@cade-tecnologia/essentials';
 import Target from '../Type/Target';
+
+export interface CondicaoReturn {
+  podeAtribuir: boolean,
+  valorTratado?: string,
+}
 
 // todo: Mover para o @cade-tecnologia/react-library
 export default abstract class FormStoreHelperMixin {
@@ -14,12 +19,22 @@ export default abstract class FormStoreHelperMixin {
   }
 
   @action.bound
-  public setCampoComCondicao(condicao: Supplier<boolean> | Func<string, boolean>): Consumer<Target> {
+  public setCampoComCondicao(condicao: Supplier<CondicaoReturn> | Func<string, CondicaoReturn>): Consumer<Target> {
     return (event) => {
-      if (condicao(event.target.value)) {
-        return ConsumerImpl(null);
+      const { podeAtribuir, valorTratado } = condicao(event.target.value);
+      const valorTarget: Target | null = Verify.isNotNullOrUndefined(valorTratado)
+        ? {
+          target: {
+            name: event.target.name,
+            value: valorTratado as string,
+          }
+        }
+        : null;
+
+      if (podeAtribuir) {
+        return this.setCampo(valorTarget ?? event)
       }
-      return this.setCampo(event)
+      return ConsumerImpl(null);
     }
   }
 
