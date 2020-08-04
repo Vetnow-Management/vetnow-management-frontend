@@ -1,17 +1,19 @@
 import React, { ReactElement } from 'react';
 
-import { Grid, TextField } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { TextField } from 'mui-rff';
 import { observer } from 'mobx-react';
 
-import { ContatoStore } from '../../store';
 import { FormContainer } from '.';
 
-function FormContato({ contatoStore }: { contatoStore: ContatoStore }): ReactElement {
-  const {
-    setCampo: setCamposContato,
-    celular,
-    telefone,
-  } = contatoStore;
+function FormContato({objeto}: {objeto?: string}): ReactElement {
+
+  function getName(name: string): string {
+    const root = `contato.${name}`;
+
+    if (objeto) return `${objeto}.${root}`;
+    return root;
+  }
 
   return (
     <FormContainer>
@@ -19,19 +21,15 @@ function FormContato({ contatoStore }: { contatoStore: ContatoStore }): ReactEle
         <Grid item xs={ 12 } sm={ 6 }>
           <TextField fullWidth
                      required
-                     name='celular'
+                     name={getName('celular')}
                      label='Celular'
-                     value={ celular }
-                     onChange={ setCamposContato }
           />
         </Grid>
         <Grid item xs={ 12 } sm={ 6 }>
           <TextField fullWidth
                      required
-                     name='telefone'
+                     name={getName('telefone')}
                      label='Telefone'
-                     value={ telefone }
-                     onChange={ setCamposContato }
           />
         </Grid>
       </Grid>

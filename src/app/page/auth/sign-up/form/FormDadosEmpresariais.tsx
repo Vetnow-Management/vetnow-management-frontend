@@ -1,25 +1,16 @@
-import React, { ReactElement, useContext } from 'react';
+import React, { ReactElement } from 'react';
 
-import { Grid, TextField } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { TextField } from 'mui-rff';
 import { observer } from 'mobx-react';
 
-import { signUpContext } from '../context';
 import { FormContainer, FormContato, FormEndereco } from './components';
 
 function FormDadosEmpresariais(): ReactElement {
-  const {
-    cadastroStore: {
-      empresa: {
-        setCampo: setCamposEmpresa,
-        dataAbertura,
-        documento,
-        nitPisPasep,
-        razaoSocial,
-        endereco,
-        contato,
-      }
-    }
-  } = useContext(signUpContext);
+  function getName(name: string): string {
+    return `empresa.${name}`;
+  }
+
   return (
     <>
       <FormContainer>
@@ -27,44 +18,36 @@ function FormDadosEmpresariais(): ReactElement {
           <Grid item xs={ 12 }>
             <TextField fullWidth
                        required
-                       name='razaoSocial'
+                       name={getName('razaoSocial')}
                        label='Razão social'
-                       value={ razaoSocial }
-                       onChange={ setCamposEmpresa }
             />
           </Grid>
           <Grid item xs={12}>
             <TextField fullWidth
                        required
-                       name='documento'
+                       name={getName('documento')}
                        label='CNPJ'
-                       value={ documento }
-                       onChange={ setCamposEmpresa }
             />
 
           </Grid>
           <Grid item xs={12}>
             <TextField fullWidth
                        required
-                       name='dataAbertura'
+                       name={getName('dataAbertura')}
                        label='Data de abertura'
-                       value={ dataAbertura }
-                       onChange={ setCamposEmpresa }
             />
           </Grid>
           <Grid item xs={12}>
             <TextField fullWidth
                        required
-                       name='nitPisPasep'
+                       name={getName('nitPisPasep')}
                        label='nitPisPasep'
-                       value={ nitPisPasep }
-                       onChange={ setCamposEmpresa }
             />
           </Grid>
         </Grid>
       </FormContainer>
-      <FormContato contatoStore={contato} />
-      <FormEndereco enderecoStore={endereco}/>
+      <FormContato objeto='empresa' />
+      <FormEndereco objeto='empresa' />
     </>
   );
 }
