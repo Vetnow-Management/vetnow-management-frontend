@@ -18,8 +18,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run build --prod
+      - run: yarn
+      - run: yarn build
         env:
           NODE_AUTH_TOKEN: ${{secrets.TOKEN}}
       - id: deploy
