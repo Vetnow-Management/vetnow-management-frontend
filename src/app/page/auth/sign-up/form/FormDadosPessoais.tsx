@@ -8,6 +8,7 @@ import { FormContainer, FormContato, FormEndereco, } from './components';
 import { MaskedTextField } from '../../../../component';
 
 function FormDadosPessoais(): ReactElement {
+  console.log('RENDER - FDP');
   return (
     <>
       <FormContainer>
@@ -23,6 +24,8 @@ function FormDadosPessoais(): ReactElement {
             <DatePicker
               required
               disableFuture
+              // helperText={erros?.dtNascimento}
+              // error={!!erros?.dtNascimento}
               name='dtNascimento'
               openTo="year"
               format="dd/MM/yyyy"
@@ -50,4 +53,4 @@ function FormDadosPessoais(): ReactElement {
   );
 }
 
-export default observer(FormDadosPessoais)
+export default React.memo(FormDadosPessoais)

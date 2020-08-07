@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { TextField } from 'mui-rff';
-import { observer } from 'mobx-react';
 
 import { FormContainer, FormContato, FormEndereco } from './components';
 
@@ -11,6 +10,7 @@ function FormDadosEmpresariais(): ReactElement {
     return `empresa.${name}`;
   }
 
+  console.log('RENDER - FDE');
   return (
     <>
       <FormContainer>
@@ -52,4 +52,4 @@ function FormDadosEmpresariais(): ReactElement {
   );
 }
 
-export default observer(FormDadosEmpresariais);
+export default React.memo(FormDadosEmpresariais);

@@ -2,9 +2,9 @@ import React, { ReactElement } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { TextField } from 'mui-rff';
-import { observer } from 'mobx-react';
 
-function FormUsuario(): ReactElement {
+function FormDadosUsuario(): ReactElement {
+  console.log('FORM - FDU');
   return (
     <Grid item container direction='row' alignItems='center' justify='center' spacing={ 2 }>
       <Grid item xs={ 12 }>
@@ -26,4 +26,4 @@ function FormUsuario(): ReactElement {
   );
 }
 
-export default observer(FormUsuario);
+export default React.memo(FormDadosUsuario);

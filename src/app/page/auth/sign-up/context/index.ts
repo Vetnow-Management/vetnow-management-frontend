@@ -1,5 +1,4 @@
 export {
-  default as signUpContext,
+  default as useSignUpStore,
   SignUpContextProvider,
-  defaultValueSignUpContext,
 } from './SignUpContext';
