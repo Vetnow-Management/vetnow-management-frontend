@@ -18,10 +18,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: https://npm.pkg.github.com
       - run: yarn
-      - run: yarn build
         env:
           NODE_AUTH_TOKEN: ${{secrets.TOKEN}}
+      - run: yarn build
       - id: deploy
         name: Deploy
         uses: idoberko2/dokku-deploy-github-action@v1
