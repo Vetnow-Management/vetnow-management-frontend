@@ -1,7 +1,7 @@
 {
   "name": "veterinario-front",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
