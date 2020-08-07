@@ -11,11 +11,11 @@ on:
 
 jobs:
   build:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [12.x]
-        registry-url: 'https://npm.pkg.github.com/'
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
