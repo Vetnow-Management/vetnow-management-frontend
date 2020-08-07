@@ -31,3 +31,5 @@ jobs:
           app-name: 'vetnow-management-frontend'
           remote-branch: 'master'
           git-push-flags: '--force'
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.TOKEN}}
