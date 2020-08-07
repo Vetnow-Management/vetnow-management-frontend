@@ -19,9 +19,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://npm.pkg.github.com
-      - run: npm config set '//registry.npmjs.org/:_authToken' ${TOKEN}
-        env:
-          TOKEN: ${{secrets.TOKEN}}
       - run: yarn
       - run: yarn build
       - id: deploy
