@@ -14,15 +14,14 @@ jobs:
         node-version: [12.x]
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://npm.pkg.github.com
-      - run: npm install
+      - run: npm install --ignore-scripts
         env:
-            TOKEN: ${{secrets.TOKEN}}
-      - run: npm run build
+          NODE_AUTH_TOKEN: ${{secrets.TOKEN}}
+      - run: npm rebuild && npm run prepare --if-present
       - id: deploy
         name: Deploy
         uses: idoberko2/dokku-deploy-github-action@v1
