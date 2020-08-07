@@ -1150,10 +1150,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@cade-tecnologia/eslint-config@^1.0.12":
-  version "1.0.12"
-  resolved "https://npm.pkg.github.com/download/@cade-tecnologia/eslint-config/1.0.12/a3c72bc4fbde5bba4a371832946ada8da132b89cb715b2e6034fd7516748034a#3f2ada06d600f151099afdbdb436a822fcdfb188"
-  integrity sha512-J5EUvrf+b5oXfU8Sq09hdh1im4TyCrPdy9WKNcMEcyIAYquVGHvN5SF56q15p7ZoXPx8JQb8AuZo+Hs5b5J/aw==
+"@cade-tecnologia/eslint-config@^1.0.15":
+  version "1.0.15"
+  resolved "https://npm.pkg.github.com/download/@cade-tecnologia/eslint-config/1.0.15/eb5bc08c6f524a3b396337804073cd3f582cc8df249afcc55cefb43889013568#ce747294effe4f1001c5cfc01bbfb823e60667ad"
+  integrity sha512-Hh8vvvGhZn2hyazsp3tPXdvirg68HCHTn9pcA3NqQVCAzZBWhxQ35q8pQ25VHqud+ustC7m3FACR3ebrl082zg==
 
 "@cade-tecnologia/essentials@^1.0.26":
   version "1.0.26"
@@ -1161,11 +1161,6 @@
   integrity sha512-14To87Nfi8Y7rJ1MnrO9Y1CK1QXFPJq59M5kUdq5r+BrtLNKDMngsyhc5luz7UZe6hEZh6X34YnznfMI5vc0eA==
   dependencies:
     lodash "^4.17.19"
-
-"@cade-tecnologia/react-library@^1.0.10":
-  version "1.0.10"
-  resolved "https://npm.pkg.github.com/download/@cade-tecnologia/react-library/1.0.10/0cce4360cd3c45b3f1382672fc91e5bf8f6039fec5f596e56c5b0e7c594c0078#d652244026818e873bd013ef194fe1a13956f7ec"
-  integrity sha512-v0LSVP3wf1VwoLE4nUh9TFEBmfuDwu1sTiuEXLSpJ9wujVrIBwV/OGwnXz59LoQj4NQ1aHdAT19IkhN8JmPnMw==
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
