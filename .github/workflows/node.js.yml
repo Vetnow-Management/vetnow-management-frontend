@@ -24,6 +24,8 @@ jobs:
       - run: npm rebuild && npm run prepare --if-present
       - id: deploy
         name: Deploy
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.TOKEN}}
         uses: idoberko2/dokku-deploy-github-action@v1
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -31,5 +33,4 @@ jobs:
           app-name: 'vetnow-management-frontend'
           remote-branch: 'master'
           git-push-flags: '--force'
-        env:
           NODE_AUTH_TOKEN: ${{secrets.TOKEN}}
