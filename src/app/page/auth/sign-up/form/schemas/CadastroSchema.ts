@@ -117,6 +117,7 @@ export const DadosPessoaisSchema = yup.object({
       cpf,
       Validation.isCPF,
     ),
+  tipoPessoa: yup.string().required(),
   contato: ContatoSchema.defined(),
   endereco: EnderoSchema.defined(),
 }).defined()
@@ -134,6 +135,9 @@ export const DadosEmpresariaisSchema = yup.object().shape({
       .date()
       .required(required)
       .max(addDays(CURRENT_DATE, 1), 'Data nao pode passar de hoje'),
+    chave: yup.object().shape({
+      chave: yup.string().required().trim(),
+    }),
     contato: ContatoSchema.defined(),
     endereco: EnderoSchema.defined(),
   }).defined(),
@@ -143,7 +147,11 @@ export const DadosUsuarioSchema = yup.object().shape({
   usuario: yup.object().shape({
     usuario: yup.string().required().trim(),
     senha: yup.string().required().trim(),
+    perfil: yup.string().required(required).trim(),
   })
 })
 
-export type ICadastro = yup.InferType<typeof DadosPessoaisSchema>
+type IDadosPessoais = yup.InferType<typeof DadosPessoaisSchema>
+type IDadosEmpresariais = yup.InferType<typeof DadosEmpresariaisSchema>
+type IDadosUsuario = yup.InferType<typeof DadosUsuarioSchema>
+export type ICadastro = IDadosPessoais & IDadosEmpresariais & IDadosUsuario;

@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 import { Button, Grid, Tooltip } from '@material-ui/core';
 import { observer } from 'mobx-react';
@@ -13,6 +13,7 @@ import { FormDadosEmpresariais, FormDadosPessoais, FormDadosUsuario } from './fo
 import ChaveAcessoDialog from './chave-acesso/ChaveAcesso';
 import { DadosEmpresariaisSchema, DadosPessoaisSchema, DadosUsuarioSchema, ICadastro } from './form/schemas';
 import { TypeSafeGuard } from '../../../util';
+import { CadastroService } from '../../../service';
 
 function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
   return yupErrors.inner.reduce((errors, { path, message }) => {
@@ -41,6 +42,13 @@ function SignUp(): ReactElement {
     isDadosEmpresariaisValid: false,
     isDadosUsuariosValid: false,
   });
+
+  useEffect(() => {
+    if (formularioCadastro.setField) {
+      formularioCadastro.setField()('tipoPessoa', 'RESPONSAVEL');
+      formularioCadastro.setField()('usuario.perfil', 'ADMINISTRADOR');
+    }
+  }, [formularioCadastro.setField]);
 
   function setFormErros(formName: 'isDadosPessoaisValid' | 'isDadosEmpresariaisValid' | 'isDadosUsuariosValid', value: boolean = true): void {
     if (formErros[formName] === value) return; // somente atualizar se necessario
@@ -94,13 +102,22 @@ function SignUp(): ReactElement {
     }
   }
 
-  function onSubmit(event: ICadastro): void {
-    console.log('DATA - JSON: ', JSON.stringify(event));
-    console.log('DATA: ', event);
+  function onSubmit(payload: ICadastro): void {
+    CadastroService.cadastrarResponsavel(payload)
+      .subscribe(
+        (res) => {
+          console.log('RES: ', res);
+        },
+        (err) => {
+          console.log('Err: ', err);
+        }
+      )
   }
 
   function aoValidarChave(chave: string): void {
-    console.log('Chave: ', chave); //todo: Colocar dentro do estado do form
+    if (formularioCadastro.setField) {
+      formularioCadastro.setField()('empresa.chave.chave', chave)
+    }
   }
 
   function getForm(): ReactElement {

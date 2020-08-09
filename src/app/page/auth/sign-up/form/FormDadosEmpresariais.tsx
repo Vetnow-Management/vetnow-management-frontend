@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import { Grid } from '@material-ui/core';
-import { TextField } from 'mui-rff';
+import { DatePicker, TextField } from 'mui-rff';
 
 import { FormContainer, FormContato, FormEndereco } from './components';
 
@@ -30,10 +30,14 @@ function FormDadosEmpresariais(): ReactElement {
 
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth
-                       required
-                       name={getName('dataAbertura')}
-                       label='Data de abertura'
+            <DatePicker
+              required
+              disableFuture
+              name={getName('dataAbertura')}
+              openTo="year"
+              format="dd/MM/yyyy"
+              label="Data de abertura"
+              views={ ['year', 'month', 'date'] }
             />
           </Grid>
           <Grid item xs={12}>
