@@ -22,8 +22,15 @@ const phoneValidationCustomMessage: CellPhoneNumberCustomMessage = {
 }
 
 const EnderoSchema = yup.object().shape({
-  cep: yup.string().required().trim(),
-  logradouro: yup.string().required(),
+  cep: yup
+    .string()
+    .required(required)
+    .trim()
+    .length(9, 'Tamanho do CEP inválido'),
+  logradouro: yup.string().required(required),
+  bairro: yup.string().required(required),
+  localidade: yup.string().required(required),
+  uf: yup.string().required(required),
 });
 
 const ContatoSchema = yup.object().shape({
@@ -47,7 +54,7 @@ const ContatoSchema = yup.object().shape({
           },
         ) as string[];
         return Verify.isNotEmpty(validation)
-          ? this.createError({message: validation[0]})
+          ? this.createError({ message: validation[0] })
           : true;
       },
     ),
@@ -73,7 +80,7 @@ const ContatoSchema = yup.object().shape({
           },
         ) as string[];
         return Verify.isNotEmpty(validation)
-          ? this.createError({message: validation[0]})
+          ? this.createError({ message: validation[0] })
           : true;
       },
     ),
@@ -81,6 +88,14 @@ const ContatoSchema = yup.object().shape({
     .string()
     .required(required)
     .email(email)
+    .test(
+      'email',
+      'E-mail ja cadastrado',
+      function (value: string | undefined) {
+        // Todo: Chamar endpoint para validar email
+        return true;
+      }
+    )
 });
 
 export const DadosPessoaisSchema = yup.object({
@@ -108,8 +123,17 @@ export const DadosPessoaisSchema = yup.object({
 
 export const DadosEmpresariaisSchema = yup.object().shape({
   empresa: yup.object().shape({
-    razaoSocial: yup.string().required().trim(),
+    razaoSocial: yup
+      .string()
+      .required()
+      .trim()
+      .min(5, min(5)),
     documento: yup.string().required().trim(),
+    nitPisPasep: yup.string().trim(),
+    dataAbertura: yup
+      .date()
+      .required(required)
+      .max(addDays(CURRENT_DATE, 1), 'Data nao pode passar de hoje'),
     contato: ContatoSchema.defined(),
     endereco: EnderoSchema.defined(),
   }).defined(),

@@ -84,6 +84,7 @@ function SignUp(): ReactElement {
       await validarDadosUsuario();
     } catch (err) {
       if (TypeSafeGuard().isValidationError((err))) {
+        console.log('Err: ', convertYupErrorsToFieldErrors(err));
         return convertYupErrorsToFieldErrors(err);
       }
 
@@ -94,7 +95,8 @@ function SignUp(): ReactElement {
   }
 
   function onSubmit(event: ICadastro): void {
-    console.log('DATA: ', JSON.stringify(event));
+    console.log('DATA - JSON: ', JSON.stringify(event));
+    console.log('DATA: ', event);
   }
 
   function aoValidarChave(chave: string): void {
