@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, {ReactElement} from 'react';
 
-import { Grid, GridSize, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { ClassNameMap } from '@material-ui/core/styles/withStyles';
-import { Supplier } from '@cade-tecnologia/essentials';
+import {Grid, GridSize, Paper} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+import {ClassNameMap} from '@material-ui/core/styles/withStyles';
+import {Supplier} from '@cade-tecnologia/essentials';
 
 function useStyles(leftGridColor: string): ClassNameMap<"grow" | "leftGridBGColor" | "root"> {
   return makeStyles({
@@ -12,7 +12,9 @@ function useStyles(leftGridColor: string): ClassNameMap<"grow" | "leftGridBGColo
     },
     root: {
       flexGrow: 1,
-      minHeight: '100vh', maxWidth: '100%'
+      minHeight: '100vh',
+      maxWidth: '100%',
+      padding: 10,
     },
     leftGridBGColor: {
       backgroundColor: leftGridColor,
@@ -40,8 +42,8 @@ export default function LandingPagePaper(props: ILandingPagePaper): ReactElement
   const classes = useStyles(leftGridColor);
 
   return (
-    <Grid container className={ classes.root } alignItems='center' justify='center'>
-      <Paper elevation={ 6 } variant='elevation'>
+    <Grid container className={classes.root} alignItems='center' justify='center'>
+      <Paper elevation={6} variant='elevation'>
         <Grid item container direction='row'>
           <Grid item xs={12} sm={smLeftSide} className={classes.leftGridBGColor}>
             {renderLeftSide()}
