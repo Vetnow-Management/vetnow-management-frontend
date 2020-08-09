@@ -27,7 +27,7 @@ interface ChaveAcessoDialogProp {
 }
 
 export default function ChaveAcessoDialog({ onSuccess, onFail }: ChaveAcessoDialogProp): ReactElement {
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [open, setOpen] = React.useState<boolean>(true);
   const [chave, setChave] = React.useState<string>('');
   const [formErr, setFormErr] = React.useState<boolean>(false);
 

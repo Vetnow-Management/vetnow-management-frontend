@@ -169,7 +169,7 @@ function SignUp(): ReactElement {
                                           type='submit'
                                           variant='contained'
                                           color='primary'
-                                          // disabled={ canSubmit }
+                                          disabled={ canSubmit }
                                   >
                                     Salvar
                                   </Button>
