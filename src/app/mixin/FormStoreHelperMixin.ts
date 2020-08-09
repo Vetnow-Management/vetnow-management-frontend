@@ -1,5 +1,5 @@
 import { action } from 'mobx';
-import { Consumer, ConsumerImpl, Func, Supplier, Verify } from '@cade-tecnologia/essentials';
+import { Consumer, ConsumerImpl, Func, Supplier, Verify } from '@vetnow-management/essentials';
 import Target from '../Type/Target';
 
 export interface CondicaoReturn {
@@ -7,7 +7,7 @@ export interface CondicaoReturn {
   valorTratado?: string,
 }
 
-// todo: Mover para o @cade-tecnologia/react-library
+// todo: Mover para o @vetnow-management/react-library
 export default abstract class FormStoreHelperMixin {
 
   @action.bound

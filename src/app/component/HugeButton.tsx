@@ -3,7 +3,7 @@ import { ButtonBase, Grid, Paper, Typography } from '@material-ui/core';
 import { ArrowRightAlt, Home } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { Hidden } from './index';
-import { Runnable, RunnableImpl } from '@cade-tecnologia/essentials';
+import { Runnable, RunnableImpl } from '@vetnow-management/essentials';
 
 const useStyles = makeStyles({
   paper: {

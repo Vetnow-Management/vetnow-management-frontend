@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactElement } from 'react';
-import { Verify } from '@cade-tecnologia/essentials';
+import { Verify } from '@vetnow-management/essentials';
 
 interface WhiteSpaceProps {
   spaceBottom?: number;

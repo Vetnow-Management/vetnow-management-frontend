@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { Runnable } from '@cade-tecnologia/essentials';
+import { Runnable } from '@vetnow-management/essentials';
 
 import { SIGN_IN_PATH, SIGN_UP_PATH } from '../page/auth';
 import { DASHBOARD_PATH } from '../page/home';

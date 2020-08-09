@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import { addDays } from 'date-fns'
-import { CellPhoneNumberCustomMessage, Validation, Verify } from '@cade-tecnologia/essentials';
+import { CellPhoneNumberCustomMessage, Validation, Verify } from '@vetnow-management/essentials';
 
 import { SchemaMessages } from '../../../../../util';
 

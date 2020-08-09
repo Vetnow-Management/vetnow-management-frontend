@@ -1,5 +1,5 @@
 {
-  "name": "veterinario-front",
+  "name": "@vetnow-management/frontend",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,8 +13,13 @@
       "post-commit": "yarn clean"
     }
   },
+  "repository": {
+    "url": "https://github.com/Vetnow-Management/vetnow-management-frontend",
+    "type": "git"
+  },
   "dependencies": {
-    "@cade-tecnologia/essentials": "^1.0.30",
+    "@vetnow-management/essentials": "^1.0.1",
+    "@vetnow-management/react-library": "^1.0.5",
     "@date-io/date-fns": "1.x",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -43,7 +48,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
-    "@cade-tecnologia/eslint-config": "^1.0.15",
+    "@vetnow-management/eslint-config": "^1.0.2",
     "@date-io/core": "^1.3.6",
     "@svgr/webpack": "4.3.3",
     "@testing-library/dom": "^7.21.6",

@@ -1,6 +1,6 @@
-import { Assert } from '@cade-tecnologia/essentials';
+import { Assert } from '@vetnow-management/essentials';
 
-// todo: mover para o @cade-tecnologia/essentials
+// todo: mover para o @vetnow-management/essentials
 export default function applyMixins(derivedCtor: any, ...baseCtors: any): void {
   baseCtors.forEach((baseCtor: any) => {
     const errorMessage = `Class ${baseCtor.name} doesn't end with Mixin`;

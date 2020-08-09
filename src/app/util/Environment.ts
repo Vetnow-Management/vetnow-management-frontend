@@ -1,4 +1,4 @@
-import { AbstractEnvironmentVariables } from '@cade-tecnologia/essentials';
+import { AbstractEnvironmentVariables } from '@vetnow-management/essentials';
 
 class Environment extends AbstractEnvironmentVariables {
   public readonly APP_NAME: string = 'Veterinario';

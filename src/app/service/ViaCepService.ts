@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 
 import { AbstractService } from '.';
 import { ViaCep } from '../Type';
-import { Sanitizer } from '@cade-tecnologia/essentials';
+import { Sanitizer } from '@vetnow-management/essentials';
 
 class ViaCepService extends AbstractService {
   public constructor() {

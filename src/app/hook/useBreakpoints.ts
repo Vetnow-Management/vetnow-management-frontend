@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-import { BiFunc, Func } from '@cade-tecnologia/essentials';
+import { BiFunc, Func } from '@vetnow-management/essentials';
 
 type DefaultParam = Breakpoint | number;
 
@@ -13,7 +13,7 @@ interface IUseBreakpoints {
   only: Func<Breakpoint, boolean>,
 }
 
-// todo: mover para o @cade-tecnologia/react-library
+// todo: mover para o @vetnow-management/react-library
 export default function useBreakpoints(listenWindowResize: boolean = false): IUseBreakpoints {
   const theme = useTheme();
   const [, setSize ] = useState<number>(0);

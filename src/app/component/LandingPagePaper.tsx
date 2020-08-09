@@ -3,7 +3,7 @@ import React, {ReactElement} from 'react';
 import {Grid, GridSize, Paper} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import {ClassNameMap} from '@material-ui/core/styles/withStyles';
-import {Supplier} from '@cade-tecnologia/essentials';
+import {Supplier} from '@vetnow-management/essentials';
 
 function useStyles(leftGridColor: string): ClassNameMap<"grow" | "leftGridBGColor" | "root"> {
   return makeStyles({

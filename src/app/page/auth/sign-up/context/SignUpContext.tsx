@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode, useContext } from 'react';
 import { StepperStore } from '../store';
-import { BiConsumer, Supplier } from '@cade-tecnologia/essentials';
+import { BiConsumer, Supplier } from '@vetnow-management/essentials';
 
 interface ISignUpContext {
   stepperStore: StepperStore,

@@ -1150,18 +1150,6 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@cade-tecnologia/eslint-config@^1.0.15":
-  version "1.0.15"
-  resolved "https://npm.pkg.github.com/download/@cade-tecnologia/eslint-config/1.0.15/eb5bc08c6f524a3b396337804073cd3f582cc8df249afcc55cefb43889013568#ce747294effe4f1001c5cfc01bbfb823e60667ad"
-  integrity sha512-Hh8vvvGhZn2hyazsp3tPXdvirg68HCHTn9pcA3NqQVCAzZBWhxQ35q8pQ25VHqud+ustC7m3FACR3ebrl082zg==
-
-"@cade-tecnologia/essentials@^1.0.30":
-  version "1.0.30"
-  resolved "https://npm.pkg.github.com/download/@cade-tecnologia/essentials/1.0.30/a76cd009978b0453c00c25b6e51f802ee9b689b36d6285b823f88a68cab2deb0#fb50d5bb825f4db9429fab792ef4159a9993ed6c"
-  integrity sha512-MO4HiODdScNLpMDWiXYSOhDgWVPwPJzGuOaR2xUnDBwGjHyhFU2X7HStoMITPPt2mSP0njvRN0f+SDMdvKAsRQ==
-  dependencies:
-    lodash "^4.17.19"
-
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -1947,6 +1935,23 @@
   integrity sha512-gfqQWyVPpT9NpLREXNR820AYwgz+Kr1GuF3nf1wxpHD6hdxI62tq03ToomFnDxY0m3pUB39IF7sil7D5TQexLA==
   dependencies:
     eslint-visitor-keys "^1.1.0"
+
+"@vetnow-management/eslint-config@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@vetnow-management/eslint-config/-/eslint-config-1.0.2.tgz#1d69b4cebc70112b795c5739847d927273fa23d5"
+  integrity sha512-iCCuQOz6goxRmMGA3JAJdnwE7RjCNspOOEhc765KK4dFmKEEi1qaQAWp3A2plBLyeUAn81TBM7sWDV6hmIXJ/g==
+
+"@vetnow-management/essentials@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@vetnow-management/essentials/-/essentials-1.0.1.tgz#2a4bb71a105e0d00a73311d5e5e862e5ddaefe73"
+  integrity sha512-ygsgvEFM0nIGOYFszZCvztI8JwC9Dr0t3QrnNkG96eClqblOldbmMtaOQXQ3v84G1pvceFZ+gOKhrmDT4HnGDA==
+  dependencies:
+    lodash "^4.17.19"
+
+"@vetnow-management/react-library@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@vetnow-management/react-library/-/react-library-1.0.5.tgz#9dd90e1f3e0f525870970f2751f41746a6a1bfac"
+  integrity sha512-dteqn4qGheobTJu+bZHRkPVT0GoylKsnlBs/Eg22Li4c8lmYz4L7J4VMX5yXBW7QQ3A3UczGfFnkq7nhREUZvg==
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"

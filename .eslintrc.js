@@ -1,5 +1,5 @@
 module.exports = {
   extends: [
-    '@cade-tecnologia/eslint-config/react-typescript'
+    '@vetnow-management/eslint-config/react-typescript'
   ],
 }

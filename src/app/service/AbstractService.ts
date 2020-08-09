@@ -1,4 +1,4 @@
-import AbstractResource from '@cade-tecnologia/essentials/dist/http/AbstractResource';
+import AbstractResource from '@vetnow-management/essentials/dist/http/AbstractResource';
 
 import { Environment } from '../util';
 
