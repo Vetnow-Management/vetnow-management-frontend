@@ -4,6 +4,7 @@ import { Button, Grid, Tooltip } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { Form } from 'react-final-form'
 import { get as _get, set as _set } from 'lodash';
+import {  ValidationError as YupValidationError } from 'yup';
 
 import { SignUpContextProvider, useSignUpContext } from './context';
 import StepperSignUp from './stepper/StepperSignUp';
@@ -13,8 +14,8 @@ import ChaveAcessoDialog from './chave-acesso/ChaveAcesso';
 import { DadosEmpresariaisSchema, DadosPessoaisSchema, DadosUsuarioSchema, ICadastro } from './form/schemas';
 import { TypeSafeGuard } from '../../../util';
 
-function convertYupErrorsToFieldErrors(yupErrors: any) {
-  return yupErrors.inner.reduce((errors: any, { path, message }: any) => {
+function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
+  return yupErrors.inner.reduce((errors, { path, message }) => {
     if (_get(errors, path)) {
       _set(errors, path, _get(errors, path));
     } else {
@@ -84,7 +85,6 @@ function SignUp(): ReactElement {
       await validarDadosUsuario();
     } catch (err) {
       if (TypeSafeGuard().isValidationError((err))) {
-        console.log('Err: ', convertYupErrorsToFieldErrors(err));
         return convertYupErrorsToFieldErrors(err);
       }
 

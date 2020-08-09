@@ -18,6 +18,7 @@ export default function useBreakpoints(listenWindowResize: boolean = false): IUs
   const theme = useTheme();
   const [, setSize ] = useState<number>(0);
 
+  // fixme: Mudar para useEffect
   if (listenWindowResize) {
     window.addEventListener('resize', () => {
       setSize(window.innerHeight);

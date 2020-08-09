@@ -10,7 +10,6 @@ function FormDadosEmpresariais(): ReactElement {
     return `empresa.${name}`;
   }
 
-  console.log('RENDER - FDE');
   return (
     <>
       <FormContainer>
@@ -46,8 +45,8 @@ function FormDadosEmpresariais(): ReactElement {
           </Grid>
         </Grid>
       </FormContainer>
-      <FormContato objeto='empresa' />
       <FormEndereco objeto='empresa' />
+      <FormContato objeto='empresa' />
     </>
   );
 }
