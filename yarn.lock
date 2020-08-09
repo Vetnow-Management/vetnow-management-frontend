@@ -1155,10 +1155,10 @@
   resolved "https://npm.pkg.github.com/download/@cade-tecnologia/eslint-config/1.0.15/eb5bc08c6f524a3b396337804073cd3f582cc8df249afcc55cefb43889013568#ce747294effe4f1001c5cfc01bbfb823e60667ad"
   integrity sha512-Hh8vvvGhZn2hyazsp3tPXdvirg68HCHTn9pcA3NqQVCAzZBWhxQ35q8pQ25VHqud+ustC7m3FACR3ebrl082zg==
 
-"@cade-tecnologia/essentials@^1.0.27":
-  version "1.0.27"
-  resolved "https://npm.pkg.github.com/download/@cade-tecnologia/essentials/1.0.27/4714c4ff80b17ef19ce1db77ba4c5e50f2398da997e2345510c8b52d9daa031d#8970dac38f3c5fba231d3461777d3c753b3d1951"
-  integrity sha512-4U43Th8uyaTgGXm7ax54fN5H+/bJ4MWlTnzA1I+fGs+yo6SExdbsQ9PIPesG3cMTpq/LLb9jgyi0trp6+o9u5w==
+"@cade-tecnologia/essentials@^1.0.30":
+  version "1.0.30"
+  resolved "https://npm.pkg.github.com/download/@cade-tecnologia/essentials/1.0.30/a76cd009978b0453c00c25b6e51f802ee9b689b36d6285b823f88a68cab2deb0#fb50d5bb825f4db9429fab792ef4159a9993ed6c"
+  integrity sha512-MO4HiODdScNLpMDWiXYSOhDgWVPwPJzGuOaR2xUnDBwGjHyhFU2X7HStoMITPPt2mSP0njvRN0f+SDMdvKAsRQ==
   dependencies:
     lodash "^4.17.19"
 

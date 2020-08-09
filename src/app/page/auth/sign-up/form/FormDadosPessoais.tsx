@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { DatePicker, TextField } from 'mui-rff';
-import { observer } from 'mobx-react';
 
 import { FormContainer, FormContato, FormEndereco, } from './components';
 import { MaskedTextField } from '../../../../component';

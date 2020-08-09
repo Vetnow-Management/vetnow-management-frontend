@@ -1,6 +1,7 @@
-import { SIGN_IN_PATH, SIGN_UP_PATH } from '../page/auth';
 import { useHistory } from 'react-router-dom';
 import { Runnable } from '@cade-tecnologia/essentials';
+
+import { SIGN_IN_PATH, SIGN_UP_PATH } from '../page/auth';
 import { DASHBOARD_PATH } from '../page/home';
 import { LANDING_PAGE_PREFIX } from '../page/landing-page';
 

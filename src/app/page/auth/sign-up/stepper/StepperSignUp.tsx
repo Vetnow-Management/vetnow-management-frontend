@@ -8,7 +8,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useBreakpoints } from '../../../../hook';
-import { useSignUpStore } from '../context';
+import { useSignUpContext } from '../context';
 
 const useStyles = makeStyles({
   root: {
@@ -24,7 +24,7 @@ export default function StepperSignUp(): ReactElement {
       currentStep,
       stepsAvailable,
     }
-  } = useSignUpStore();
+  } = useSignUpContext();
 
   function getOrientation(): Orientation {
     if (match) return 'vertical';

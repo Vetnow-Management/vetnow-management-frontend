@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 
 import { AbstractService } from '.';
 import { ViaCep } from '../Type';
+import { Sanitizer } from '@cade-tecnologia/essentials';
 
 class ViaCepService extends AbstractService {
   public constructor() {
@@ -9,8 +10,10 @@ class ViaCepService extends AbstractService {
   }
 
   public buscarCEP(cep: string): Observable<ViaCep> {
+    const cepSanitized = Sanitizer.cep(cep);
+
     return this.getResponseBody<ViaCep>(
-      this.HTTP_CLIENT.get<ViaCep>(`https://viacep.com.br/ws/${cep}/json/`),
+      this.HTTP_CLIENT.get<ViaCep>(`https://viacep.com.br/ws/${cepSanitized}/json/`),
     );
   }
 }

@@ -7,83 +7,108 @@ import { observer } from 'mobx-react';
 import Target from '../../../../../Type/Target';
 import { ViaCepService } from '../../../../../service';
 import { FormContainer } from '.';
+import { useSignUpContext } from '../../context';
+import { MaskedTextField } from '../../../../../component';
 
-function FormEndereco({objeto}: {objeto?: string}): ReactElement {
+function FormEndereco({ objeto }: { objeto?: string }): ReactElement {
+  const { formularioCadastro: { setField } } = useSignUpContext();
 
-  function getName(name: string): string {
-    const root = `endereco.${name}`;
+  function getName() {
+    function get(name: string) {
+      const root = `endereco.${ name }`;
 
-    if (objeto) return `${objeto}.${root}`;
-    return root;
+      if (objeto) return `${ objeto }.${ root }`;
+      return root;
+    }
+
+    return {
+      cep: get('cep'),
+      logradouro: get('logradouro'),
+      complemento: get('complemento'),
+      bairro: get('bairro'),
+      localidade: get('localidade'),
+      uf: get('uf'),
+    }
   }
 
-  function onBlurCEP({ target: { value, name } }: Target) {
-    console.log('V: ', value);
-    console.log('N: ', name);
-    // if (value.length >= 8) {
-    //   ViaCepService.buscarCEP(value).subscribe(
-    //     (res) => {
-    //       Object.keys(res).map((key) => ({
-    //           target: {
-    //             name: key,
-    //             // @ts-ignore: Ver pq ta quebrando
-    //             value: res[key]
-    //           },
-    //         }
-    //       )).forEach(setCamposEndereco)
-    //     },
-    //     (_) => {
-    //     }
-    //   )
-    // }
+  function onBlurCEP({ target: { value } }: Target) {
+    if (value.length >= 8) {
+      ViaCepService.buscarCEP(value).subscribe(
+        (res) => {
+          const names = getName();
+
+          Object.keys(res)
+            .forEach((resKeys) => {
+              if (Object.prototype.hasOwnProperty.call(names, resKeys)) {
+                // @ts-ignore: ignore
+                setField()(names[resKeys], res[resKeys])
+              }
+            })
+        },
+        (_) => {}
+      )
+    }
   }
 
+  const {
+    cep,
+    bairro,
+    logradouro,
+    complemento,
+    localidade,
+    uf,
+  } = getName();
   return (
     <FormContainer>
-      <Grid item container direction='row' alignItems='center' justify='center' spacing={2}>
-        <Grid item xs={ 12 } sm={3}>
-          <TextField fullWidth
-                     required
-                     name={getName('cep')}
-                     label='CEP'
-                     onBlur={ onBlurCEP }
+      <Grid item container direction='row' alignItems='center' justify='center' spacing={ 2 }>
+        <Grid item xs={ 12 } sm={ 3 }>
+          <MaskedTextField fullWidth
+                           required
+                           name={ cep }
+                           label='CEP'
+                           onBlur={ onBlurCEP }
+                           options={{
+                             delimiter: '-',
+                             blocks: [5, 3],
+                             numericOnly: true
+                           }}
           />
         </Grid>
-        <Grid item xs={ 12 } sm={9}>
+        <Grid item xs={ 12 } sm={ 9 }>
           <TextField fullWidth
                      required
-                     // disabled
-                     name={getName('logradouro')}
+                     disabled
+                     name={ logradouro }
                      label='Logradouro'
           />
         </Grid>
         <Grid item xs={ 12 }>
           <TextField fullWidth
-                     name={getName('complemento')}
+                     name={ complemento }
                      label='Complemento'
           />
         </Grid>
-        <Grid item xs={ 12 } sm={6}>
+        <Grid item xs={ 12 } sm={ 6 }>
           <TextField fullWidth
                      required
-                     // disabled
-                     name={getName('bairro')}
+                     disabled
+                     name={ bairro }
                      label='Bairro'
           />
         </Grid>
-        <Grid item xs={ 12 } sm={4}>
+        <Grid item xs={ 12 } sm={ 4 }>
           <TextField fullWidth
                      required
-                     // disabled
-                     name={getName('localidade')}
+                     disabled
+                     name={ localidade }
                      label='Localidade'
           />
         </Grid>
-        <Grid item xs={ 12 } sm={2}>
+        <Grid item xs={ 12 } sm={ 2 }>
           <TextField fullWidth
                      required
-                     // disabled
-                     name={getName('uf')}
+                     disabled
+                     name={ uf }
                      label='UF'
           />
         </Grid>

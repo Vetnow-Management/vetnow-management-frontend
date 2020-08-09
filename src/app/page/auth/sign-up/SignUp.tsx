@@ -3,9 +3,9 @@ import React, { ReactElement, useState } from 'react';
 import { Button, Grid, Tooltip } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { Form } from 'react-final-form'
-import { Verify } from '@cade-tecnologia/essentials';
+import { get as _get, set as _set } from 'lodash';
 
-import { SignUpContextProvider, useSignUpStore } from './context';
+import { SignUpContextProvider, useSignUpContext } from './context';
 import StepperSignUp from './stepper/StepperSignUp';
 import { LandingPagePaper, WithMargin } from '../../../component';
 import { FormDadosEmpresariais, FormDadosPessoais, FormDadosUsuario } from './form';
@@ -13,13 +13,15 @@ import ChaveAcessoDialog from './chave-acesso/ChaveAcesso';
 import { DadosEmpresariaisSchema, DadosPessoaisSchema, DadosUsuarioSchema, ICadastro } from './form/schemas';
 import { TypeSafeGuard } from '../../../util';
 
-function getError(err: any) {
-  if (Verify.isNullOrUndefined(err)) return null;
-
-  return err.inner.reduce((formError: any, innerError: any) => ({
-    ...formError,
-    [innerError.path]: innerError.message
-  }), {})
+function convertYupErrorsToFieldErrors(yupErrors: any) {
+  return yupErrors.inner.reduce((errors: any, { path, message }: any) => {
+    if (_get(errors, path)) {
+      _set(errors, path, _get(errors, path));
+    } else {
+      _set(errors, path, message);
+    }
+    return errors;
+  }, {});
 }
 
 function SignUp(): ReactElement {
@@ -30,7 +32,8 @@ function SignUp(): ReactElement {
       proximoStep,
       voltarStep,
     },
-  } = useSignUpStore();
+    formularioCadastro,
+  } = useSignUpContext();
 
   const [formErros, _setFormErros] = useState({
     isDadosPessoaisValid: false,
@@ -81,7 +84,7 @@ function SignUp(): ReactElement {
       await validarDadosUsuario();
     } catch (err) {
       if (TypeSafeGuard().isValidationError((err))) {
-        return getError(err);
+        return convertYupErrorsToFieldErrors(err);
       }
 
       // eslint-disable-next-line no-console
@@ -146,7 +149,13 @@ function SignUp(): ReactElement {
             <WithMargin margin='10px'>
               <Form onSubmit={ onSubmit }
                     validate={ (validateForm) }
-                    render={ ({ handleSubmit }) => {
+                    mutators={{
+                      setField: (_, state, {changeValue}) =>
+                        (fieldName: string, fieldValue: string) =>
+                          changeValue(state, fieldName, () => fieldValue),
+                    }}
+                    render={ ({ handleSubmit, form }) => {
+                      formularioCadastro.setField = form.mutators.setField
                       return (
                         <form noValidate onSubmit={ handleSubmit }>
                           { getForm() }
@@ -158,7 +167,7 @@ function SignUp(): ReactElement {
                                           type='submit'
                                           variant='contained'
                                           color='primary'
-                                          disabled={ canSubmit }
+                                          // disabled={ canSubmit }
                                   >
                                     Salvar
                                   </Button>
