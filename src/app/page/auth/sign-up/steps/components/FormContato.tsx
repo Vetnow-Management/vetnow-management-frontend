@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 import { TextField } from 'mui-rff';
 import { observer } from 'mobx-react';
 
-import { FormContainer } from '.';
+import { FormContainer } from './index';
 import { MaskedTextField } from '../../../../../component';
 
 function FormContato({ objeto }: { objeto?: string }): ReactElement {

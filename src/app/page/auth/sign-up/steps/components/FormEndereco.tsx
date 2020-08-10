@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 
 import Target from '../../../../../Type/Target';
 import { ViaCepService } from '../../../../../service';
-import { FormContainer } from '.';
+import { FormContainer } from './index';
 import { useSignUpContext } from '../../context';
 import { MaskedTextField } from '../../../../../component';
 

@@ -6,7 +6,7 @@ import { DatePicker, TextField } from 'mui-rff';
 import { FormContainer, FormContato, FormEndereco, } from './components';
 import { MaskedTextField } from '../../../../component';
 
-function FormDadosPessoais(): ReactElement {
+function DadosPessoaisStep(): ReactElement {
   return (
     <>
       <FormContainer>
@@ -49,4 +49,4 @@ function FormDadosPessoais(): ReactElement {
   );
 }
 
-export default React.memo(FormDadosPessoais)
+export default React.memo(DadosPessoaisStep)

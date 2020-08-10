@@ -9,11 +9,11 @@ import {  ValidationError as YupValidationError } from 'yup';
 import { SignUpContextProvider, useSignUpContext } from './context';
 import StepperSignUp from './stepper/StepperSignUp';
 import { LandingPagePaper, WithMargin } from '../../../component';
-import { FormDadosEmpresariais, FormDadosPessoais, FormDadosUsuario } from './form';
 import ChaveAcessoDialog from './chave-acesso/ChaveAcesso';
-import { DadosEmpresariaisSchema, DadosPessoaisSchema, DadosUsuarioSchema, ICadastro } from './form/schemas';
+import { ICadastro, DadosUsuarioValidationSchema, DadosEmpresariaisValidationSchema, DadosPessoaisValidationSchema } from './validation-schema';
 import { TypeSafeGuard } from '../../../util';
 import { CadastroService } from '../../../service';
+import { Steps } from './steps';
 
 function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
   return yupErrors.inner.reduce((errors, { path, message }) => {
@@ -61,7 +61,7 @@ function SignUp(): ReactElement {
 
   async function validateForm(values: any) {
     async function validarDadosPessoais(): Promise<void> {
-      await DadosPessoaisSchema.validate(values, { abortEarly: false })
+      await DadosPessoaisValidationSchema.validate(values, { abortEarly: false })
         .catch((err) => {
           setFormErros('isDadosPessoaisValid', false)
           return Promise.reject(err)
@@ -70,7 +70,7 @@ function SignUp(): ReactElement {
     }
 
     async function validarDadosEmpresariais(): Promise<void> {
-      await DadosEmpresariaisSchema.validate(values, { abortEarly: false })
+      await DadosEmpresariaisValidationSchema.validate(values, { abortEarly: false })
         .catch((err) => {
           setFormErros('isDadosEmpresariaisValid', false)
           return Promise.reject(err);
@@ -79,7 +79,7 @@ function SignUp(): ReactElement {
     }
 
     async function validarDadosUsuario(): Promise<void> {
-      await DadosUsuarioSchema.validate(values, { abortEarly: false })
+      await DadosUsuarioValidationSchema.validate(values, { abortEarly: false })
         .catch((err) => {
           setFormErros('isDadosUsuariosValid', false);
           return Promise.reject(err);
@@ -117,17 +117,6 @@ function SignUp(): ReactElement {
   function aoValidarChave(chave: string): void {
     if (formularioCadastro.setField) {
       formularioCadastro.setField()('empresa.chave.chave', chave)
-    }
-  }
-
-  function getForm(): ReactElement {
-    switch (currentStep) {
-      case 0:
-        return <FormDadosPessoais/>;
-      case 1:
-        return <FormDadosEmpresariais/>;
-      default:
-        return <FormDadosUsuario/>;
     }
   }
 
@@ -177,7 +166,7 @@ function SignUp(): ReactElement {
                       formularioCadastro.setField = form.mutators.setField
                       return (
                         <form noValidate onSubmit={ handleSubmit }>
-                          { getForm() }
+                          <Steps />
                           <Grid item container direction='row' justify='flex-start' xs={ 8 } spacing={ 2 }>
                             <Grid item md={ 4 }>
                               <Tooltip title={salvarToolTip}>
@@ -193,14 +182,14 @@ function SignUp(): ReactElement {
                                 </span>
                               </Tooltip>
                             </Grid>
-                            { currentStep < 2 && (
+                            { currentStep < 5 && (
                               <Grid item md={ 4 }>
                                 <Tooltip title={proximoToolTip}>
                                   <span>
                                     <Button fullWidth
                                             variant='outlined'
                                             color='primary'
-                                            disabled={ isProximoButaoDisabled() }
+                                            // disabled={ isProximoButaoDisabled() }
                                             onClick={ proximoStep }
                                     >
                                       Proximo

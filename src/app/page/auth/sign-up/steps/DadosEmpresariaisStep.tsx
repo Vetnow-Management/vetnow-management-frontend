@@ -5,7 +5,7 @@ import { DatePicker, TextField } from 'mui-rff';
 
 import { FormContainer, FormContato, FormEndereco } from './components';
 
-function FormDadosEmpresariais(): ReactElement {
+function DadosEmpresariaisStep(): ReactElement {
   function getName(name: string): string {
     return `empresa.${name}`;
   }
@@ -55,4 +55,4 @@ function FormDadosEmpresariais(): ReactElement {
   );
 }
 
-export default React.memo(FormDadosEmpresariais);
+export default React.memo(DadosEmpresariaisStep);
