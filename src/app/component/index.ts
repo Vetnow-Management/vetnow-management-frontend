@@ -6,3 +6,4 @@ export { default as Hidden } from './Hidden';
 export { default as LandingPagePaper } from './LandingPagePaper';
 export { default as WithMargin } from './WithMargin';
 export { default as MaskedTextField } from './MaskedTextField';
+export { default as BtnCadastro } from './BtnCadastro';

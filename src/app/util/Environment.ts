@@ -5,9 +5,9 @@ class Environment extends AbstractEnvironmentVariables {
 
   public readonly API_URL: string = this.getVariable('API_URL');
 
-  public readonly PRIMARY_COLOR: string = '#7044ff';
+  public readonly PRIMARY_COLOR: string = '#0984E3';
 
-  public readonly SECONDARY_COLOR: string = '#00e7c4';
+  public readonly SECONDARY_COLOR: string = '#E17055';
 
   public constructor() {
     super('REACT_APP');
