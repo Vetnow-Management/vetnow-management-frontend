@@ -2,7 +2,7 @@ import React from 'react';
 
 import 'mobx-react-lite/batchingForReactDom'
 import { MuiThemeProvider, StylesProvider, createGenerateClassName } from '@material-ui/core';
-import { Router, useHistory, useRouteMatch } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { ptBR } from 'date-fns/esm/locale';
