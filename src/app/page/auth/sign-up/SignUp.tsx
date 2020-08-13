@@ -8,7 +8,7 @@ import {  ValidationError as YupValidationError } from 'yup';
 
 import { SignUpContextProvider, useSignUpContext } from './context';
 import StepperSignUp from './stepper/StepperSignUp';
-import { LandingPagePaper, WithMargin } from '../../../component';
+import { BlockUI, LandingPagePaper, WithMargin } from '../../../component';
 import ChaveAcessoDialog from './chave-acesso/ChaveAcesso';
 import { ICadastro, DadosUsuarioValidationSchema, DadosEmpresariaisValidationSchema, DadosPessoaisValidationSchema } from './validation-schema';
 import { TypeSafeGuard } from '../../../util';
@@ -27,12 +27,12 @@ function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
 }
 
 function SignUp(): ReactElement {
-  console.log('RENDER - SIGN_UP');
   const {
     stepperStore: {
       currentStep,
       proximoStep,
       voltarStep,
+      estaNoPrimeiroSteep
     },
     formularioCadastro,
   } = useSignUpContext();
@@ -132,6 +132,15 @@ function SignUp(): ReactElement {
     return currentStep === 2 && !isDadosUsuariosValid;
   }
 
+  function onProximo(): void {
+    console.log('1: ', formularioCadastro.field);
+    console.log('2: ', currentStep);
+    if (estaNoPrimeiroSteep) {
+      console.log('pay: ', formularioCadastro?.field?.empresa?.chave?.tipo);
+    }
+    proximoStep();
+  }
+
   const canSubmit = !(
     formErros.isDadosPessoaisValid &&
     formErros.isDadosEmpresariaisValid &&
@@ -148,6 +157,8 @@ function SignUp(): ReactElement {
   return (
     <>
       <SignUpContextProvider>
+
+
         <ChaveAcessoDialog onSuccess={ aoValidarChave }/>
         <LandingPagePaper
           smLeftSide={ 3 }
@@ -162,8 +173,9 @@ function SignUp(): ReactElement {
                         (fieldName: string, fieldValue: string) =>
                           changeValue(state, fieldName, () => fieldValue),
                     }}
-                    render={ ({ handleSubmit, form }) => {
+                    render={ ({ handleSubmit, form, values }) => {
                       formularioCadastro.setField = form.mutators.setField
+                      formularioCadastro.field = values;
                       return (
                         <form noValidate onSubmit={ handleSubmit }>
                           <Steps />
@@ -189,8 +201,8 @@ function SignUp(): ReactElement {
                                     <Button fullWidth
                                             variant='outlined'
                                             color='primary'
-                                            // disabled={ isProximoButaoDisabled() }
-                                            onClick={ proximoStep }
+                                      // disabled={ isProximoButaoDisabled() }
+                                            onClick={ onProximo }
                                     >
                                       Proximo
                                     </Button>

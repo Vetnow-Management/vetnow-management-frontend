@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 
 interface Steps {
   label: string,
@@ -26,5 +26,10 @@ export default class StepperStore {
   @action.bound
   public voltarStep(): void {
     this.currentStep--;
+  }
+
+  @computed
+  public get estaNoPrimeiroSteep(): boolean {
+    return this.currentStep === 0;
   }
 }

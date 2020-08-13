@@ -1,11 +1,13 @@
 import React, { ReactElement, ReactNode, useContext } from 'react';
 import { StepperStore } from '../store';
 import { BiConsumer, Supplier } from '@vetnow-management/essentials';
+import { ICadastro } from '../validation-schema';
 
 interface ISignUpContext {
   stepperStore: StepperStore,
   formularioCadastro: {
     setField: Supplier<BiConsumer<string, string>> | null,
+    field: ICadastro | null,
   },
 }
 
@@ -13,6 +15,7 @@ const defaultValueSignUpContext: ISignUpContext = {
   stepperStore: new StepperStore(),
   formularioCadastro: {
     setField: null,
+    field: null,
   },
 };
 

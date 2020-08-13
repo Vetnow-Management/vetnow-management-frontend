@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+
 import { useSignUpContext } from '../context';
 import PlanosStep from './PlanosStep';
 import DadosPessoaisStep from './DadosPessoaisStep';
