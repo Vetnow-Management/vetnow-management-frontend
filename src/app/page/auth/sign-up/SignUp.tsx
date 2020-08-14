@@ -12,8 +12,9 @@ import { BlockUI, LandingPagePaper, WithMargin } from '../../../component';
 import ChaveAcessoDialog from './chave-acesso/ChaveAcesso';
 import { ICadastro, DadosUsuarioValidationSchema, DadosEmpresariaisValidationSchema, DadosPessoaisValidationSchema } from './validation-schema';
 import { TypeSafeGuard } from '../../../util';
-import { CadastroService } from '../../../service';
+import { CadastroService, ChaveService } from '../../../service';
 import { Steps } from './steps';
+import { finalize } from 'rxjs/operators';
 
 function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
   return yupErrors.inner.reduce((errors, { path, message }) => {
@@ -35,6 +36,7 @@ function SignUp(): ReactElement {
       estaNoPrimeiroSteep
     },
     formularioCadastro,
+    blockUIStore: { toggle: toggleBlockUI }
   } = useSignUpContext();
 
   const [formErros, _setFormErros] = useState({
@@ -42,6 +44,8 @@ function SignUp(): ReactElement {
     isDadosEmpresariaisValid: false,
     isDadosUsuariosValid: false,
   });
+
+  const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
   useEffect(() => {
     if (formularioCadastro.setField) {
@@ -133,10 +137,22 @@ function SignUp(): ReactElement {
   }
 
   function onProximo(): void {
-    console.log('1: ', formularioCadastro.field);
-    console.log('2: ', currentStep);
     if (estaNoPrimeiroSteep) {
-      console.log('pay: ', formularioCadastro?.field?.empresa?.chave?.tipo);
+      toggleBlockUI();
+      setIsLoading(true);
+      ChaveService.gerarChave(formularioCadastro!.field!.empresa!.chave!.tipo)
+        .pipe(
+          finalize(() => {
+            toggleBlockUI();
+            setIsLoading(false);
+            proximoStep();
+          })
+        )
+        .subscribe(
+          (res) => console.log('Chave Gerada: ', res),
+          (err) => console.log('HANDLE', err)
+        );
+      return;
     }
     proximoStep();
   }
@@ -157,8 +173,6 @@ function SignUp(): ReactElement {
   return (
     <>
       <SignUpContextProvider>
-
-
         <ChaveAcessoDialog onSuccess={ aoValidarChave }/>
         <LandingPagePaper
           smLeftSide={ 3 }

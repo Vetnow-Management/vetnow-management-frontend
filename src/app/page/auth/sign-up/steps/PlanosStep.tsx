@@ -20,10 +20,6 @@ const useStyles = makeStyles({
 
 type UseStateType = 'free' | 'pago';
 
-function later(delay: number, value: string): Promise<string> {
-  return new Promise(resolve => setTimeout(resolve, delay, value));
-}
-
 export default function PlanosStep(): ReactElement {
   const [elevationOpcaoFree, setElevationOpcaoFree] = useState<number>(1);
   const [elevationOpcaoPaga, setElevationOpcaoPaga] = useState<number>(5);

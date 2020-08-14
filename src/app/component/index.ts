@@ -9,3 +9,4 @@ export { default as MaskedTextField } from './MaskedTextField';
 export { default as BlockUI } from './BlockUI';
 export { default as BtnCadastro } from './BtnCadastro';
 export { default as Bar } from './Bar';
+export { default as Loading } from './Loading'

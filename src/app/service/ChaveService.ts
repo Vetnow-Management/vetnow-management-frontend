@@ -7,7 +7,7 @@ class ChaveService extends AbstractService {
     super('chave');
   }
 
-  public gerarChave(chave: string): Observable<string> {
+  public gerarChave(type: string): Observable<string> {
     return of<string>('1111222333444')
       .pipe(delay(3000))
   }

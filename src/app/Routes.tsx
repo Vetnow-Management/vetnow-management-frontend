@@ -1,11 +1,11 @@
-import React, {ReactElement} from 'react';
-import {Route, Switch} from 'react-router-dom';
-import {AuthRoutes, HomeRoutes, LandingPageRoutes} from './page';
-import {AUTH_PATH_PREFIX} from './page/auth';
-import {HOME_PATH_PREFIX} from './page/home';
-import {LANDING_PAGE_PREFIX} from './page/landing-page';
-import {Bar} from './component';
-import {makeStyles} from '@material-ui/core';
+import React, { ReactElement } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { AuthRoutes, HomeRoutes, LandingPageRoutes } from './page';
+import { AUTH_PATH_PREFIX } from './page/auth';
+import { HOME_PATH_PREFIX } from './page/home';
+import { LANDING_PAGE_PREFIX } from './page/landing-page';
+import { Bar } from './component';
+import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   main: {

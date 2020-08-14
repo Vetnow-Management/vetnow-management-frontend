@@ -1,7 +1,9 @@
 import React, { ReactElement, ReactNode, useContext } from 'react';
+
 import { StepperStore } from '../store';
 import { BiConsumer, Supplier } from '@vetnow-management/essentials';
 import { ICadastro } from '../validation-schema';
+import useAppContext, { IAppContext } from '../../../../AppContext';
 
 interface ISignUpContext {
   stepperStore: StepperStore,
@@ -23,8 +25,11 @@ const signUpContext = React.createContext<ISignUpContext>(
   defaultValueSignUpContext,
 );
 
-export default function useSignUpContext() {
-  return useContext(signUpContext)
+export default function useSignUpContext(): ISignUpContext & IAppContext {
+  const signUp = useContext<ISignUpContext>(signUpContext);
+  const app = useAppContext();
+
+  return { ...signUp, ...app };
 }
 
 export function SignUpContextProvider({ children }: {children: ReactNode}): ReactElement {
