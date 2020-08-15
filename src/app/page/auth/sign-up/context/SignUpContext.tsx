@@ -1,7 +1,8 @@
 import React, { ReactElement, ReactNode, useContext } from 'react';
 
-import { StepperStore } from '../store';
 import { BiConsumer, Supplier } from '@vetnow-management/essentials';
+
+import { StepperStore } from '../store';
 import { ICadastro } from '../validation-schema';
 import useAppContext, { IAppContext } from '../../../../AppContext';
 

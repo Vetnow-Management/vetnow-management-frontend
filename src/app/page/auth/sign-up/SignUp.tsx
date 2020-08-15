@@ -5,16 +5,16 @@ import { observer } from 'mobx-react';
 import { Form } from 'react-final-form'
 import { get as _get, set as _set } from 'lodash';
 import {  ValidationError as YupValidationError } from 'yup';
+import { finalize } from 'rxjs/operators';
 
 import { SignUpContextProvider, useSignUpContext } from './context';
 import StepperSignUp from './stepper/StepperSignUp';
-import { BlockUI, LandingPagePaper, WithMargin } from '../../../component';
+import { WithMargin } from '../../../component';
 import ChaveAcessoDialog from './chave-acesso/ChaveAcesso';
 import { ICadastro, DadosUsuarioValidationSchema, DadosEmpresariaisValidationSchema, DadosPessoaisValidationSchema } from './validation-schema';
 import { TypeSafeGuard } from '../../../util';
 import { CadastroService, ChaveService } from '../../../service';
 import { Steps } from './steps';
-import { finalize } from 'rxjs/operators';
 
 function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
   return yupErrors.inner.reduce((errors, { path, message }) => {
@@ -44,8 +44,6 @@ function SignUp(): ReactElement {
     isDadosEmpresariaisValid: false,
     isDadosUsuariosValid: false,
   });
-
-  const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
   useEffect(() => {
     if (formularioCadastro.setField) {
@@ -139,12 +137,10 @@ function SignUp(): ReactElement {
   function onProximo(): void {
     if (estaNoPrimeiroSteep) {
       toggleBlockUI();
-      setIsLoading(true);
       ChaveService.gerarChave(formularioCadastro!.field!.empresa!.chave!.tipo)
         .pipe(
           finalize(() => {
             toggleBlockUI();
-            setIsLoading(false);
             proximoStep();
           })
         )
@@ -173,12 +169,12 @@ function SignUp(): ReactElement {
   return (
     <>
       <SignUpContextProvider>
-        <ChaveAcessoDialog onSuccess={ aoValidarChave }/>
-        <LandingPagePaper
-          smLeftSide={ 3 }
-          smRightSide={ 9 }
-          renderLeftSide={ () => <StepperSignUp/> }
-          renderRightSide={ () => (
+        <Grid container item>
+          <ChaveAcessoDialog onSuccess={ aoValidarChave }/>
+          <Grid container item xs={12} sm={3}>
+            <StepperSignUp />
+          </Grid>
+          <Grid container item xs={12} sm={9}>
             <WithMargin margin='10px'>
               <Form onSubmit={ onSubmit }
                     validate={ (validateForm) }
@@ -193,7 +189,7 @@ function SignUp(): ReactElement {
                       return (
                         <form noValidate onSubmit={ handleSubmit }>
                           <Steps />
-                          <Grid item container direction='row' justify='flex-start' xs={ 8 } spacing={ 2 }>
+                          <Grid item container direction='row' justify='center' xs={ 8 } spacing={ 2 }>
                             <Grid item md={ 4 }>
                               <Tooltip title={salvarToolTip}>
                                 <span>
@@ -241,8 +237,8 @@ function SignUp(): ReactElement {
                     } }
               />
             </WithMargin>
-          ) }
-        />
+          </Grid>
+        </Grid>
       </SignUpContextProvider>
     </>
   )
