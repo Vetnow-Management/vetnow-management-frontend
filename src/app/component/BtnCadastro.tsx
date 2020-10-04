@@ -1,30 +1,45 @@
-import React from 'react';
-import { Button, Theme, createStyles, makeStyles } from '@material-ui/core';
+import React, { MouseEvent } from 'react';
+
+import { Button, ButtonProps, Theme, makeStyles } from '@material-ui/core';
+import clsx from 'clsx';
+import { Consumer } from '@vetnow-management/essentials';
 
 const COLOR_GRADIENT = '#FE6B8B';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     background: `linear-gradient(45deg, ${COLOR_GRADIENT} 30%, ${theme.palette.secondary.main} 90%)`,
   },
+  link: {
+    [theme.breakpoints.up('sm')]: {
+      margin: theme.spacing(1, 1.5),
+    }
+  },
 }));
 
-interface Props {
-  onClick?: any,
-  descricao: string,
-}
-export default function ButtonCadastro(props: Props) {
+export default function ButtonCadastro(props: ButtonCadastroProps) {
   const classes = useStyles();
-  const { descricao, onClick } = props;
+  const { descricao, onClick, ButtonProps } = props;
   return (
-    <Button
-      fullWidth
-      className={classes.root}
-      variant='contained'
-      color='primary'
-      onClick={onClick}
+    <Button className={clsx(classes.root, classes.link)}
+            onClick={onClick}
+            {...ButtonProps}
     >
       {descricao}
     </Button>
   );
 }
+
+type ButtonCadastroProps = {
+  descricao: string;
+  onClick?: Consumer<MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLButtonElement>>
+  ButtonProps?: ButtonProps;
+};
+
+ButtonCadastro.defaultProps = {
+  ButtonProps: {
+    fullWidth: true,
+    variant: 'contained',
+    color: 'primary',
+  }
+} as Partial<ButtonCadastroProps>;

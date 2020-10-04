@@ -1,80 +1,80 @@
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from 'react';
 
-import {Button, Grid, Hidden, TextField} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
-import {BtnCadastro} from '../../component';
-import {useRoutes} from '../../hook';
-import {Form} from 'react-final-form';
-import Particles from 'react-particles-js';
+import { Button, Grid, Hidden } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Form } from 'react-final-form';
+import { TextField } from 'mui-rff';
+
+import { BtnCadastro } from '../../component';
+import { useRoutes } from '../../hook';
 
 const useStyles = makeStyles({
   root: {
-    minHeight: '100vh',
-  },
-  container: {
-    minHeight: '100vh',
-  },
-  gridStyle: {
-    width: '100%',
-  },
-  particles: {
-    position: 'absolute',
-    left: 0,
-    top: 60,
-    bottom: 0,
-    width: '100%',
+    height: 'inherit',
   }
 });
 
 export default function LandingPage(): ReactElement {
   const classes = useStyles();
-  const {goToSignUp} = useRoutes();
+  const { goToSignUp } = useRoutes();
 
   return (
-    <div className={classes.root}>
-      <Form
-        onSubmit={() => {
-        }}
-        render={({handleSubmit}) => (
-          <form onSubmit={handleSubmit}>
-            <Grid
-              className={classes.container}
-              container
-              direction="column"
-              justify="center"
-              alignItems="center"
-              spacing={1}
+    <Form
+      onSubmit={ () => {
+      } }
+      render={ ({ handleSubmit }) => (
+        <form onSubmit={ handleSubmit } className={ classes.root }>
+          <Grid container className={ classes.root } item xs={12} alignItems='center' justify='center'>
+            <Grid container
+                  item
+                  direction='column'
+                  alignItems='center'
+                  justify='center'
+                  xs={12}
+                  sm={7}
+                  md={5}
+                  spacing={1}
             >
-              <Grid item md={4} xs={10} className={classes.gridStyle}>
-                <TextField id="outlined-basic" fullWidth label="Usuário" variant="outlined"/>
+              <Grid container item>
+                <TextField id="outlined-basic"
+                           name='usuario'
+                           fullWidth
+                           label="Usuário"
+                           variant="outlined"
+                />
               </Grid>
-              <Grid item md={4} xs={10} className={classes.gridStyle}>
-                <TextField id="outlined-basic" fullWidth label="Senha" variant="outlined"/>
+
+              <Grid container item>
+                <TextField id="outlined-basic"
+                           name='senha'
+                           fullWidth
+                           label="Senha"
+                           variant="outlined"
+                />
               </Grid>
-              <Grid item md={4} xs={10} className={classes.gridStyle}>
+              <Grid container item>
                 <Button fullWidth
                         variant='contained'
                         color='primary'
                 >
                   Acessar
                 </Button>
-
               </Grid>
-              <Grid item md={4} xs={10} className={classes.gridStyle}>
-                <Hidden smUp>
+              <Hidden smUp>
+                <Grid container item>
                   <BtnCadastro
-                    onClick={goToSignUp}
+                    onClick={ goToSignUp }
                     descricao='EXPERIMENTE GRÁTIS'
                   />
-                </Hidden>
-              </Grid>
-              <Grid item md={4} xs={10} className={classes.gridStyle}>
-                <a href="#">Esqueci minha senha.</a>
+                </Grid>
+              </Hidden>
+              <Grid item container justify='flex-end'>
+                <Button color='secondary'>Esqueci minha senha.</Button>
               </Grid>
             </Grid>
-          </form>
-        )}
-      />
-    </div>
+          </Grid>
+        </form>
+      ) }
+    />
   );
 }
