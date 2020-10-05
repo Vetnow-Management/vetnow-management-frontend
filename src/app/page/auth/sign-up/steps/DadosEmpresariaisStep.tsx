@@ -4,11 +4,10 @@ import { Grid } from '@material-ui/core';
 import { DatePicker, TextField } from 'mui-rff';
 
 import { FormContainer, FormContato, FormEndereco } from './components';
+import { useBuilderInputName } from '../../../../hook';
 
 function DadosEmpresariaisStep(): ReactElement {
-  function getName(name: string): string {
-    return `empresa.${name}`;
-  }
+  const buildName = useBuilderInputName('empresa');
 
   return (
     <>
@@ -17,14 +16,14 @@ function DadosEmpresariaisStep(): ReactElement {
           <Grid item xs={ 12 }>
             <TextField fullWidth
                        required
-                       name={getName('razaoSocial')}
+                       name={buildName('razaoSocial')}
                        label='Razão social'
             />
           </Grid>
           <Grid item xs={12}>
             <TextField fullWidth
                        required
-                       name={getName('documento')}
+                       name={buildName('documento')}
                        label='CNPJ'
             />
 
@@ -33,7 +32,7 @@ function DadosEmpresariaisStep(): ReactElement {
             <DatePicker
               required
               disableFuture
-              name={getName('dataAbertura')}
+              name={buildName('dataAbertura')}
               openTo="year"
               format="dd/MM/yyyy"
               label="Data de abertura"
@@ -43,7 +42,7 @@ function DadosEmpresariaisStep(): ReactElement {
           <Grid item xs={12}>
             <TextField fullWidth
                        required
-                       name={getName('nitPisPasep')}
+                       name={buildName('nitPisPasep')}
                        label='nitPisPasep'
             />
           </Grid>

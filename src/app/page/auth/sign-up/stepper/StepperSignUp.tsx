@@ -10,11 +10,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useBreakpoints } from '../../../../hook';
 import { useSignUpContext } from '../context';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: 'pink'
+    backgroundColor: theme.palette.secondary.light,
+    borderRadius: '3px',
+    '& .Veterinario-MuiStepIcon-active, .Veterinario-MuiStepIcon-completed': {
+      color: theme.palette.secondary.main,
+    },
+    '& .Veterinario-MuiStepConnector-lineVertical': {
+      minHeight: 0,
+    }
   }
-});
+}));
 
 export default function StepperSignUp(): ReactElement {
   const classes = useStyles();
@@ -37,7 +44,7 @@ export default function StepperSignUp(): ReactElement {
   }
 
   return (
-    <Stepper className={classes.root} activeStep={currentStep} orientation={getOrientation()}>
+    <Stepper id='STEPPER' className={classes.root} activeStep={currentStep} orientation={getOrientation()}>
       {stepsAvailable.map(({label, id}) => (
         <Step key={id}>
           <StepLabel>{getLabel(label)}</StepLabel>

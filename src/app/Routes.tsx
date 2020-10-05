@@ -20,9 +20,12 @@ function useStyles(appBarHeight: 56 | 64) {
       overflow: 'auto',
     },
     container: {
-      paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
-      height: `calc(100% - ${appBarHeight}px)`
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(1),
+      height: `calc(100% - ${appBarHeight}px)`,
+      '&> div, form': {
+        height: 'inherit'
+      }
     },
     appBarSpacer: theme.mixins.toolbar,
   }))()

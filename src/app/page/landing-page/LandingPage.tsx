@@ -23,7 +23,7 @@ export default function LandingPage(): ReactElement {
       onSubmit={ () => {
       } }
       render={ ({ handleSubmit }) => (
-        <form onSubmit={ handleSubmit } className={ classes.root }>
+        <form onSubmit={ handleSubmit }>
           <Grid container className={ classes.root } item xs={12} alignItems='center' justify='center'>
             <Grid container
                   item

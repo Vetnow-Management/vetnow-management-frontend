@@ -25,10 +25,6 @@ const DadosEmpresariaisValidationSchema = yup.object().shape({
       .date()
       .required(required)
       .max(addDays(CURRENT_DATE, 1), 'Data nao pode passar de hoje'),
-    chave: yup.object().shape({
-      tipo: yup.string().required().trim(),
-      chave: yup.string().required().trim(),
-    }),
     contato: ContatoValidationSchema.defined(),
     endereco: EnderecoValidationSchema.defined(),
   }).defined(),
