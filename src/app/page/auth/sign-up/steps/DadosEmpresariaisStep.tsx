@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ChangeEvent, ReactElement } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { DatePicker, TextField } from 'mui-rff';
@@ -8,7 +8,6 @@ import { useBuilderInputName } from '../../../../hook';
 
 function DadosEmpresariaisStep(): ReactElement {
   const buildName = useBuilderInputName('empresa');
-
   return (
     <>
       <FormContainer>

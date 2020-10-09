@@ -1,18 +1,25 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { Button, Grid, Tooltip, makeStyles } from '@material-ui/core';
+import { Button, Grid, makeStyles, Tooltip } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { Form } from 'react-final-form'
 import { get as _get, set as _set } from 'lodash';
-import {  ValidationError as YupValidationError } from 'yup';
+import { ValidationError as YupValidationError } from 'yup';
 
 import { SignUpContextProvider, useSignUpContext } from './context';
 import StepperSignUp from './stepper/StepperSignUp';
-import { WithMargin } from '../../../component';
-import { ICadastro, DadosUsuarioValidationSchema, DadosEmpresariaisValidationSchema, DadosPessoaisValidationSchema } from './validation-schema';
+import { SaveForm, WithMargin } from '../../../component';
+import {
+  DadosEmpresariaisValidationSchema,
+  DadosPessoaisValidationSchema,
+  DadosUsuarioValidationSchema,
+  ICadastro
+} from './validation-schema';
 import { TypeSafeGuard } from '../../../util';
-import { CadastroService } from '../../../service';
 import { Steps } from './steps';
+import { NomesFormularioSistema } from '../../../domain';
+import { useGetFormState } from '../../../hook';
+import { Optional } from '@vetnow-management/essentials';
 
 const useStyle = makeStyles({
   actionsButtons: {
@@ -32,6 +39,8 @@ function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
 }
 
 function SignUp(): ReactElement {
+  const formStateFromDB = useGetFormState<ICadastro>(NomesFormularioSistema.CADASTRO_INICIAL);
+
   const {
     stepperStore: {
       currentStep,
@@ -51,8 +60,21 @@ function SignUp(): ReactElement {
     if (formularioCadastro.setField) {
       formularioCadastro.setField()('tipoPessoa', 'RESPONSAVEL');
       formularioCadastro.setField()('usuario.perfil', 'ADMINISTRADOR');
+      formStateFromDB.then((value) => {
+        Optional.from(value)
+          .ifPresent((valuePresent) => {
+            // @ts-ignore: Arrumar no util, colocar pra isso nunca ser null
+            Object.keys(valuePresent)
+              .forEach(key => {
+                if(formularioCadastro.setField) {
+                  // @ts-ignore: GGWP
+                  formularioCadastro.setField()(key, valuePresent[key]);
+                }
+              })
+          })
+      })
     }
-  }, [formularioCadastro.setField]);
+  }, []);
 
   const classes = useStyle();
 
@@ -148,6 +170,7 @@ function SignUp(): ReactElement {
     ? 'Preencha o formulario atual antes'
     : '';
 
+  console.log('--------RENDER----------');
   return (
     <SignUpContextProvider>
       <Grid container item>
@@ -168,6 +191,7 @@ function SignUp(): ReactElement {
                     formularioCadastro.field = values;
                     return (
                       <form noValidate onSubmit={ handleSubmit }>
+                        <SaveForm debounce={1000} formName={NomesFormularioSistema.CADASTRO_INICIAL}/>
                         <Steps />
                         <Grid item
                               container
@@ -218,6 +242,15 @@ function SignUp(): ReactElement {
                               </Button>
                             </Grid>
                           ) }
+                          <Grid item md={ 4 }>
+                            <Button fullWidth
+                                    variant='outlined'
+                                    color='secondary'
+                                    onClick={ () => console.log('---IMPLEMENTAR O LIMPAR---') }
+                            >
+                              LIMPAR FORMULARIO
+                            </Button>
+                          </Grid>
                         </Grid>
                       </form>
                     )

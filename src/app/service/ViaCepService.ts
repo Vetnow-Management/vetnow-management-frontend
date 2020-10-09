@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 
 import { AbstractService } from '.';
-import { ViaCep } from '../Type';
+import { ViaCep } from '../domain';
 import { Sanitizer } from '@vetnow-management/essentials';
 
 class ViaCepService extends AbstractService {

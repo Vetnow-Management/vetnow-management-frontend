@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { Consumer, ConsumerImpl, Func, Supplier, Verify } from '@vetnow-management/essentials';
-import Target from '../Type/Target';
+import { ChangeEvent } from 'react';
 
 export interface CondicaoReturn {
   podeAtribuir: boolean,
@@ -11,7 +11,7 @@ export interface CondicaoReturn {
 export default abstract class FormStoreHelperMixin {
 
   @action.bound
-  public setCampo({ target: { value, name } }: Target): void {
+  public setCampo({ target: { value, name } }: ChangeEvent<HTMLInputElement>): void {
     if (Object.prototype.hasOwnProperty.call(this, name)) {
       // @ts-ignore: Arrumar no futuro
       this[name] = value;
@@ -19,10 +19,10 @@ export default abstract class FormStoreHelperMixin {
   }
 
   @action.bound
-  public setCampoComCondicao(condicao: Supplier<CondicaoReturn> | Func<string, CondicaoReturn>): Consumer<Target> {
+  public setCampoComCondicao(condicao: Supplier<CondicaoReturn> | Func<string, CondicaoReturn>): Consumer<ChangeEvent<HTMLInputElement>> {
     return (event) => {
       const { podeAtribuir, valorTratado } = condicao(event.target.value);
-      const valorTarget: Target | null = Verify.isNotNullOrUndefined(valorTratado)
+      const valorTarget = Verify.isNotNullOrUndefined(valorTratado)
         ? {
           target: {
             name: event.target.name,
@@ -32,6 +32,7 @@ export default abstract class FormStoreHelperMixin {
         : null;
 
       if (podeAtribuir) {
+        // @ts-ignore: todo: arrumar no futuro
         return this.setCampo(valorTarget ?? event)
       }
       return ConsumerImpl(null);

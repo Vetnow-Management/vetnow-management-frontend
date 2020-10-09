@@ -10,3 +10,4 @@ export { default as BlockUI } from './BlockUI';
 export { default as BtnCadastro } from './BtnCadastro';
 export { default as Bar } from './Bar';
 export { default as Loading } from './Loading'
+export { default as SaveForm } from './SaveForm';
