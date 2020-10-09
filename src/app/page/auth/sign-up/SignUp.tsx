@@ -20,6 +20,7 @@ import { Steps } from './steps';
 import { NomesFormularioSistema } from '../../../domain';
 import { useGetFormState } from '../../../hook';
 import { Optional } from '@vetnow-management/essentials';
+import CadastroRestService from '../../../service/cadastro/CadastroRestService';
 
 const useStyle = makeStyles({
   actionsButtons: {
@@ -131,18 +132,16 @@ function SignUp(): ReactElement {
   }
 
   function onSubmit(payload: ICadastro): void {
-    console.log('JSON: ', JSON.stringify(payload));
-    console.log('----------');
-    console.log('OBJ: ', payload);
-    // CadastroService.cadastrarResponsavel(payload)
-    //   .subscribe(
-    //     (res) => {
-    //       console.log('RES: ', res);
-    //     },
-    //     (err) => {
-    //       console.log('Errr: ', err);
-    //     }
-    //   )
+    console.log('payload: ', payload);
+    CadastroRestService.cadastrarResponsavel({
+      ...payload,
+      dtNascimento: JSON.stringify(payload.dtNascimento),
+      empresa: { dataAbertura: JSON.stringify(payload.empresa.dataAbertura) }
+    })
+      .subscribe(
+        res => console.log('Usuario crido: ', res),
+        err => console.log('Erro ao cadastrar: ', err)
+      );
   }
 
   function isProximoButaoDisabled(): boolean {
