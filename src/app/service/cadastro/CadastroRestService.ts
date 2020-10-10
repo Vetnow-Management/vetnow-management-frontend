@@ -4,11 +4,11 @@ import { Cadastro } from './dominio';
 
 class CadastroRestService extends AbstractService {
   public constructor() {
-    super('cadastro');
+    super('pessoa');
   }
 
   public cadastrarResponsavel(payload: Cadastro): Observable<any> {
-    return this.post(payload, '/novo')
+    return this.post(payload)
   }
 }
 
