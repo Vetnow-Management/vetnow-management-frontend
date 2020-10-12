@@ -1,11 +1,13 @@
 import React, { ReactElement } from 'react';
 
+import { observer } from 'mobx-react';
+
 import { useSignUpContext } from '../context';
 import DadosPessoaisStep from './DadosPessoaisStep';
 import DadosEmpresariaisStep from './DadosEmpresariaisStep';
 import DadosUsuarioStep from './DadosUsuarioStep';
 
-export default function Steps(): ReactElement {
+function Steps(): ReactElement {
   const {
     stepperStore: {
       currentStep
@@ -23,3 +25,5 @@ export default function Steps(): ReactElement {
       throw new Error(`Step Index Not Supported - Index: ${currentStep}`)
   }
 }
+
+export default observer(Steps);

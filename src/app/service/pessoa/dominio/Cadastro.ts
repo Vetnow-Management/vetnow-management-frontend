@@ -5,7 +5,7 @@ import type Empresa from './Empresa';
 
 export default interface Cadastro {
   nome?: string;
-  dtNascimento?: string;
+  dtNascimento?: Date;
   documento?: string;
   tipoPessoa?: string;
   usuario?: Usuario;

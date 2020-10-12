@@ -11,3 +11,4 @@ export { default as BtnCadastro } from './BtnCadastro';
 export { default as Bar } from './Bar';
 export { default as Loading } from './Loading'
 export { default as SaveForm } from './SaveForm';
+export { default as VetFooter } from './VetFooter';

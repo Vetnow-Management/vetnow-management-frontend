@@ -1,29 +1,25 @@
 import React, { ReactElement } from 'react';
 
 import {
-  Stepper,
   Step,
-  StepLabel, Orientation,
+  Stepper,
+  StepLabel,
+  makeStyles,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { observer } from 'mobx-react';
 
 import { useBreakpoints } from '../../../../hook';
 import { useSignUpContext } from '../context';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
-    backgroundColor: theme.palette.secondary.light,
     borderRadius: '3px',
-    '& .Veterinario-MuiStepIcon-active, .Veterinario-MuiStepIcon-completed': {
-      color: theme.palette.secondary.main,
-    },
-    '& .Veterinario-MuiStepConnector-lineVertical': {
-      minHeight: 0,
-    }
+    margin: 15,
+    width: '100%'
   }
-}));
+});
 
-export default function StepperSignUp(): ReactElement {
+function StepperSignUp(): ReactElement {
   const classes = useStyles();
   const match = useBreakpoints(true).up('sm')
   const {
@@ -33,18 +29,13 @@ export default function StepperSignUp(): ReactElement {
     }
   } = useSignUpContext();
 
-  function getOrientation(): Orientation {
-    if (match) return 'vertical';
-    return 'horizontal';
-  }
-
   function getLabel(label: string): string {
     if (match) return label;
     return '';
   }
 
   return (
-    <Stepper id='STEPPER' className={classes.root} activeStep={currentStep} orientation={getOrientation()}>
+    <Stepper id='STEPPER' className={classes.root} activeStep={currentStep} elevation={2} orientation='horizontal'>
       {stepsAvailable.map(({label, id}) => (
         <Step key={id}>
           <StepLabel>{getLabel(label)}</StepLabel>
@@ -53,3 +44,5 @@ export default function StepperSignUp(): ReactElement {
     </Stepper>
   );
 }
+
+export default observer(StepperSignUp)

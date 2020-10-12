@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { Button, Grid, makeStyles, Tooltip } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { Form } from 'react-final-form'
-import { get as _get, set as _set } from 'lodash';
+import { get as _get, set as _set } from 'lodash-es';
 import { ValidationError as YupValidationError } from 'yup';
 
 import { SignUpContextProvider, useSignUpContext } from './context';
@@ -20,13 +20,9 @@ import { Steps } from './steps';
 import { NomesFormularioSistema } from '../../../domain';
 import { useGetFormState } from '../../../hook';
 import { Optional } from '@vetnow-management/essentials';
-import CadastroRestService from '../../../service/cadastro/CadastroRestService';
-
-const useStyle = makeStyles({
-  actionsButtons: {
-    marginLeft: 0
-  }
-});
+import CadastroRestService from '../../../service/pessoa/PessoaRestService';
+import { Cadastro } from '../../../service/pessoa/dominio';
+import SignUpFooter from './SignUpFooter';
 
 function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
   return yupErrors.inner.reduce((errors, { path, message }) => {
@@ -43,11 +39,6 @@ function SignUp(): ReactElement {
   const formStateFromDB = useGetFormState<ICadastro>(NomesFormularioSistema.CADASTRO_INICIAL);
 
   const {
-    stepperStore: {
-      currentStep,
-      proximoStep,
-      voltarStep,
-    },
     formularioCadastro,
   } = useSignUpContext();
 
@@ -76,8 +67,6 @@ function SignUp(): ReactElement {
       })
     }
   }, []);
-
-  const classes = useStyle();
 
   function setFormErros(formName: 'isDadosPessoaisValid' | 'isDadosEmpresariaisValid' | 'isDadosUsuariosValid', value: boolean = true): void {
     if (formErros[formName] === value) return; // somente atualizar se necessario
@@ -131,54 +120,25 @@ function SignUp(): ReactElement {
     }
   }
 
-  function onSubmit(payload: ICadastro): void {
+  function onSubmit(payload: Cadastro): void {
     console.log('payload: ', payload);
-    CadastroRestService.cadastrarResponsavel({
-      ...payload,
-      dtNascimento: JSON.stringify(payload.dtNascimento),
-      empresa: { dataAbertura: JSON.stringify(payload.empresa.dataAbertura) }
-    })
+    CadastroRestService.cadastrarResponsavel(payload)
       .subscribe(
         res => console.log('Usuario crido: ', res),
         err => console.log('Erro ao cadastrar: ', err)
       );
   }
 
-  function isProximoButaoDisabled(): boolean {
-    const {
-      isDadosEmpresariaisValid,
-      isDadosPessoaisValid,
-      isDadosUsuariosValid
-    } = formErros;
-
-    if (currentStep === 0 && !isDadosPessoaisValid) return true;
-    if (currentStep === 1 && !isDadosEmpresariaisValid) return true;
-    return currentStep === 2 && !isDadosUsuariosValid;
-  }
-
-  const canSubmit = !(
-    formErros.isDadosPessoaisValid &&
-    formErros.isDadosEmpresariaisValid &&
-    formErros.isDadosUsuariosValid);
-
-  const salvarToolTip = canSubmit
-    ? 'Preencha todo formulario antes'
-    : '';
-
-  const proximoToolTip = isProximoButaoDisabled()
-    ? 'Preencha o formulario atual antes'
-    : '';
-
   console.log('--------RENDER----------');
   return (
     <SignUpContextProvider>
-      <Grid container item>
-        <Grid container item xs={12} sm={3}>
+      <Grid container item >
+        <Grid container item alignItems='flex-start' xs={12}>
           <StepperSignUp />
         </Grid>
-        <Grid container item xs={12} sm={9}>
+        <Grid container item alignItems='flex-start' xs={12}>
           <WithMargin margin='10px'>
-            <Form onSubmit={ onSubmit }
+            <Form<Cadastro> onSubmit={ onSubmit }
                   validate={ (validateForm) }
                   mutators={{
                     setField: (_, state, {changeValue}) =>
@@ -187,70 +147,12 @@ function SignUp(): ReactElement {
                   }}
                   render={ ({ handleSubmit, form, values }) => {
                     formularioCadastro.setField = form.mutators.setField
-                    formularioCadastro.field = values;
+                      formularioCadastro.field = values;
                     return (
                       <form noValidate onSubmit={ handleSubmit }>
                         <SaveForm debounce={1000} formName={NomesFormularioSistema.CADASTRO_INICIAL}/>
                         <Steps />
-                        <Grid item
-                              container
-                              direction='row'
-                              alignItems='flex-start'
-                              justify='flex-start'
-                              spacing={ 1 }
-                              className={classes.actionsButtons}
-                        >
-                          <Grid item >
-                            <Tooltip title={salvarToolTip}>
-                                <span>
-                                  <Button fullWidth
-                                          type='submit'
-                                          variant='contained'
-                                          color='primary'
-                                          disabled={ canSubmit }
-                                  >
-                                    Salvar
-                                  </Button>
-                                </span>
-                            </Tooltip>
-                          </Grid>
-                          { currentStep < 5 && (
-                            <Grid item md={ 4 }>
-                              <Tooltip title={proximoToolTip}>
-                                  <span>
-                                    <Button fullWidth
-                                            variant='outlined'
-                                            color='primary'
-                                            disabled={ isProximoButaoDisabled() }
-                                            onClick={ proximoStep }
-                                    >
-                                      Proximo
-                                    </Button>
-                                  </span>
-                              </Tooltip>
-                            </Grid>
-                          ) }
-                          { currentStep > 0 && (
-                            <Grid item md={ 4 }>
-                              <Button fullWidth
-                                      variant='outlined'
-                                      color='primary'
-                                      onClick={ voltarStep }
-                              >
-                                Voltar
-                              </Button>
-                            </Grid>
-                          ) }
-                          <Grid item md={ 4 }>
-                            <Button fullWidth
-                                    variant='outlined'
-                                    color='secondary'
-                                    onClick={ () => console.log('---IMPLEMENTAR O LIMPAR---') }
-                            >
-                              LIMPAR FORMULARIO
-                            </Button>
-                          </Grid>
-                        </Grid>
+                        <SignUpFooter formErros={formErros} />
                       </form>
                     )
                   } }

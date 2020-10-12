@@ -5,7 +5,7 @@ export default interface Empresa {
   razaoSocial?: string;
   documento?: string;
   nitPisPasep?: string;
-  dataAbertura?: string;
+  dataAbertura?: Date;
   endereco?: Endereco;
   contato?: Contato;
 }

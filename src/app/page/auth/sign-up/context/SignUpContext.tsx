@@ -3,14 +3,14 @@ import React, { ReactElement, ReactNode, useContext } from 'react';
 import { BiConsumer, Supplier } from '@vetnow-management/essentials';
 
 import { StepperStore } from '../store';
-import { ICadastro } from '../validation-schema';
 import useAppContext, { IAppContext } from '../../../../AppContext';
+import { Cadastro } from '../../../../service/pessoa';
 
 interface ISignUpContext {
   stepperStore: StepperStore,
   formularioCadastro: {
     setField: Supplier<BiConsumer<string, string>> | null,
-    field: ICadastro | null,
+    field: Cadastro | null,
   },
 }
 

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { DatePicker, TextField } from 'mui-rff';
@@ -11,7 +11,7 @@ function DadosEmpresariaisStep(): ReactElement {
   return (
     <>
       <FormContainer>
-        <Grid item container direction='row' alignItems='center' justify='center' spacing={ 2 }>
+        <Grid item container direction='row' spacing={ 2 }>
           <Grid item xs={ 12 }>
             <TextField fullWidth
                        required

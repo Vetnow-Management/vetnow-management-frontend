@@ -11,7 +11,7 @@ export default function DadosUsuarioStep(): ReactElement {
 
   return (
     <FormContainer>
-      <Grid item container direction='row' alignItems='center' justify='center' spacing={ 2 }>
+      <Grid item container direction='row' alignItems='flex-start' justify='flex-start' alignContent='flex-start' spacing={ 2 }>
         <Grid item>
           <TextField fullWidth
                      required
