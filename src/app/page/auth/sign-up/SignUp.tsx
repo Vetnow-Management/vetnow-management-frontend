@@ -132,7 +132,7 @@ function SignUp(): ReactElement {
   console.log('--------RENDER----------');
   return (
     <SignUpContextProvider>
-      <Grid container item >
+      <Grid container item style={{ height: 0 }}>
         <Grid container item alignItems='flex-start' xs={12}>
           <StepperSignUp />
         </Grid>

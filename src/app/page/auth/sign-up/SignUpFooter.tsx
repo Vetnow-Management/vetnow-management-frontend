@@ -1,17 +1,16 @@
 import React, { ReactElement } from 'react';
 
 import { Button, makeStyles, Tooltip, useMediaQuery } from '@material-ui/core';
+import { observer } from 'mobx-react';
 import {
   Save as SaveIcon,
   NavigateNext as NavigateNextIcon,
   NavigateBefore as NavigateBeforeIcon,
   DeleteForever as DeleteForeverIcon,
 } from '@material-ui/icons';
-import { observer } from 'mobx-react';
 
 import { useSignUpContext } from './context';
 import { VetFooter } from '../../../component';
-import { useBreakpoints } from '../../../hook';
 
 const useStyle = makeStyles({
   marginButton: {
@@ -60,7 +59,6 @@ function SignUpFooter(props: SignUpFooterProps): ReactElement {
     ? 'Preencha o formulario atual antes'
     : '';
 
-  console.log('step: ', currentStep);
   if (canShowMobileButtons) {
     return (
       <VetFooter>
