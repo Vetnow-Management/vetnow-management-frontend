@@ -13,8 +13,9 @@ import { useSignUpContext } from '../context';
 
 const useStyles = makeStyles({
   root: {
-    borderRadius: '3px',
-    margin: 15,
+    borderRadius: 3,
+    marginLeft: 15,
+    marginRight: 5,
     width: '100%'
   }
 });

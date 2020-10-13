@@ -1,4 +1,5 @@
 import { action, computed, observable } from 'mobx';
+import { Observable } from 'rxjs';
 
 export default class BlockUIStore {
 
@@ -8,6 +9,12 @@ export default class BlockUIStore {
   @action.bound
   public toggle(): void {
     this._mostrar = !this._mostrar;
+  }
+
+  @action.bound
+  public togglePipeable<A>(source: Observable<A>): Observable<A> {
+    this.toggle();
+    return source;
   }
 
   @action.bound

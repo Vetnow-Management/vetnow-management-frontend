@@ -25,8 +25,18 @@ export default class StepperStore {
     this.currentStep--;
   }
 
+  @action.bound
+  public irParaPrimeiroStep(): void {
+    this.currentStep = 0;
+  }
+
   @computed
-  public get estaNoPrimeiroSteep(): boolean {
+  public get estaNoPrimeiroStep(): boolean {
     return this.currentStep === 0;
+  }
+
+  @computed
+  public get estaNoUltimoStep(): boolean {
+    return this.currentStep === this.stepsAvailable.length - 1;
   }
 }

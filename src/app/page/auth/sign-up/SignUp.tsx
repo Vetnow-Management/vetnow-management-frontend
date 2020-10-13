@@ -22,7 +22,8 @@ import { useGetFormState } from '../../../hook';
 import { Optional } from '@vetnow-management/essentials';
 import CadastroRestService from '../../../service/pessoa/PessoaRestService';
 import { Cadastro } from '../../../service/pessoa/dominio';
-import SignUpFooter from './SignUpFooter';
+import { SignUpFooter } from './footer';
+import { finalize } from 'rxjs/operators';
 
 function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
   return yupErrors.inner.reduce((errors, { path, message }) => {
@@ -40,6 +41,10 @@ function SignUp(): ReactElement {
 
   const {
     formularioCadastro,
+    blockUIStore: {
+      toggle: toggleBlockUI,
+      togglePipeable: toggleBlockUIPipeable,
+    }
   } = useSignUpContext();
 
   const [formErros, _setFormErros] = useState({
@@ -122,7 +127,12 @@ function SignUp(): ReactElement {
 
   function onSubmit(payload: Cadastro): void {
     console.log('payload: ', payload);
-    CadastroRestService.cadastrarResponsavel(payload)
+    CadastroRestService
+      .cadastrarResponsavel(payload)
+      .pipe(
+        toggleBlockUIPipeable,
+        finalize(toggleBlockUI),
+      )
       .subscribe(
         res => console.log('Usuario crido: ', res),
         err => console.log('Erro ao cadastrar: ', err)
@@ -147,7 +157,8 @@ function SignUp(): ReactElement {
                   }}
                   render={ ({ handleSubmit, form, values }) => {
                     formularioCadastro.setField = form.mutators.setField
-                      formularioCadastro.field = values;
+                    formularioCadastro.field = values;
+                    formularioCadastro.resetForm = form.reset;
                     return (
                       <form noValidate onSubmit={ handleSubmit }>
                         <SaveForm debounce={1000} formName={NomesFormularioSistema.CADASTRO_INICIAL}/>

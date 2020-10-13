@@ -9,9 +9,7 @@
     "clean": "rm -rf ./build"
   },
   "husky": {
-    "hooks": {
-      "post-commit": "yarn clean"
-    }
+    "hooks": {}
   },
   "repository": {
     "url": "https://github.com/Vetnow-Management/vetnow-management-frontend",
@@ -24,7 +22,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/pickers": "^3.2.10",
     "@types/yup": "^0.29.4",
-    "@vetnow-management/essentials": "^1.0.1",
+    "@vetnow-management/essentials": "^1.0.3",
     "@vetnow-management/react-library": "^1.0.5",
     "axios": "^0.19.2",
     "axios-observable": "^1.1.3",

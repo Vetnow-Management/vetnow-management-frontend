@@ -9,6 +9,7 @@ const COLOR_GRADIENT = '#FE6B8B';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     background: `linear-gradient(45deg, ${COLOR_GRADIENT} 30%, ${theme.palette.secondary.main} 90%)`,
+    color: 'white',
   },
   link: {
     [theme.breakpoints.up('sm')]: {
