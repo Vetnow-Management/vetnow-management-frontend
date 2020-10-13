@@ -15,6 +15,9 @@
     "url": "https://github.com/Vetnow-Management/vetnow-management-frontend",
     "type": "git"
   },
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "dependencies": {
     "@date-io/date-fns": "1.x",
     "@material-ui/core": "^4.11.0",
