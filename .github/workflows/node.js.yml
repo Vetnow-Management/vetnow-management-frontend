@@ -17,10 +17,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install --production=false --ignore-scripts
+      - run: yarn install --production=false --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{secrets.TOKEN}}
-      - run: CI=false npm run build && npm run prepare --if-present
+      - run: CI=false yarn build
       - id: deploy
         name: Deploy
         uses: idoberko2/dokku-deploy-github-action@v1
