@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm run install --production=false --ignore-scripts
+      - run: npm install --production=false --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{secrets.TOKEN}}
       - run: CI=false npm run build && npm run prepare --if-present
