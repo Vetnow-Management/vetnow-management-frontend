@@ -58,7 +58,7 @@ function SignUpFootMobile(props: SignUpFooterProps): ReactElement {
                 className={classes.marginButton}
                 onClick={ abrirDialog }
         >
-          <DeleteForeverIcon />
+          <DeleteForeverIcon color='error'/>
         </Button>
       </VetFooter>
     );

@@ -9,6 +9,8 @@ class Environment extends AbstractEnvironmentVariables {
 
   public readonly SECONDARY_COLOR: string = '#E17055';
 
+  public readonly ERROR_COLOR: string = '#ff1744';
+
   public constructor() {
     super('REACT_APP');
   }
