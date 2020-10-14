@@ -53,7 +53,7 @@ module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
   appBuild: resolveApp('build'),
-  appPublic: resolveApp('public'),
+  appPublic: resolveApp('public/index.html'),
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveModule(resolveApp, 'src/index'),
   appPackageJson: resolveApp('package.json'),
@@ -62,8 +62,7 @@ module.exports = {
   appJsConfig: resolveApp('jsconfig.json'),
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
-  proxySetup: resolveApp('src/setupProxy.js'),
-  appNodeModules: resolveApp('node_modules'),
+  proxySetup: resolveApp('src/setupProxy.js'),  appNodeModules: resolveApp('node_modules'),
   publicUrlOrPath,
 };
 
