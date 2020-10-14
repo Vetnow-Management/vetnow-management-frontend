@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 
 import {
-  useMediaQuery,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -11,6 +10,8 @@ import {
 } from '@material-ui/core';
 import { Runnable, RunnableImpl } from '@vetnow-management/essentials';
 
+import { VetButton } from '../component';
+
 export default function useDialog(props?: UseDialogProps) {
   const {
     conteudo,
@@ -19,12 +20,10 @@ export default function useDialog(props?: UseDialogProps) {
     botaoAceitarTexto = 'Ok',
     botaoRejeitarTexto = 'Cancelar',
     aoRejeitarCallBack = RunnableImpl,
-    botaoAceitarCor = 'primary',
     botaoRejeitarCor = 'primary'
   } = props ?? {};
 
   const [ isOpen, setIsOpen ] = useState<boolean>(false);
-  const fullScreen = useMediaQuery('(max-width:550px)');
 
   function abrirDialog(): void {
     setIsOpen(true);
@@ -46,8 +45,7 @@ export default function useDialog(props?: UseDialogProps) {
 
   function VetDialog(): ReactElement {
     return (
-      <Dialog fullScreen={fullScreen}
-              open={isOpen}
+      <Dialog open={isOpen}
               onClose={fecharDialog}
               aria-labelledby="vetnow-dialog"
       >
@@ -58,9 +56,9 @@ export default function useDialog(props?: UseDialogProps) {
           <DialogContentText>{ conteudo }</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={aoAceitar} color={botaoAceitarCor}>
+          <VetButton ButtonProps={{autoFocus: true, onClick: aoAceitar }} dangerColor>
             { botaoAceitarTexto }
-          </Button>
+          </VetButton>
           <Button autoFocus onClick={aoRejeitar} color={botaoRejeitarCor}>
             { botaoRejeitarTexto }
           </Button>

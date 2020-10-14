@@ -15,6 +15,9 @@ const materiaUIConfig: Theme = createMuiTheme({
     secondary: {
       main: Environment.SECONDARY_COLOR,
     },
+    error: {
+      main: Environment.ERROR_COLOR,
+    }
   },
   breakpoints: {
     values: {
