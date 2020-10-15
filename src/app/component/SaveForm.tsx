@@ -1,25 +1,30 @@
-import React from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 import { set } from 'idb-keyval';
+import { FormSpy, FormSpyRenderProps } from 'react-final-form';
 
 import { NomesFormularioSistema } from '../domain';
-import { ReactElement, useEffect, useState } from 'react';
-import { FormSpy, FormSpyRenderProps } from 'react-final-form';
 import { IndexDBConfig } from '../config';
+import useAppContext from '../AppContext';
 
-function realizarSave(formName: NomesFormularioSistema, formValues: Record<string, any>): void {
-  set(formName, formValues, IndexDBConfig)
-    .catch((err) => console.log('Erro: ', err))
-}
 
 function SaveFormComponent(props: SaveFormComponent): ReactElement | null {
   const { debounce, values, formName } = props;
   const [ time, setTime ] = useState<NodeJS.Timeout | null>(null);
+  const { snackBarStore: { showSuccess, showError }} = useAppContext();
 
   useEffect(() => {
     if (time) clearTimeout(time);
 
-    const timeOut = setTimeout(() => realizarSave(formName, values), debounce);
+    const timeOut = setTimeout(() => {
+      set(formName, values, IndexDBConfig)
+        .then(() => showSuccess('Formulário salvo'))
+        .catch((err) => {
+          showError('Erro ao salvar formulário')
+          // eslint-disable-next-line no-console
+          console.error(`Erro ao salvar form no indexDB: ${err}`);
+        })
+    }, debounce);
     setTime(timeOut);
 
   }, [ values ]);
