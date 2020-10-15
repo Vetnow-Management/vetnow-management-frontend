@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
 export default function LandingPage(): ReactElement {
   const classes = useStyles();
-  const { goToSignUp } = useRoutes();
+  const { goToSignUp, goToRecoveryPasswordPage } = useRoutes();
 
   return (
     <Form
@@ -69,7 +69,10 @@ export default function LandingPage(): ReactElement {
                 </Grid>
               </Hidden>
               <Grid item container justify='flex-end'>
-                <Button color='secondary'>Esqueci minha senha.</Button>
+                <Button
+                  color='secondary'
+                  onClick={ goToRecoveryPasswordPage }
+                >Esqueci minha senha.</Button>
               </Grid>
             </Grid>
           </Grid>

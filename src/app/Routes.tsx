@@ -2,12 +2,13 @@ import React, { ReactElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { makeStyles, Container } from '@material-ui/core';
 
-import { AuthRoutes, HomeRoutes, LandingPageRoutes } from './page';
+import {AuthRoutes, HomeRoutes, LandingPageRoutes } from './page';
 import { AUTH_PATH_PREFIX } from './page/auth';
 import { HOME_PATH_PREFIX } from './page/home';
 import { LANDING_PAGE_PREFIX } from './page/landing-page';
 import { Bar } from './component';
 import { useBreakpoints } from './hook';
+import {RECOVERY_PASSWORD_PAGE_PREFIX, RecoveryPasswordRoutes} from "./page/recovery-password";
 
 function useStyles(appBarHeight: 56 | 64) {
   return makeStyles((theme) => ({
@@ -47,6 +48,7 @@ export default function Routes(): ReactElement {
             <Route exact path={LANDING_PAGE_PREFIX} component={LandingPageRoutes}/>
             <Route path={AUTH_PATH_PREFIX} component={AuthRoutes}/>
             <Route path={HOME_PATH_PREFIX} component={HomeRoutes}/>
+            <Route path={RECOVERY_PASSWORD_PAGE_PREFIX} component={RecoveryPasswordRoutes}/>
           </Switch>
         </Container>
       </main>
