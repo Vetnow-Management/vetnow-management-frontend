@@ -13,8 +13,7 @@ const useStyles = makeStyles({
   }
 });
 
-
-export default function SignIn(): ReactElement {
+export default function EntrarForm(): ReactElement {
   const classes = useStyles();
   const { goToSignUp } = useRoutes();
 

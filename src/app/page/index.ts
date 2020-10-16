@@ -1,2 +1,2 @@
-export { AuthRoutes } from './autenticacao';
+export { AutenticacaoRotas } from './autenticacao';
 export { HomeRoutes } from './home';

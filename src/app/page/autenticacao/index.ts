@@ -1,9 +1,9 @@
 export {
-  default as AuthRoutes,
+  default as AutenticacaoRotas,
   SIGN_IN_PATH,
   AUTH_PATH_PREFIX,
   SIGN_UP_PATH,
-} from './AuthRoutes';
+} from './AutenticacaoRotas';
 
 export * from './entrar';
 export * from './cadastro';

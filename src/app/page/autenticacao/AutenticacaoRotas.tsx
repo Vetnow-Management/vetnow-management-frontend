@@ -2,14 +2,14 @@ import React, { ReactElement } from 'react';
 
 import { Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 
-import { SignIn, SignUp } from '.';
+import { CadastroForm, EntrarForm } from '.';
 
 export const AUTH_PATH_PREFIX: string = '/auth';
 
 export const SIGN_IN_PATH: string = `${ AUTH_PATH_PREFIX }/sign-in`;
 export const SIGN_UP_PATH: string = `${ AUTH_PATH_PREFIX }/sign-up`;
 
-export default function AuthRoutes({ match, location }: RouteComponentProps): ReactElement {
+export default function AutenticacaoRotas({ match, location }: RouteComponentProps): ReactElement {
   const { path } = match;
   const { pathname } = location;
 
@@ -24,11 +24,11 @@ export default function AuthRoutes({ match, location }: RouteComponentProps): Re
       }
       <Route exact
              path={ SIGN_IN_PATH }
-             component={ SignIn }
+             component={ EntrarForm }
       />
       <Route exact
              path={ SIGN_UP_PATH }
-             component={ SignUp }
+             component={ CadastroForm }
       />
     </Switch>
   );

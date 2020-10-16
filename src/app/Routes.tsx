@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { makeStyles, Container } from '@material-ui/core';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import { AuthRoutes, HomeRoutes } from './page';
+import { AutenticacaoRotas, HomeRoutes } from './page';
 import { AUTH_PATH_PREFIX } from './page/autenticacao';
 import { HOME_PATH_PREFIX } from './page/home';
 import { Bar } from './component';
@@ -44,7 +44,7 @@ export default function Routes(): ReactElement {
         <Container maxWidth="lg" className={classes.container} id='CONTAINER'>
           <Switch>
             <Redirect to={AUTH_PATH_PREFIX} from='/' exact />
-            <Route path={AUTH_PATH_PREFIX} component={AuthRoutes}/>
+            <Route path={AUTH_PATH_PREFIX} component={AutenticacaoRotas}/>
             <Route path={HOME_PATH_PREFIX} component={HomeRoutes}/>
           </Switch>
         </Container>
