@@ -1,11 +1,10 @@
 import React, { ReactElement } from 'react';
-import { Route, Switch } from 'react-router-dom';
 import { makeStyles, Container } from '@material-ui/core';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
-import { AuthRoutes, HomeRoutes, LandingPageRoutes } from './page';
+import { AuthRoutes, HomeRoutes } from './page';
 import { AUTH_PATH_PREFIX } from './page/autenticacao';
 import { HOME_PATH_PREFIX } from './page/home';
-import { LANDING_PAGE_PREFIX } from './page/landing-page';
 import { Bar } from './component';
 import { useBreakpoints } from './hook';
 
@@ -44,7 +43,7 @@ export default function Routes(): ReactElement {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container} id='CONTAINER'>
           <Switch>
-            <Route exact path={LANDING_PAGE_PREFIX} component={LandingPageRoutes}/>
+            <Redirect to={AUTH_PATH_PREFIX} from='/' exact />
             <Route path={AUTH_PATH_PREFIX} component={AuthRoutes}/>
             <Route path={HOME_PATH_PREFIX} component={HomeRoutes}/>
           </Switch>

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { AppBar, createStyles, Hidden, makeStyles, Theme, Toolbar, Typography } from '@material-ui/core';
-import { useRoutes } from '../hook';
+
 import { BtnCadastro } from '.';
+import { useRoutes } from '../hook';
+import { SIGN_IN_PATH } from '../page/autenticacao';
 
 const COLOR_GRADIENT = '#FE6B8B';
 
@@ -52,7 +54,7 @@ export default function Bar() {
             <Typography variant="h6" noWrap className={ classes.toolbarTitle }>
               VETNOW ADMIN
             </Typography>
-            { pathname === '/' &&
+            { pathname === SIGN_IN_PATH &&
             <Hidden xsDown>
               <BtnCadastro
                 onClick={ goToSignUp }
