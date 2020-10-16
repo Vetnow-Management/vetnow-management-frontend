@@ -1,11 +1,11 @@
 import { interval, Observable, of } from 'rxjs';
 
 import { Cadastro } from './dominio';
-import AbstractService from '../AbstractService';
 import { HandleDates } from '../../util/decorators';
 import { delay, timeout } from 'rxjs/operators';
+import { AbstractRestService } from '../AbstractRestService';
 
-class PessoaRestService extends AbstractService {
+class PessoaRestService extends AbstractRestService {
   public constructor() {
     super('pessoa');
   }

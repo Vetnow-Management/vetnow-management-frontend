@@ -5,6 +5,10 @@ class Environment extends AbstractEnvironmentVariables {
 
   public readonly API_URL: string = this.getVariable('API_URL');
 
+  public readonly KEYCLOAK_URL: string = this.getVariable('KEYCLOAK_URL');
+
+  public readonly VIA_CEP_URL: string = this.getVariable('VIA_CEP_URL');
+
   public readonly PRIMARY_COLOR: string = '#0984E3';
 
   public readonly SECONDARY_COLOR: string = '#E17055';
