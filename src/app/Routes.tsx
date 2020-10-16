@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { makeStyles, Container } from '@material-ui/core';
 
 import { AuthRoutes, HomeRoutes, LandingPageRoutes } from './page';
-import { AUTH_PATH_PREFIX } from './page/auth';
+import { AUTH_PATH_PREFIX } from './page/autenticacao';
 import { HOME_PATH_PREFIX } from './page/home';
 import { LANDING_PAGE_PREFIX } from './page/landing-page';
 import { Bar } from './component';

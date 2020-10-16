@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import { Runnable } from '@vetnow-management/essentials';
 
-import { SIGN_IN_PATH, SIGN_UP_PATH } from '../page/auth';
+import { SIGN_IN_PATH, SIGN_UP_PATH } from '../page/autenticacao';
 import { DASHBOARD_PATH } from '../page/home';
 import { LANDING_PAGE_PREFIX } from '../page/landing-page';
 
