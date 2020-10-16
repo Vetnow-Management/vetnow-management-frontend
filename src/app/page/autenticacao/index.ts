@@ -5,5 +5,5 @@ export {
   SIGN_UP_PATH,
 } from './AuthRoutes';
 
-export * from './sign-in';
+export * from './entrar';
 export * from './cadastro';
