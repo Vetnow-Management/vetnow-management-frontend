@@ -4,7 +4,7 @@ import { AppBar, createStyles, Hidden, makeStyles, Theme, Toolbar, Typography } 
 
 import { BtnCadastro } from '.';
 import { useRoutes } from '../hook';
-import { SIGN_IN_PATH } from '../page/autenticacao';
+import { ENTRAR_PATH } from '../page/autenticacao';
 
 const COLOR_GRADIENT = '#FE6B8B';
 
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export default function Bar() {
   const classes = useStyles();
-  const { goToSignUp } = useRoutes();
+  const { irParaCadastro } = useRoutes();
 
   return (
     <Route render={ ({ history: { location: { pathname } } }) => {
@@ -54,10 +54,10 @@ export default function Bar() {
             <Typography variant="h6" noWrap className={ classes.toolbarTitle }>
               VETNOW ADMIN
             </Typography>
-            { pathname === SIGN_IN_PATH &&
+            { pathname === ENTRAR_PATH &&
             <Hidden xsDown>
               <BtnCadastro
-                onClick={ goToSignUp }
+                onClick={ irParaCadastro }
                 descricao="EXPERIMENTE GRÁTIS"
                 ButtonProps={{
                   fullWidth: false,

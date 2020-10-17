@@ -3,7 +3,7 @@ import { makeStyles, Container } from '@material-ui/core';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { AutenticacaoRotas, HomeRoutes } from './page';
-import { AUTH_PATH_PREFIX } from './page/autenticacao';
+import { AUTENTICACAO_PREFIXO } from './page/autenticacao';
 import { HOME_PATH_PREFIX } from './page/home';
 import { Bar } from './component';
 import { useBreakpoints } from './hook';
@@ -43,8 +43,8 @@ export default function Routes(): ReactElement {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container} id='CONTAINER'>
           <Switch>
-            <Redirect to={AUTH_PATH_PREFIX} from='/' exact />
-            <Route path={AUTH_PATH_PREFIX} component={AutenticacaoRotas}/>
+            <Redirect to={AUTENTICACAO_PREFIXO} from='/' exact />
+            <Route path={AUTENTICACAO_PREFIXO} component={AutenticacaoRotas}/>
             <Route path={HOME_PATH_PREFIX} component={HomeRoutes}/>
           </Switch>
         </Container>

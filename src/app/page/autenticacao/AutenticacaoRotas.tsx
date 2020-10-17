@@ -4,30 +4,29 @@ import { Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 
 import { CadastroForm, EntrarForm } from '.';
 
-export const AUTH_PATH_PREFIX: string = '/auth';
-
-export const SIGN_IN_PATH: string = `${ AUTH_PATH_PREFIX }/sign-in`;
-export const SIGN_UP_PATH: string = `${ AUTH_PATH_PREFIX }/sign-up`;
+export const AUTENTICACAO_PREFIXO: string = '/autenticacao';
+export const ENTRAR_PATH: string = `${ AUTENTICACAO_PREFIXO }/entrar`;
+export const CADASTRO_PATH: string = `${ AUTENTICACAO_PREFIXO }/cadastro`;
 
 export default function AutenticacaoRotas({ match, location }: RouteComponentProps): ReactElement {
   const { path } = match;
   const { pathname } = location;
 
-  const canRedirectToSignIn =
-    pathname === AUTH_PATH_PREFIX ||
-    pathname === `${ AUTH_PATH_PREFIX }/`;
+  const podeRedirecionarParaEntrar =
+    pathname === AUTENTICACAO_PREFIXO ||
+    pathname === `${ AUTENTICACAO_PREFIXO }/`;
 
   return (
     <Switch>
       {
-        canRedirectToSignIn && (<Redirect to={ SIGN_IN_PATH } from={ path } />)
+        podeRedirecionarParaEntrar && (<Redirect to={ ENTRAR_PATH } from={ path } />)
       }
       <Route exact
-             path={ SIGN_IN_PATH }
+             path={ ENTRAR_PATH }
              component={ EntrarForm }
       />
       <Route exact
-             path={ SIGN_UP_PATH }
+             path={ CADASTRO_PATH }
              component={ CadastroForm }
       />
     </Switch>

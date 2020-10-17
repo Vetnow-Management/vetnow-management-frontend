@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 
 export default function EntrarForm(): ReactElement {
   const classes = useStyles();
-  const { goToSignUp } = useRoutes();
+  const { irParaCadastro } = useRoutes();
 
   return (
     <Form
@@ -62,7 +62,7 @@ export default function EntrarForm(): ReactElement {
               <Hidden smUp>
                 <Grid container item>
                   <BtnCadastro
-                    onClick={ goToSignUp }
+                    onClick={ irParaCadastro }
                     descricao='EXPERIMENTE GRÁTIS'
                   />
                 </Grid>
