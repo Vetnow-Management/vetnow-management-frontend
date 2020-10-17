@@ -36,7 +36,7 @@ function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
   }, {});
 }
 
-function SignUp(): ReactElement {
+function CadastroForm(): ReactElement {
   const formStateFromDB = useGetFormState<ICadastro>(NomesFormularioSistema.CADASTRO_INICIAL);
 
   const {
@@ -175,4 +175,4 @@ function SignUp(): ReactElement {
   )
 }
 
-export default observer(SignUp);
+export default observer(CadastroForm);

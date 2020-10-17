@@ -19,7 +19,15 @@ const DadosEmpresariaisValidationSchema = yup.object().shape({
       .required()
       .trim()
       .min(5, min(5)),
-    documento: yup.string().required().trim(),
+    documento: yup
+      .string()
+      .required()
+      .trim(),
+      // .test(
+      //   'cnpj',
+      //   cnpj,
+      //   Validation.isCPF
+      // ),
     nitPisPasep: yup.string().trim(),
     dataAbertura: yup
       .date()

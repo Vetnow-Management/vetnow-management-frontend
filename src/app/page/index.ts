@@ -1,4 +1,3 @@
-export { AuthRoutes } from './auth';
+export { AutenticacaoRotas } from './autenticacao';
 export { HomeRoutes } from './home';
-export { LandingPageRoutes } from './landing-page';
 export { RecoveryPassword } from './recovery-password';

@@ -1,12 +1,11 @@
 import React, { ReactElement } from 'react';
 
-import { Button, Grid, Hidden } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { Form } from 'react-final-form';
 import { TextField } from 'mui-rff';
+import { Form } from 'react-final-form';
+import { Button, Grid, Hidden, makeStyles } from '@material-ui/core';
 
-import { BtnCadastro } from '../../component';
-import { useRoutes } from '../../hook';
+import { BtnCadastro } from '../../../component';
+import { useRoutes } from '../../../hook';
 
 const useStyles = makeStyles({
   root: {
@@ -14,9 +13,9 @@ const useStyles = makeStyles({
   }
 });
 
-export default function LandingPage(): ReactElement {
+export default function EntrarForm(): ReactElement {
   const classes = useStyles();
-  const { goToSignUp, goToRecoveryPasswordPage } = useRoutes();
+  const { irParaCadastro, goToRecoveryPasswordPage} = useRoutes();
 
   return (
     <Form
@@ -63,7 +62,7 @@ export default function LandingPage(): ReactElement {
               <Hidden smUp>
                 <Grid container item>
                   <BtnCadastro
-                    onClick={ goToSignUp }
+                    onClick={ irParaCadastro }
                     descricao='EXPERIMENTE GRÁTIS'
                   />
                 </Grid>
