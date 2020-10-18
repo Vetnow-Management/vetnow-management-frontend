@@ -23,6 +23,7 @@ import Routes from './Routes';
 import { Environment } from './util';
 import { BlockUI } from './component';
 import useAppContext, { AppContextProvider } from './AppContext';
+import { GitHubRestService } from './service/github';
 
 const generateClassName = createGenerateClassName({
   productionPrefix: Environment.APP_NAME,
@@ -31,7 +32,12 @@ const generateClassName = createGenerateClassName({
 
 function App() {
   const { blockUIStore: { estaMostrando }} = useAppContext();
-
+  GitHubRestService.obterTags()
+    .subscribe(
+      (res) => {
+        console.log('GH RES: ', res);
+      }
+    )
   return (
     <StylesProvider generateClassName={generateClassName}>
       <MuiThemeProvider theme={ MateriaUIConfig }>
