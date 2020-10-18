@@ -12,7 +12,7 @@ class KeycloakRestService extends AbstractRestService {
     super('auth', Environment.KEYCLOAK_URL);
   }
 
-  public realizarLogin(senha: string, usuario: string): Observable<Token> {
+  public obterToken(senha: string, usuario: string): Observable<Token> {
     const body = {
       client_id: 'vetnow-management-client',
       grant_type: 'password',
@@ -40,10 +40,12 @@ class KeycloakRestService extends AbstractRestService {
       expires_in,
       access_token,
       token_type,
+      refresh_token,
     } = value;
 
     return {
       jwt: access_token,
+      refreshJWT: refresh_token,
       expiresIn: addSeconds(currentDate, expires_in),
       tokenType: token_type,
     };

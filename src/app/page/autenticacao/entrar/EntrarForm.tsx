@@ -6,6 +6,9 @@ import { Button, Grid, Hidden, makeStyles } from '@material-ui/core';
 
 import { BtnCadastro } from '../../../component';
 import { useRoutes } from '../../../hook';
+import { handleRequestError } from '../../../util';
+import { LocalStorageChaves, LocalStorageService, Token, KeycloakRestService } from '../../../service';
+import useAppContext from '../../../AppContext';
 
 const useStyles = makeStyles({
   root: {
@@ -13,14 +16,31 @@ const useStyles = makeStyles({
   }
 });
 
+function realizarLogin(token: Token): void {
+  LocalStorageService.salvar(LocalStorageChaves.TOKEN, token);
+  const tokenSaved = LocalStorageService.obter(LocalStorageChaves.TOKEN).get();
+  console.log('TOKEN FROM LOCALSTORAGE\n: ', tokenSaved);
+}
+
 export default function EntrarForm(): ReactElement {
   const classes = useStyles();
   const { irParaCadastro } = useRoutes();
+  const { snackBarStore: { showSuccess }} = useAppContext();
+
+  function onSubmit({ senha, usuario }: FormData): void {
+      KeycloakRestService.obterToken(senha, usuario)
+        .subscribe(
+          token => {
+            realizarLogin(token);
+            showSuccess('Login realizado com sucesso!')
+          },
+          handleRequestError('Erro ao fazer login')
+        );
+  }
 
   return (
-    <Form
-      onSubmit={ () => {
-      } }
+    <Form<FormData>
+      onSubmit={ onSubmit }
       render={ ({ handleSubmit }) => (
         <form onSubmit={ handleSubmit }>
           <Grid container className={ classes.root } item xs={12} alignItems='center' justify='center'>
@@ -46,6 +66,7 @@ export default function EntrarForm(): ReactElement {
               <Grid container item>
                 <TextField id="outlined-basic"
                            name='senha'
+                           type='password'
                            fullWidth
                            label="Senha"
                            variant="outlined"
@@ -55,6 +76,7 @@ export default function EntrarForm(): ReactElement {
                 <Button fullWidth
                         variant='contained'
                         color='primary'
+                        type='submit'
                 >
                   Acessar
                 </Button>
@@ -76,4 +98,9 @@ export default function EntrarForm(): ReactElement {
       ) }
     />
   );
+}
+
+type FormData = {
+  usuario: string;
+  senha: string;
 }
