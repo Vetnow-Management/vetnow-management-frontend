@@ -7,7 +7,7 @@ import { AUTENTICACAO_PREFIXO } from './page/autenticacao';
 import { HOME_PATH_PREFIX } from './page/home';
 import { Bar } from './component';
 import { useBreakpoints } from './hook';
-import { RECOVERY_PASSWORD_PAGE_PREFIX, RecoveryPasswordRoutes } from "./page/recovery-password";
+import { RECUPERAR_SENHA_PAGE_PREFIX, RecuperarSenhaRotas } from "./page/recuperar-senha";
 
 function useStyles(appBarHeight: 56 | 64) {
   return makeStyles((theme) => ({
@@ -47,7 +47,7 @@ export default function Routes(): ReactElement {
             <Redirect to={AUTENTICACAO_PREFIXO} from='/' exact />
             <Route path={AUTENTICACAO_PREFIXO} component={AutenticacaoRotas}/>
             <Route path={HOME_PATH_PREFIX} component={HomeRoutes}/>
-            <Route path={RECOVERY_PASSWORD_PAGE_PREFIX} component={RecoveryPasswordRoutes}/>
+            <Route path={RECUPERAR_SENHA_PAGE_PREFIX} component={RecuperarSenhaRotas}/>
           </Switch>
         </Container>
       </main>

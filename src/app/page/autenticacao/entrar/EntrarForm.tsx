@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 
 export default function EntrarForm(): ReactElement {
   const classes = useStyles();
-  const { irParaCadastro, goToRecoveryPasswordPage} = useRoutes();
+  const { irParaCadastro, irParaSolicitarAlteracao} = useRoutes();
 
   return (
     <Form
@@ -70,7 +70,7 @@ export default function EntrarForm(): ReactElement {
               <Grid item container justify='flex-end'>
                 <Button
                   color='secondary'
-                  onClick={ goToRecoveryPasswordPage }
+                  onClick={ irParaSolicitarAlteracao }
                 >Esqueci minha senha.</Button>
               </Grid>
             </Grid>
