@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 import { TextField } from 'mui-rff';
 import { observer } from 'mobx-react';
 
-import { ViaCepService } from '../../../../../service';
+import { ViaCepRestService } from '../../../../../service';
 import { FormContainer } from './index';
 import { useSignUpContext } from '../../context';
 import { MaskedTextField } from '../../../../../component';
@@ -32,7 +32,7 @@ function FormEndereco({ objeto }: { objeto?: string }): ReactElement {
 
   function onBlurCEP({ target: { value } }: FocusEvent<HTMLInputElement>) {
     if (value.length >= 8) {
-      ViaCepService.buscarCEP(value).subscribe(
+      ViaCepRestService.buscarCEP(value).subscribe(
         (res) => {
           const names = getName();
 

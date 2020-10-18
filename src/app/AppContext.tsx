@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 
-import { BlockUIStore } from './store';
-import SnackBarStore from './store/SnackBarStore';
-import { DefaultAppContextValue } from './config';
 import { useSnackbar } from 'notistack';
+
+import { DefaultAppContextValue } from './config';
+import { BlockUIStore, SnackBarStore } from './store';
 
 export interface IAppContext {
   blockUIStore: BlockUIStore,
