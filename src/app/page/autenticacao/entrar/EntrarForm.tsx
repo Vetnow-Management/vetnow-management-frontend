@@ -4,11 +4,11 @@ import { TextField } from 'mui-rff';
 import { Form } from 'react-final-form';
 import { Button, Grid, Hidden, makeStyles } from '@material-ui/core';
 
-import { BtnCadastro } from '../../../component';
 import { useRoutes } from '../../../hook';
+import useAppContext from '../../../AppContext';
+import { BtnCadastro } from '../../../component';
 import { handleRequestError } from '../../../util';
 import { LocalStorageChaves, LocalStorageService, Token, KeycloakRestService } from '../../../service';
-import useAppContext from '../../../AppContext';
 
 const useStyles = makeStyles({
   root: {

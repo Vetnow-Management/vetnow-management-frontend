@@ -1,8 +1,5 @@
 import { Optional, Verify } from '@vetnow-management/essentials';
-
-export enum LocalStorageChaves {
-  TOKEN = 'TOKEN',
-}
+import { LocalStorageChaves } from './LocalStorageChaves';
 
 class LocalStorageService {
   public salvar(chave: LocalStorageChaves, valor: NonNullable<unknown>): void {
