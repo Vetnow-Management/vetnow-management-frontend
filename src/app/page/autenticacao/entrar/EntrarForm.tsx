@@ -24,7 +24,7 @@ function realizarLogin(token: Token): void {
 
 export default function EntrarForm(): ReactElement {
   const classes = useStyles();
-  const { irParaCadastro } = useRoutes();
+  const { irParaCadastro, irParaSolicitarAlteracao } = useRoutes();
   const { snackBarStore: { showSuccess }} = useAppContext();
 
   function onSubmit({ senha, usuario }: FormData): void {
@@ -90,7 +90,10 @@ export default function EntrarForm(): ReactElement {
                 </Grid>
               </Hidden>
               <Grid item container justify='flex-end'>
-                <Button color='secondary'>Esqueci minha senha.</Button>
+                <Button
+                  color='secondary'
+                  onClick={ irParaSolicitarAlteracao }
+                >Esqueci minha senha.</Button>
               </Grid>
             </Grid>
           </Grid>
