@@ -31,12 +31,10 @@ jobs:
       matrix:
         node-version: [ 12.x ]
     steps:
-      - id: deploy
-          name: Deploy
-          uses: idoberko2/dokku-deploy-github-action@v1
-          with:
-            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-            dokku-host: ${{ secrets.DOKKU_HOST }}
-            app-name: 'vetnow-management-frontend'
-            remote-branch: 'master'
-            git-push-flags: '--force'
+      - uses: idoberko2/dokku-deploy-github-action@v1
+      - with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          dokku-host: ${{ secrets.DOKKU_HOST }}
+          app-name: 'vetnow-management-frontend'
+          remote-branch: 'master'
+          git-push-flags: '--force'
