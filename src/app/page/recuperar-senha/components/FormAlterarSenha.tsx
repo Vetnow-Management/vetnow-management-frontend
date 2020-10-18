@@ -13,7 +13,7 @@ import useAppContext from "../../../AppContext";
 import ValidacaoRestService from "../../../service/validacao/ValidacaoRestService";
 import {ALTERAR_SENHA, IAlterarSenha} from "../validation-schema";
 import {useRoutes} from "../../../hook";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 
 const useStyles = makeStyles({
   root: {
@@ -37,7 +37,6 @@ export default function FormAlterarSenha(): ReactElement {
   } = useAppContext();
 
   const [usuario, setUsuario] = useState<string | null>(null);
-  const [token, setToken] = useState<string | null>(null);
 
   function alterarSenhaSubmit(usuario: IAlterarSenha): void {
     // @ts-ignore interface gerado pelo yup não reconhece
@@ -47,9 +46,13 @@ export default function FormAlterarSenha(): ReactElement {
         sucesso('Shooow, estamos alterando sua senha.'),
         finalize(naoMostrar),)
       .subscribe(() => {
-        showSuccess(`Maravilhaaaa, o sua senha foi alterada.`);
         routes.irParaEntrar();
-      });
+        sucesso('Maravilhaaaa, o sua senha foi alterada.');
+      }, () => error('Oops, ocorreu um erro ao alterar sua senha.'));
+  }
+
+  function error(mensagem: string): Observable<void> {
+    return of(showError(mensagem));
   }
 
   function sucesso(mensagem: string): UnaryOperator<Observable<any>> {
@@ -58,35 +61,30 @@ export default function FormAlterarSenha(): ReactElement {
   }
 
   useEffect(() => {
-    const token: string = params.token;
-    if (token) {
-      ValidacaoRestService.validarToken(token)
-        .pipe(
-          togglePipeable,
-          sucesso('Heeey, estamos validando seu algumas informações.'),
-          finalize(naoMostrar),
-        )
-        .subscribe(() => {
-          showSuccess('Obaaa, as suas informações se encontra válidas.');
-          setToken(token);
-        }, () => {
-          showError('Ooops, a suas informações para recuperar sua senha estão inválidas,' +
-            ' você pode realizar uma nova solicitação.')
+    const tokenEncontrado: string = params.token;
+    ValidacaoRestService.validarToken(tokenEncontrado)
+      .pipe(
+        togglePipeable,
+        sucesso('Heeey, estamos validando seu algumas informações.'),
+        finalize(naoMostrar),
+      )
+      .subscribe(() => sucesso('Obaaa, as suas informações se encontram válidas.'),
+        () => {
+          error('Ooops, a suas informações para recuperar sua senha estão inválidas,' +
+            ' você pode realizar uma nova solicitação.');
           routes.irParaSolicitarAlteracao();
         });
-    }
   }, [])
 
   useEffect(() => {
-    if (token) {
-      JwtService.descriptar(token)
-        .pipe(
-          togglePipeable,
-          finalize(naoMostrar),
-        )
-        .subscribe(loadParamsToken())
-    }
-  }, [token]);
+    const tokenEncontrado = params.token as string;
+    JwtService.descriptar(tokenEncontrado)
+      .pipe(
+        togglePipeable,
+        finalize(naoMostrar),
+      )
+      .subscribe(loadParamsToken())
+  }, []);
 
   function loadParamsToken(): Consumer<TokenRecuperacaoInterface> {
     return token => setUsuario(token?.recuperacao?.usuario);
