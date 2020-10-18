@@ -7,8 +7,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
     steps:
-      - run: echo "implementar testes"
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install
+      - run: yarn build
+        env:
+          CI: false
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Implementar teste"
