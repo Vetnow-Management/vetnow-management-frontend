@@ -20,9 +20,12 @@ export default function useAppContext(): IAppContext {
 
 export function AppContextProvider({ children }: { children: React.ReactNode }): ReactElement {
   const { Provider } = appContext;
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  DefaultAppContextValue.snackBarStore.snackBarStoreConfiguration(enqueueSnackbar);
+  DefaultAppContextValue.snackBarStore.snackBarStoreConfiguration(
+    enqueueSnackbar,
+    closeSnackbar,
+  );
 
   return (
     <Provider value={DefaultAppContextValue}>

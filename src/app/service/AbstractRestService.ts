@@ -1,7 +1,7 @@
 import AbstractResource from '@vetnow-management/essentials/dist/http/AbstractResource';
 
 import { Environment } from '../util';
-import { onBadRequestResponse } from '../config';
+import { onBadRequestResponse } from '../config/Interceptors';
 
 export abstract class AbstractRestService extends AbstractResource {
   protected constructor(
@@ -15,8 +15,8 @@ export abstract class AbstractRestService extends AbstractResource {
         interceptors: {
           response: {
             onRejected: [
-              onBadRequestResponse
-            ]
+              onBadRequestResponse,
+            ],
           },
         }
       }

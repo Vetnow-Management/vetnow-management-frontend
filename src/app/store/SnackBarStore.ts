@@ -1,19 +1,34 @@
-import { Optional, OptionalBiFunc, Verify } from '@vetnow-management/essentials';
+import { Optional, OptionalBiFunc, OptionalConsumer, Verify } from '@vetnow-management/essentials';
 import { OptionsObject, SnackbarMessage, SnackbarKey, VariantType } from 'notistack';
 
+import { VetSnackBarAction } from '../component';
+
 export default class SnackBarStore {
-  private enqueueSnackbar?: OptionalBiFunc<SnackbarMessage, OptionsObject, SnackbarKey>;
+  private enqueueSnackbar?: IEnqueueSnackbar
+  private closeSnackbar?: ICloseSnackbar;
 
   // todo: Criar decorator pra fazer o bind.this
-  public snackBarStoreConfiguration = (enqueueSnackbar: OptionalBiFunc<SnackbarMessage, OptionsObject, SnackbarKey>): void => {
+  public snackBarStoreConfiguration = (enqueueSnackbar: IEnqueueSnackbar, closeSnackbar: ICloseSnackbar): void => {
     if (Verify.isNullOrUndefined(this.enqueueSnackbar)) {
       this.enqueueSnackbar = enqueueSnackbar;
     } else {
       // eslint-disable-next-line no-console
       console.warn(`
         SnackBarStore#snackBarStoreConfiguration esta sendo chamado desnecessariamente,
-        SnackBarStore ja foi configurada.
-      `)
+        SnackBarStore ja foi configurada.\n
+        enqueueSnackbar ja foi setado
+      `);
+    }
+
+    if (Verify.isNullOrUndefined(this.closeSnackbar)) {
+      this.closeSnackbar = closeSnackbar;
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn(`
+        SnackBarStore#snackBarStoreConfiguration esta sendo chamado desnecessariamente,
+        SnackBarStore ja foi configurada.\n
+        closeSnackbar ja foi setado
+      `);
     }
   }
 
@@ -29,13 +44,20 @@ export default class SnackBarStore {
               vertical: 'bottom',
               horizontal: 'left',
             },
-            ...options,
             variant: variante,
+            persist: variante === 'error',
+            action: (key) => VetSnackBarAction(
+              key,
+              variante === 'error',
+              this.fecharSnackBar,
+              ),
+            ...options,
           })
         },
         () => {
           // eslint-disable-next-line no-console
           console.warn(`
+            Nao foi possivel mostrar SnackBar.\n
             SnackBarStore nao foi inicializada corretamente.
             Tente chamar o metodo SnackBarStore#snackBarStoreConfiguration na root da aplicacao.
           `)
@@ -67,4 +89,23 @@ export default class SnackBarStore {
   public showError = (texto: string): void => {
     this.showToast(texto, 'error')
   }
+
+  private fecharSnackBar = (key: string | number): void => {
+    Optional
+      .from(this.closeSnackbar)
+      .ifPresentOrElse(
+        (closeSnackbarPresent) => closeSnackbarPresent(key),
+        () => {
+          // eslint-disable-next-line no-console
+          console.warn(`
+            Nao foi possivel fechar SnackBar.\n
+            SnackBarStore nao foi inicializada corretamente.
+            Tente chamar o metodo SnackBarStore#snackBarStoreConfiguration na root da aplicacao.
+          `)
+        }
+      )
+  }
 }
+
+type IEnqueueSnackbar = OptionalBiFunc<SnackbarMessage, OptionsObject, SnackbarKey>;
+type ICloseSnackbar = OptionalConsumer<string | number | undefined>;
