@@ -1,4 +1,4 @@
-import HttpStatus from '@vetnow-management/essentials/dist/types/HttpStatus';
+import { HttpStatus } from '@vetnow-management/essentials';
 
 export default interface RespostaErro {
   erro: string;
