@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { Sanitizer } from '@vetnow-management/essentials';
 
 import { ViaCep } from './dominio';
-import { AbstractRestService } from '../AbstractRestService';
 import { Environment } from '../../util';
+import AbstractRestService from '../AbstractRestService';
 
 class ViaCepRestService extends AbstractRestService {
   public constructor() {

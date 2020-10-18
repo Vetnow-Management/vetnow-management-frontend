@@ -3,7 +3,7 @@ import AbstractResource from '@vetnow-management/essentials/dist/http/AbstractRe
 import { Environment } from '../util';
 import { onBadRequestResponse } from '../config';
 
-export abstract class AbstractRestService extends AbstractResource {
+export default abstract class AbstractRestService extends AbstractResource {
   protected constructor(
     private readonly resourceEndpoint: string,
     private readonly dominioURL?: string,

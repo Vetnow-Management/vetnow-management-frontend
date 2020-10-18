@@ -8,7 +8,7 @@ export { default as WithMargin } from './WithMargin';
 export { default as MaskedTextField } from './MaskedTextField';
 export { default as BlockUI } from './BlockUI';
 export { default as BtnCadastro } from './BtnCadastro';
-export { default as Bar } from './Bar';
+export * from './app-bar';
 export { default as Loading } from './Loading'
 export { default as SaveForm } from './SaveForm';
 export { default as VetFooter } from './VetFooter';

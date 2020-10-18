@@ -1,6 +1,8 @@
 import { AbstractEnvironmentVariables } from '@vetnow-management/essentials';
 
 class Environment extends AbstractEnvironmentVariables {
+  public readonly NODE_ENV: string = this.getVariable('NODE_ENV', false);
+
   public readonly APP_NAME: string = 'Veterinario';
 
   public readonly API_URL: string = this.getVariable('API_URL');

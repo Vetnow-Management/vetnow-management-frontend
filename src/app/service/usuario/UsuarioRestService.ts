@@ -1,5 +1,5 @@
 import {Observable} from "rxjs";
-import {AbstractRestService} from "../AbstractRestService";
+import AbstractRestService from '../AbstractRestService';
 
 
 class UsuarioRestService extends AbstractRestService {

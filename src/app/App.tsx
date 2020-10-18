@@ -32,12 +32,6 @@ const generateClassName = createGenerateClassName({
 
 function App() {
   const { blockUIStore: { estaMostrando }} = useAppContext();
-  GitHubRestService.obterTags()
-    .subscribe(
-      (res) => {
-        console.log('GH RES: ', res);
-      }
-    )
   return (
     <StylesProvider generateClassName={generateClassName}>
       <MuiThemeProvider theme={ MateriaUIConfig }>

@@ -1,5 +1,5 @@
-import {AbstractRestService} from "../AbstractRestService";
 import {Observable} from "rxjs";
+import AbstractRestService from '../AbstractRestService';
 
 
 class ValidacaoRestService extends AbstractRestService {

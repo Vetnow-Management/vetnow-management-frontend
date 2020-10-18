@@ -1,11 +1,11 @@
 import queryString from 'querystring';
 import { addSeconds } from 'date-fns';
 
-import { AbstractRestService } from '../AbstractRestService';
 import { Environment } from '../../util';
 import { map } from 'rxjs/operators';
 import { Token } from './dominio';
 import { Observable } from 'rxjs';
+import AbstractRestService from '../AbstractRestService';
 
 class KeycloakRestService extends AbstractRestService {
   public constructor() {

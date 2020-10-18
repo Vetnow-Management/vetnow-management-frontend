@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 
 import { Cadastro } from './dominio';
 import { HandleDates } from '../../util';
-import { AbstractRestService } from '../AbstractRestService';
+import AbstractRestService from '../AbstractRestService';
 
 class PessoaRestService extends AbstractRestService {
   public constructor() {

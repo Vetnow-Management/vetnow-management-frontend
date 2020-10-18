@@ -5,7 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { AutenticacaoRotas, HomeRoutes } from './page';
 import { AUTENTICACAO_PREFIXO } from './page/autenticacao';
 import { HOME_PATH_PREFIX } from './page/home';
-import { Bar } from './component';
+import { VetAppBar } from './component';
 import { useBreakpoints } from './hook';
 import { RECUPERAR_SENHA_PAGE_PREFIX, RecuperarSenhaRotas } from "./page/recuperar-senha";
 
@@ -39,7 +39,7 @@ export default function Routes(): ReactElement {
 
   return (
     <div className={classes.root}>
-      <Bar/>
+      <VetAppBar/>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container} id='CONTAINER'>
