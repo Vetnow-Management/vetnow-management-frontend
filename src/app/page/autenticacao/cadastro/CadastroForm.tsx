@@ -1,29 +1,28 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { Grid } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { Form } from 'react-final-form'
+import { Grid } from '@material-ui/core';
+import { finalize } from 'rxjs/operators';
 import { get as _get, set as _set } from 'lodash-es';
+import { Optional } from '@vetnow-management/essentials';
 import { ValidationError as YupValidationError } from 'yup';
 
-import { SignUpContextProvider, useSignUpContext } from './context';
+import { Steps } from './steps';
+import { SignUpFooter } from './footer';
+import { useGetFormState } from '../../../hook';
 import StepperSignUp from './stepper/StepperSignUp';
+import { NomesFormularioSistema } from '../../../domain';
 import { SaveForm, WithMargin } from '../../../component';
+import { Cadastro, PessoaRestService } from '../../../service';
+import { handleRequestError, TypeSafeGuard } from '../../../util';
+import { SignUpContextProvider, useSignUpContext } from './context';
 import {
   DadosEmpresariaisValidationSchema,
   DadosPessoaisValidationSchema,
   DadosUsuarioValidationSchema,
   ICadastro
 } from './validation-schema';
-import { TypeSafeGuard } from '../../../util';
-import { Steps } from './steps';
-import { NomesFormularioSistema } from '../../../domain';
-import { useGetFormState } from '../../../hook';
-import { Optional } from '@vetnow-management/essentials';
-import CadastroRestService from '../../../service/pessoa/PessoaRestService';
-import { Cadastro } from '../../../service/pessoa/dominio';
-import { SignUpFooter } from './footer';
-import { finalize } from 'rxjs/operators';
 
 function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
   return yupErrors.inner.reduce((errors, { path, message }) => {
@@ -126,8 +125,7 @@ function CadastroForm(): ReactElement {
   }
 
   function onSubmit(payload: Cadastro): void {
-    console.log('payload: ', payload);
-    CadastroRestService
+    PessoaRestService
       .cadastrarResponsavel(payload)
       .pipe(
         toggleBlockUIPipeable,
@@ -135,11 +133,10 @@ function CadastroForm(): ReactElement {
       )
       .subscribe(
         res => console.log('Usuario crido: ', res),
-        err => console.log('Erro ao cadastrar: ', err)
+        handleRequestError('Algo deu errado ao realizar seu cadastro')
       );
   }
 
-  console.log('--------RENDER----------');
   return (
     <SignUpContextProvider>
       <Grid container item style={{ height: 0 }}>

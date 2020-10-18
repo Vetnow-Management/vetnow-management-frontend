@@ -1,8 +1,7 @@
-import { interval, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Cadastro } from './dominio';
-import { HandleDates } from '../../util/decorators';
-import { delay, timeout } from 'rxjs/operators';
+import { HandleDates } from '../../util';
 import { AbstractRestService } from '../AbstractRestService';
 
 class PessoaRestService extends AbstractRestService {
