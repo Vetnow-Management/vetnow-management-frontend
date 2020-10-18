@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -17,6 +18,7 @@ jobs:
       - run: yarn install
       - run: yarn build
   tag:
+    name: Tag
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -25,14 +27,15 @@ jobs:
       - run: yarn version --patch
       - run: git push --tags && git push
   deploy:
+    name: Deploy
     needs: tag
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x ]
     steps:
-      - uses: idoberko2/dokku-deploy-github-action@v1
-      - with:
+      - uses: actions/checkout@master
+      - id: deploy
+        name: Deploy to dokku
+        uses: idoberko2/dokku-deploy-github-action@v1
+        with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           dokku-host: ${{ secrets.DOKKU_HOST }}
           app-name: 'vetnow-management-frontend'
