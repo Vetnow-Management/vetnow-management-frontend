@@ -21,7 +21,7 @@ const DadosPessoaisValidationSchema = yup.object({
     .required(required)
     .trim()
     .min(5, min(5))
-    .max(50, max(5)),
+    .max(50, max(50)),
   dtNascimento: yup
     .date()
     .required(required)
