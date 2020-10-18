@@ -1958,10 +1958,10 @@
   resolved "https://registry.yarnpkg.com/@vetnow-management/eslint-config/-/eslint-config-1.0.2.tgz#1d69b4cebc70112b795c5739847d927273fa23d5"
   integrity sha512-iCCuQOz6goxRmMGA3JAJdnwE7RjCNspOOEhc765KK4dFmKEEi1qaQAWp3A2plBLyeUAn81TBM7sWDV6hmIXJ/g==
 
-"@vetnow-management/essentials@^1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@vetnow-management/essentials/-/essentials-1.0.12.tgz#b9a9922cdd374f159838fb81a828fd36798bd088"
-  integrity sha512-QWSCjN4KNkE1GQ4JHBeeuGA8wY6P9yKdNZhUksuzhz7PdaBvSCVO0hhaQl5nDJwMOr+XXL9MRjymGA0fpBfQhA==
+"@vetnow-management/essentials@^1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@vetnow-management/essentials/-/essentials-1.0.13.tgz#128a2565ca1b606c90b08e5e48f6c69267b887df"
+  integrity sha512-icE6zZJ/RFqmqJHUlzp93cv6FXnGCnubQDSokTHDgHu7LZ/i9kga7nglNlmRNej7hbNcgMxZsqJnLRx1TN+iJA==
   dependencies:
     lodash "^4.17.19"
 

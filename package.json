@@ -44,7 +44,7 @@
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
     "@vetnow-management/eslint-config": "^1.0.2",
-    "@vetnow-management/essentials": "^1.0.12",
+    "@vetnow-management/essentials": "^1.0.13",
     "@vetnow-management/react-library": "^1.0.5",
     "axios": "^0.19.2",
     "axios-observable": "^1.1.3",
