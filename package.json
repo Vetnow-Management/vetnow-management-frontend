@@ -17,7 +17,8 @@
     "type": "git"
   },
   "engines": {
-    "node": ">=2.19.0"
+    "node": "13.8.0",
+    "npm": "3.5.2"
   },
   "dependencies": {
     "@babel/core": "7.9.0",
