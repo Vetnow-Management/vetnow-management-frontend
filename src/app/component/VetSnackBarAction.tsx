@@ -4,6 +4,7 @@ import { Consumer } from '@vetnow-management/essentials';
 
 export default function VetSnackBarAction(
   key: string | number,
+  texto: string,
   podeMostrar: boolean,
   fecharSnackBar: Consumer<string | number>,
   ): ReactNode {
@@ -13,7 +14,7 @@ export default function VetSnackBarAction(
     <Button style={{color: 'white'}}
             onClick={() => fecharSnackBar(key)}
     >
-      Fechar
+      {texto}
     </Button>
   );
 }

@@ -1,4 +1,10 @@
-import { Optional, OptionalBiFunc, OptionalConsumer, Verify } from '@vetnow-management/essentials';
+import {
+  Verify,
+  Runnable,
+  Optional,
+  OptionalBiFunc,
+  OptionalConsumer,
+} from '@vetnow-management/essentials';
 import { OptionsObject, SnackbarMessage, SnackbarKey, VariantType } from 'notistack';
 
 import { VetSnackBarAction } from '../component';
@@ -7,7 +13,6 @@ export default class SnackBarStore {
   private enqueueSnackbar?: IEnqueueSnackbar
   private closeSnackbar?: ICloseSnackbar;
 
-  // todo: Criar decorator pra fazer o bind.this
   public snackBarStoreConfiguration = (enqueueSnackbar: IEnqueueSnackbar, closeSnackbar: ICloseSnackbar): void => {
     if (Verify.isNullOrUndefined(this.enqueueSnackbar)) {
       this.enqueueSnackbar = enqueueSnackbar;
@@ -32,62 +37,24 @@ export default class SnackBarStore {
     }
   }
 
-  // todo: Criar decorator pra fazer o bind.this
-  public showToast = (texto: string, variante: VariantType = 'info', options: OptionsObject = {}): void => {
-    Optional
-      .from(this.enqueueSnackbar)
-      .ifPresentOrElse(
-        (enqueueSnackbarPresent) => {
-          enqueueSnackbarPresent(texto, {
-            autoHideDuration: 5000,
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'left',
-            },
-            variant: variante,
-            persist: variante === 'error',
-            action: (key) => VetSnackBarAction(
-              key,
-              variante === 'error',
-              this.fecharSnackBar,
-              ),
-            ...options,
-          })
-        },
-        () => {
-          // eslint-disable-next-line no-console
-          console.warn(`
-            Nao foi possivel mostrar SnackBar.\n
-            SnackBarStore nao foi inicializada corretamente.
-            Tente chamar o metodo SnackBarStore#snackBarStoreConfiguration na root da aplicacao.
-          `)
-        }
-      )
+  public showDefault = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
+    this.showToast(texto, this.buildOptionalObject('default', opcoesPersonalizadas));
   }
 
-  // todo: Criar decorator pra fazer o bind.this
-  public showDefault = (texto: string): void => {
-    this.showToast(texto, 'default');
+  public showInfo = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
+    this.showToast(texto, this.buildOptionalObject('info', opcoesPersonalizadas));
   }
 
-  // todo: Criar decorator pra fazer o bind.this
-  public showInfo = (texto: string): void => {
-    this.showToast(texto, 'info');
+  public showSuccess = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
+    this.showToast(texto, this.buildOptionalObject('success', opcoesPersonalizadas))
   }
 
-  // todo: Criar decorator pra fazer o bind.this
-  public showSuccess = (texto: string): void => {
-    this.showToast(texto, 'success')
+  public showWarning = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
+    this.showToast(texto, this.buildOptionalObject('warning', opcoesPersonalizadas))
   }
 
-  // todo: Criar decorator pra fazer o bind.this
-  public showWarning = (texto: string): void => {
-    this.showToast(texto, 'warning')
-  }
-
-  // todo: Criar decorator pra fazer o bind.this
-  public showError = (texto: string): void => {
-    this.showToast(texto, 'error')
+  public showError = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
+    this.showToast(texto, this.buildOptionalObject('error', opcoesPersonalizadas));
   }
 
   private fecharSnackBar = (key: string | number): void => {
@@ -105,7 +72,51 @@ export default class SnackBarStore {
         }
       )
   }
+
+  private showToast = (texto: string, opcoes: OptionsObject): void => {
+    Optional
+      .from(this.enqueueSnackbar)
+      .ifPresentOrElse(
+        (enqueueSnackbarPresent) => {
+          enqueueSnackbarPresent(texto, opcoes)
+        },
+        () => {
+          // eslint-disable-next-line no-console
+          console.warn(`
+            Nao foi possivel mostrar SnackBar.\n
+            SnackBarStore nao foi inicializada corretamente.
+            Tente chamar o metodo SnackBarStore#snackBarStoreConfiguration na root da aplicacao.
+          `)
+        }
+      )
+  }
+
+  private buildOptionalObject = (variante: VariantType, opcoesPersonalizadas: IOpcoesPersonalizadas = {}): IOpcoesPersonalizadas => ({
+    autoHideDuration: 5000,
+    anchorOrigin: {
+      vertical: 'bottom',
+      horizontal: 'left',
+    },
+    variant: variante,
+    persist: variante === 'error',
+    action: (key) => VetSnackBarAction(
+      key,
+      opcoesPersonalizadas?.textoBotao ?? 'Fechar',
+      opcoesPersonalizadas?.mostrarBotao ?? variante === 'error',
+      (key) => {
+        this.fecharSnackBar(key);
+        if (opcoesPersonalizadas?.aoClicarParaFecharSnackBar) opcoesPersonalizadas.aoClicarParaFecharSnackBar();
+      },
+    ),
+    ...opcoesPersonalizadas,
+  })
 }
+
+type IOpcoesPersonalizadas = {
+  aoClicarParaFecharSnackBar?: Runnable;
+  mostrarBotao?: boolean;
+  textoBotao?: string;
+} & OptionsObject;
 
 type IEnqueueSnackbar = OptionalBiFunc<SnackbarMessage, OptionsObject, SnackbarKey>;
 type ICloseSnackbar = OptionalConsumer<string | number | undefined>;
