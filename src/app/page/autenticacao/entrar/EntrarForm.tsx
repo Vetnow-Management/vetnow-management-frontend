@@ -25,14 +25,14 @@ function realizarLogin(token: Token): void {
 export default function EntrarForm(): ReactElement {
   const classes = useStyles();
   const { irParaCadastro, irParaSolicitarAlteracao } = useRoutes();
-  const { snackBarStore: { showSuccess }} = useAppContext();
+  const { snackBarStore: { mostrarSucesso }} = useAppContext();
 
   function onSubmit({ senha, usuario }: FormData): void {
       KeycloakRestService.obterToken(senha, usuario)
         .subscribe(
           token => {
             realizarLogin(token);
-            showSuccess('Login realizado com sucesso!')
+            mostrarSucesso('Login realizado com sucesso!')
           },
           handleRequestError('Erro ao fazer login')
         );

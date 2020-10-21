@@ -11,16 +11,16 @@ import { NomesFormularioSistema } from '../domain';
 function SaveFormComponent(props: SaveFormComponent): ReactElement | null {
   const { debounce, values, formName } = props;
   const [ time, setTime ] = useState<NodeJS.Timeout | null>(null);
-  const { snackBarStore: { showInfo, showError }} = useAppContext();
+  const { snackBarStore: { mostrarInfo, mostrarErro }} = useAppContext();
 
   useEffect(() => {
     if (time) clearTimeout(time);
 
     const timeOut = setTimeout(() => {
       set(formName, values, IndexDBConfig)
-        .then(() => showInfo('Formulário salvo'))
+        .then(() => mostrarInfo('Formulário salvo'))
         .catch((err) => {
-          showError('Erro ao salvar formulário')
+          mostrarErro('Erro ao salvar formulário')
           // eslint-disable-next-line no-console
           console.error(`Erro ao salvar form no indexDB: ${err}`);
         })

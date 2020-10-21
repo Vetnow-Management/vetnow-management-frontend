@@ -11,9 +11,9 @@ export default function handleRequestError(
   ): Consumer<Error> {
   return (err) => {
     if (err?.message === 'Request failed with status code 500') {
-      DefaultAppContextValue.snackBarStore.showError(msgQuandoOcorrerInternalServerErro);
+      DefaultAppContextValue.snackBarStore.mostrarErro(msgQuandoOcorrerInternalServerErro);
     } else if(err?.message !== 'Request failed with status code 400') {
-      DefaultAppContextValue.snackBarStore.showError(msgQuandoOCorrerErro);
+      DefaultAppContextValue.snackBarStore.mostrarErro(msgQuandoOCorrerErro);
     }
 
     // eslint-disable-next-line no-console

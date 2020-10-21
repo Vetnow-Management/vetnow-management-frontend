@@ -13,7 +13,7 @@ export default class SnackBarStore {
   private enqueueSnackbar?: IEnqueueSnackbar
   private closeSnackbar?: ICloseSnackbar;
 
-  public snackBarStoreConfiguration = (enqueueSnackbar: IEnqueueSnackbar, closeSnackbar: ICloseSnackbar): void => {
+  public snackBarStoreConfiguracao = (enqueueSnackbar: IEnqueueSnackbar, closeSnackbar: ICloseSnackbar): void => {
     if (Verify.isNullOrUndefined(this.enqueueSnackbar)) {
       this.enqueueSnackbar = enqueueSnackbar;
     } else {
@@ -37,24 +37,24 @@ export default class SnackBarStore {
     }
   }
 
-  public showDefault = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
-    this.showToast(texto, this.buildOptionalObject('default', opcoesPersonalizadas));
+  public mostrarPadrao = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
+    this.mostrarSnackBar(texto, this.construirOptionalObject('default', opcoesPersonalizadas));
   }
 
-  public showInfo = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
-    this.showToast(texto, this.buildOptionalObject('info', opcoesPersonalizadas));
+  public mostrarInfo = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
+    this.mostrarSnackBar(texto, this.construirOptionalObject('info', opcoesPersonalizadas));
   }
 
-  public showSuccess = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
-    this.showToast(texto, this.buildOptionalObject('success', opcoesPersonalizadas))
+  public mostrarSucesso = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
+    this.mostrarSnackBar(texto, this.construirOptionalObject('success', opcoesPersonalizadas))
   }
 
-  public showWarning = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
-    this.showToast(texto, this.buildOptionalObject('warning', opcoesPersonalizadas))
+  public mostrarAlerta = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
+    this.mostrarSnackBar(texto, this.construirOptionalObject('warning', opcoesPersonalizadas))
   }
 
-  public showError = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
-    this.showToast(texto, this.buildOptionalObject('error', opcoesPersonalizadas));
+  public mostrarErro = (texto: string, opcoesPersonalizadas?: IOpcoesPersonalizadas): void => {
+    this.mostrarSnackBar(texto, this.construirOptionalObject('error', opcoesPersonalizadas));
   }
 
   private fecharSnackBar = (key: string | number): void => {
@@ -73,13 +73,11 @@ export default class SnackBarStore {
       )
   }
 
-  private showToast = (texto: string, opcoes: OptionsObject): void => {
+  private mostrarSnackBar = (texto: string, opcoes: OptionsObject): void => {
     Optional
       .from(this.enqueueSnackbar)
       .ifPresentOrElse(
-        (enqueueSnackbarPresent) => {
-          enqueueSnackbarPresent(texto, opcoes)
-        },
+        (enqueueSnackbarPresent) => enqueueSnackbarPresent(texto, opcoes),
         () => {
           // eslint-disable-next-line no-console
           console.warn(`
@@ -91,7 +89,7 @@ export default class SnackBarStore {
       )
   }
 
-  private buildOptionalObject = (variante: VariantType, opcoesPersonalizadas: IOpcoesPersonalizadas = {}): IOpcoesPersonalizadas => ({
+  private construirOptionalObject = (variante: VariantType, opcoesPersonalizadas: IOpcoesPersonalizadas = {}): IOpcoesPersonalizadas => ({
     autoHideDuration: 5000,
     anchorOrigin: {
       vertical: 'bottom',

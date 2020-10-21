@@ -135,7 +135,7 @@ function CadastroForm(): ReactElement {
       )
       .subscribe(
         async () => {
-          snackBarStore.showSuccess('Cadastro realizado com sucesso');
+          snackBarStore.mostrarSucesso('Cadastro realizado com sucesso');
           irParaEntrar();
           await formStateFromDB.remover();
         },

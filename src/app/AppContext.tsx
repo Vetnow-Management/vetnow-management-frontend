@@ -22,7 +22,7 @@ export function AppContextProvider({ children }: { children: React.ReactNode }):
   const { Provider } = appContext;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  DefaultAppContextValue.snackBarStore.snackBarStoreConfiguration(
+  DefaultAppContextValue.snackBarStore.snackBarStoreConfiguracao(
     enqueueSnackbar,
     closeSnackbar,
   );
