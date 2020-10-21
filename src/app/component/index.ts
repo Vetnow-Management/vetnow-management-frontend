@@ -14,3 +14,4 @@ export { default as SaveForm } from './SaveForm';
 export { default as VetFooter } from './VetFooter';
 export { default as VetButton } from './VetButton';
 export { default as VetSnackBarAction } from './VetSnackBarAction'
+export { default as VetSenhaInput } from './VetSenhaInput';

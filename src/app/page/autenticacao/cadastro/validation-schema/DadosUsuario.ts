@@ -7,8 +7,8 @@ const {
 
 const DadosUsuarioValidationSchema = yup.object().shape({
   usuario: yup.object().shape({
-    usuario: yup.string().required().trim(),
-    senha: yup.string().required().trim(),
+    usuario: yup.string().required(required).trim(),
+    senha: yup.string().required(required).trim(),
     perfil: yup.string().required(required).trim(),
   })
 });

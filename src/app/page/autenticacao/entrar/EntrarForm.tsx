@@ -6,7 +6,7 @@ import { Button, Grid, Hidden, makeStyles } from '@material-ui/core';
 
 import { useRoutes } from '../../../hook';
 import useAppContext from '../../../AppContext';
-import { BtnCadastro } from '../../../component';
+import { BtnCadastro, VetSenhaInput } from '../../../component';
 import { handleRequestError } from '../../../util';
 import { LocalStorageChaves, LocalStorageService, Token, KeycloakRestService } from '../../../service';
 
@@ -64,12 +64,11 @@ export default function EntrarForm(): ReactElement {
               </Grid>
 
               <Grid container item>
-                <TextField id="outlined-basic"
-                           name='senha'
-                           type='password'
-                           fullWidth
-                           label="Senha"
-                           variant="outlined"
+                <VetSenhaInput id="outlined-basic"
+                               name='senha'
+                               fullWidth
+                               label="Senha"
+                               variant="outlined"
                 />
               </Grid>
               <Grid container item>
