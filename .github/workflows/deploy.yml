@@ -1,0 +1,47 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install
+      - run: yarn build
+        env:
+          CI: false
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - id: deploy
+        name: Deploy to dokku
+        uses: idoberko2/dokku-deploy-github-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          dokku-host: ${{ secrets.DOKKU_HOST }}
+          app-name: 'vetnow-management-frontend'
+          remote-branch: 'master'
+          git-push-flags: '--force'
+
+  tag:
+    name: Tag
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com" && git config --global user.name "$GITHUB_ACTOR"
+      - run: yarn version --patch
+      - run: git push --tags && git push

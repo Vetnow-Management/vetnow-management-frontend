@@ -3,8 +3,8 @@ const SchemaMessages = {
   cpf: 'CPF inválido',
   cnpj: 'CNPJ inválido',
   email: 'E-mail inválido',
-  min: (value: number) => `Mínimo de ${value} letras`,
-  max: (value: number) => `Máximo de ${value} letras`,
+  min: (value: number) => `Mínimo de ${value} caracteres`,
+  max: (value: number) => `Máximo de ${value} caracteres`,
 }
 
 export default SchemaMessages;

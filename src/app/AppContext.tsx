@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 
-import { BlockUIStore } from './store';
-import SnackBarStore from './store/SnackBarStore';
-import { DefaultAppContextValue } from './config';
 import { useSnackbar } from 'notistack';
+
+import { DefaultAppContextValue } from './config';
+import { BlockUIStore, SnackBarStore } from './store';
 
 export interface IAppContext {
   blockUIStore: BlockUIStore,
@@ -20,9 +20,12 @@ export default function useAppContext(): IAppContext {
 
 export function AppContextProvider({ children }: { children: React.ReactNode }): ReactElement {
   const { Provider } = appContext;
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  DefaultAppContextValue.snackBarStore.snackBarStoreConfiguration(enqueueSnackbar);
+  DefaultAppContextValue.snackBarStore.snackBarStoreConfiguracao(
+    enqueueSnackbar,
+    closeSnackbar,
+  );
 
   return (
     <Provider value={DefaultAppContextValue}>

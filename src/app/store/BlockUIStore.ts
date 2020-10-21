@@ -1,5 +1,6 @@
 import { action, computed, observable } from 'mobx';
-import { Observable } from 'rxjs';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Observable, pipe } from 'rxjs';
 
 export default class BlockUIStore {
 
@@ -11,6 +12,18 @@ export default class BlockUIStore {
     this._mostrar = !this._mostrar;
   }
 
+  /**
+   * Metodo para ser usado dentro do {@link pipe} do RXJS
+   * <p>
+   *   <b>Ex:</b>
+   *   <pre>
+   *     ExemploRestService
+   *       .getRecurso()
+   *       .pipe(togglePipeable)
+   *       .subscribe()
+   *   </pre>
+   * </p>
+   */
   @action.bound
   public togglePipeable<A>(source: Observable<A>): Observable<A> {
     this.toggle();

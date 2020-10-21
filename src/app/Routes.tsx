@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react';
-import { Route, Switch } from 'react-router-dom';
 import { makeStyles, Container } from '@material-ui/core';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
-import { AuthRoutes, HomeRoutes, LandingPageRoutes } from './page';
-import { AUTH_PATH_PREFIX } from './page/auth';
+import { AutenticacaoRotas, HomeRoutes } from './page';
+import { AUTENTICACAO_PREFIXO } from './page/autenticacao';
 import { HOME_PATH_PREFIX } from './page/home';
-import { LANDING_PAGE_PREFIX } from './page/landing-page';
 import { Bar } from './component';
 import { useBreakpoints } from './hook';
+import { RECUPERAR_SENHA_PAGE_PREFIX, RecuperarSenhaRotas } from "./page/recuperar-senha";
 
 function useStyles(appBarHeight: 56 | 64) {
   return makeStyles((theme) => ({
@@ -44,9 +44,10 @@ export default function Routes(): ReactElement {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container} id='CONTAINER'>
           <Switch>
-            <Route exact path={LANDING_PAGE_PREFIX} component={LandingPageRoutes}/>
-            <Route path={AUTH_PATH_PREFIX} component={AuthRoutes}/>
+            <Redirect to={AUTENTICACAO_PREFIXO} from='/' exact />
+            <Route path={AUTENTICACAO_PREFIXO} component={AutenticacaoRotas}/>
             <Route path={HOME_PATH_PREFIX} component={HomeRoutes}/>
+            <Route path={RECUPERAR_SENHA_PAGE_PREFIX} component={RecuperarSenhaRotas}/>
           </Switch>
         </Container>
       </main>

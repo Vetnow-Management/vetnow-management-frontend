@@ -1,3 +1,3 @@
-export { AuthRoutes } from './auth';
+export { AutenticacaoRotas } from './autenticacao';
 export { HomeRoutes } from './home';
-export { LandingPageRoutes } from './landing-page';
+export { RecuperarSenhaRotas } from './recuperar-senha';
