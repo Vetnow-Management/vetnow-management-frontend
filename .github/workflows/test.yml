@@ -1,22 +1,24 @@
-name: Test
-
-on:
-  pull_request:
-    branches: [ master ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: yarn install
-      - run: yarn build
-        env:
-          CI: false
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Implementar teste"
+# todo: Descomentar quando tiver com testes pra rodar
+#name: Test
+#
+#on:
+#  pull_request:
+#    branches: [ master ]
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: 12
+#      - run: yarn install
+#      - run: yarn build
+#        env:
+#          CI: false
+#  test:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    steps:
+#      - run: echo "Implementar teste"

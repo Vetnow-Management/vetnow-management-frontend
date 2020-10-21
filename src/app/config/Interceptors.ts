@@ -5,6 +5,6 @@ import DefaultAppContextValue from './DefaultAppContextValue';
 
 export function onBadRequestResponse(request: AxiosResponse<RespostaErro>): void {
   if (request?.status === HttpStatus.BAD_REQUEST) {
-    DefaultAppContextValue.snackBarStore.showError(request?.data?.mensagem);
+    DefaultAppContextValue.snackBarStore.mostrarErro(request?.data?.mensagem);
   }
 }

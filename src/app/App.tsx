@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Router } from 'react-router-dom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -29,9 +29,18 @@ const generateClassName = createGenerateClassName({
   seed: Environment.APP_NAME,
 })
 
-function App() {
-  const { blockUIStore: { estaMostrando }} = useAppContext();
+const SetUpBlockUI = observer((): ReactElement => {
+    const { blockUIStore: { estaMostrando }} = useAppContext();
 
+    return (
+      <BlockUI isOpen={estaMostrando}>
+        <Routes />
+      </BlockUI>
+    )
+  }
+);
+
+export default function App() {
   return (
     <StylesProvider generateClassName={generateClassName}>
       <MuiThemeProvider theme={ MateriaUIConfig }>
@@ -40,9 +49,7 @@ function App() {
             <Router history={ HistoryConfig }>
               <AppContextProvider>
                 <CssBaseline />
-                <BlockUI isOpen={estaMostrando}>
-                  <Routes />
-                </BlockUI>
+                <SetUpBlockUI />
               </AppContextProvider>
             </Router>
           </SnackbarProvider>
@@ -51,5 +58,3 @@ function App() {
     </StylesProvider>
   );
 }
-
-export default observer(App);

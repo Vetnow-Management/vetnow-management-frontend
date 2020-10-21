@@ -19,7 +19,7 @@ export default function FormSolicitarAlteracao(): ReactElement {
   const classes = useStyles();
   const validacoes = makeValidate(SOLICITAR_SENHA);
   const {
-    snackBarStore: {showSuccess, showError},
+    snackBarStore: {mostrarSucesso},
     blockUIStore: {
       togglePipeable,
       naoMostrar
@@ -30,7 +30,7 @@ export default function FormSolicitarAlteracao(): ReactElement {
     const {email} = usuario;
     UsuarioRestService.solicitarAlteracaoSenha(email as string)
       .pipe(togglePipeable, finalize(naoMostrar))
-      .subscribe(() => showSuccess(`Enviamos um e-mail recuperação para ${email}`));
+      .subscribe(() => mostrarSucesso(`Enviamos um e-mail recuperação para ${email}`));
   }
 
   return (

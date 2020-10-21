@@ -29,7 +29,7 @@ export default function FormAlterarSenha(): ReactElement {
   const routes = useRoutes();
 
   const {
-    snackBarStore: {showSuccess, showError},
+    snackBarStore: {mostrarSucesso, mostrarErro},
     blockUIStore: {
       togglePipeable,
       naoMostrar
@@ -52,11 +52,11 @@ export default function FormAlterarSenha(): ReactElement {
   }
 
   function error(mensagem: string): Observable<void> {
-    return of(showError(mensagem));
+    return of(mostrarErro(mensagem));
   }
 
   function sucesso(mensagem: string): UnaryOperator<Observable<any>> {
-    showSuccess(mensagem);
+    mostrarSucesso(mensagem);
     return observable => observable;
   }
 

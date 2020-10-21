@@ -10,7 +10,7 @@ import { ValidationError as YupValidationError } from 'yup';
 
 import { Steps } from './steps';
 import { SignUpFooter } from './footer';
-import { useGetFormState } from '../../../hook';
+import { useBackupFormState, useRoutes } from '../../../hook';
 import StepperSignUp from './stepper/StepperSignUp';
 import { NomesFormularioSistema } from '../../../domain';
 import { SaveForm, WithMargin } from '../../../component';
@@ -36,15 +36,17 @@ function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
 }
 
 function CadastroForm(): ReactElement {
-  const formStateFromDB = useGetFormState<ICadastro>(NomesFormularioSistema.CADASTRO_INICIAL);
-
+  const formStateFromDB = useBackupFormState<ICadastro>(NomesFormularioSistema.CADASTRO_INICIAL);
   const {
     formularioCadastro,
     blockUIStore: {
       toggle: toggleBlockUI,
       togglePipeable: toggleBlockUIPipeable,
-    }
+    },
+    snackBarStore,
   } = useSignUpContext();
+
+  const { irParaEntrar } = useRoutes();
 
   const [formErros, _setFormErros] = useState({
     isDadosPessoaisValid: false,
@@ -56,7 +58,7 @@ function CadastroForm(): ReactElement {
     if (formularioCadastro.setField) {
       formularioCadastro.setField()('tipoPessoa', 'RESPONSAVEL');
       formularioCadastro.setField()('usuario.perfil', 'ADMINISTRADOR');
-      formStateFromDB.then((value) => {
+      formStateFromDB.obter().then((value) => {
         Optional.from(value)
           .ifPresent((valuePresent) => {
             // @ts-ignore: Arrumar no util, colocar pra isso nunca ser null
@@ -132,7 +134,11 @@ function CadastroForm(): ReactElement {
         finalize(toggleBlockUI),
       )
       .subscribe(
-        res => console.log('Usuario crido: ', res),
+        async () => {
+          snackBarStore.mostrarSucesso('Cadastro realizado com sucesso');
+          irParaEntrar();
+          await formStateFromDB.remover();
+        },
         handleRequestError('Algo deu errado ao realizar seu cadastro')
       );
   }
