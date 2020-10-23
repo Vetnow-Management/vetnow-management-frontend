@@ -1,8 +1,11 @@
 import { makeStyles } from '@material-ui/core';
 
+import { useForm } from 'react-final-form';
+
 import { SignUpFooterProps } from './types';
-import { useDialog } from '../../../../hook';
 import { useSignUpContext } from '../context';
+import { NomesFormularioSistema } from '../../../../domain';
+import { useBackupFormState, useDialog } from '../../../../hook';
 
 const useStyle = makeStyles({
   marginButton: {
@@ -15,6 +18,11 @@ export default function useSignUpFooterHelper(props: SignUpFooterProps) {
     formErros,
   } = props;
 
+  // @ts-ignore: todo: remover ts ignore quando esse PR gerar versao
+  // pr: https://github.com/final-form/final-form/pull/374
+  const { restart } = useForm();
+  const { remover } = useBackupFormState(NomesFormularioSistema.CADASTRO_INICIAL);
+
   const {
     stepperStore: {
       currentStep,
@@ -22,9 +30,6 @@ export default function useSignUpFooterHelper(props: SignUpFooterProps) {
       proximoStep,
       estaNoUltimoStep,
       irParaPrimeiroStep,
-    },
-    formularioCadastro: {
-      resetForm,
     }
   } = useSignUpContext();
 
@@ -33,8 +38,9 @@ export default function useSignUpFooterHelper(props: SignUpFooterProps) {
     botaoAceitarTexto: 'Apagar',
     conteudo: 'Tem certeza que deja limpar todo formulario?',
     titulo: 'Limpar Formulario',
-    aoAceitarCallBack: () => {
-      limparForm();
+    aoAceitarCallBack: async () => {
+      restart({});
+      await remover()
       irParaPrimeiroStep();
     },
   });
@@ -56,10 +62,6 @@ export default function useSignUpFooterHelper(props: SignUpFooterProps) {
     if (currentStep === 0 && !isDadosPessoaisValid) return true;
     if (currentStep === 1 && !isDadosEmpresariaisValid) return true;
     return currentStep === 2 && !isDadosUsuariosValid;
-  }
-
-  function limparForm(): void {
-    if (resetForm) resetForm();
   }
 
   const salvarToolTip = canSubmit

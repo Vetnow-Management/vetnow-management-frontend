@@ -4,7 +4,8 @@ import { Grid } from '@material-ui/core';
 import { DatePicker, TextField } from 'mui-rff';
 
 import { FormContainer, FormContato, FormEndereco, } from './components';
-import { MaskedTextField } from '../../../../component';
+import { VetMaskedTextField } from '../../../../component';
+import { Sanitizer } from '@vetnow-management/essentials';
 
 function DadosPessoaisStep(): ReactElement {
   return (
@@ -30,11 +31,14 @@ function DadosPessoaisStep(): ReactElement {
             />
           </Grid>
           <Grid item xs={ 12 } sm={ 6 }>
-            <MaskedTextField fullWidth
-                             required
-                             name='documento'
-                             label='CPF'
-                             options={{
+            <VetMaskedTextField fullWidth
+                                required
+                                name='documento'
+                                label='CPF'
+                                fieldProps={{
+                                  parse: Sanitizer.cpf,
+                                }}
+                                options={{
                                delimiters: ['.', '.', '-'],
                                blocks: [3, 3, 3, 2],
                                numericOnly: true,

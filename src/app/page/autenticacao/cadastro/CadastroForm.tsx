@@ -5,15 +5,14 @@ import { Form } from 'react-final-form'
 import { Grid } from '@material-ui/core';
 import { finalize } from 'rxjs/operators';
 import { get as _get, set as _set } from 'lodash-es';
-import { Optional } from '@vetnow-management/essentials';
 import { ValidationError as YupValidationError } from 'yup';
 
 import { Steps } from './steps';
 import { SignUpFooter } from './footer';
-import { useBackupFormState, useRoutes } from '../../../hook';
 import StepperSignUp from './stepper/StepperSignUp';
 import { NomesFormularioSistema } from '../../../domain';
 import { SaveForm, WithMargin } from '../../../component';
+import { useBackupFormState, useRoutes } from '../../../hook';
 import { Cadastro, PessoaRestService } from '../../../service';
 import { handleRequestError, TypeSafeGuard } from '../../../util';
 import { SignUpContextProvider, useSignUpContext } from './context';
@@ -21,7 +20,6 @@ import {
   DadosEmpresariaisValidationSchema,
   DadosPessoaisValidationSchema,
   DadosUsuarioValidationSchema,
-  ICadastro
 } from './validation-schema';
 
 function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
@@ -36,9 +34,8 @@ function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
 }
 
 function CadastroForm(): ReactElement {
-  const formStateFromDB = useBackupFormState<ICadastro>(NomesFormularioSistema.CADASTRO_INICIAL);
+  const formStateFromDB = useBackupFormState<Cadastro>(NomesFormularioSistema.CADASTRO_INICIAL);
   const {
-    formularioCadastro,
     blockUIStore: {
       toggle: toggleBlockUI,
       togglePipeable: toggleBlockUIPipeable,
@@ -47,31 +44,19 @@ function CadastroForm(): ReactElement {
   } = useSignUpContext();
 
   const { irParaEntrar } = useRoutes();
-
+  const [ valorInicial, setValorInicial ] = useState<Cadastro | undefined>(undefined);
   const [formErros, _setFormErros] = useState({
     isDadosPessoaisValid: false,
-    isDadosEmpresariaisValid: false,
     isDadosUsuariosValid: false,
+    isDadosEmpresariaisValid: false,
   });
 
   useEffect(() => {
-    if (formularioCadastro.setField) {
-      formularioCadastro.setField()('tipoPessoa', 'RESPONSAVEL');
-      formularioCadastro.setField()('usuario.perfil', 'ADMINISTRADOR');
-      formStateFromDB.obter().then((value) => {
-        Optional.from(value)
-          .ifPresent((valuePresent) => {
-            // @ts-ignore: Arrumar no util, colocar pra isso nunca ser null
-            Object.keys(valuePresent)
-              .forEach(key => {
-                if(formularioCadastro.setField) {
-                  // @ts-ignore: GGWP
-                  formularioCadastro.setField()(key, valuePresent[key]);
-                }
-              })
-          })
+    formStateFromDB.obter().then((value) => {
+      value.ifPresent((valuePresent) => {
+        setValorInicial(valuePresent);
       })
-    }
+    });
   }, []);
 
   function setFormErros(formName: 'isDadosPessoaisValid' | 'isDadosEmpresariaisValid' | 'isDadosUsuariosValid', value: boolean = true): void {
@@ -127,20 +112,21 @@ function CadastroForm(): ReactElement {
   }
 
   function onSubmit(payload: Cadastro): void {
-    PessoaRestService
-      .cadastrarResponsavel(payload)
-      .pipe(
-        toggleBlockUIPipeable,
-        finalize(toggleBlockUI),
-      )
-      .subscribe(
-        async () => {
-          snackBarStore.mostrarSucesso('Cadastro realizado com sucesso');
-          irParaEntrar();
-          await formStateFromDB.remover();
-        },
-        handleRequestError('Algo deu errado ao realizar seu cadastro')
-      );
+    console.log('Pay: ', payload);
+    // PessoaRestService
+    //   .cadastrarResponsavel(payload)
+    //   .pipe(
+    //     toggleBlockUIPipeable,
+    //     finalize(toggleBlockUI),
+    //   )
+    //   .subscribe(
+    //     async () => {
+    //       snackBarStore.mostrarSucesso('Cadastro realizado com sucesso');
+    //       irParaEntrar();
+    //       await formStateFromDB.remover();
+    //     },
+    //     handleRequestError('Algo deu errado ao realizar seu cadastro')
+    //   );
   }
 
   return (
@@ -152,24 +138,27 @@ function CadastroForm(): ReactElement {
         <Grid container item alignItems='flex-start' xs={12}>
           <WithMargin margin='10px'>
             <Form<Cadastro> onSubmit={ onSubmit }
-                  validate={ (validateForm) }
-                  mutators={{
-                    setField: (_, state, {changeValue}) =>
-                      (fieldName: string, fieldValue: string) =>
-                        changeValue(state, fieldName, () => fieldValue),
-                  }}
-                  render={ ({ handleSubmit, form, values }) => {
-                    formularioCadastro.setField = form.mutators.setField
-                    formularioCadastro.field = values;
-                    formularioCadastro.resetForm = form.reset;
-                    return (
-                      <form noValidate onSubmit={ handleSubmit }>
-                        <SaveForm debounce={1000} formName={NomesFormularioSistema.CADASTRO_INICIAL}/>
-                        <Steps />
-                        <SignUpFooter formErros={formErros} />
-                      </form>
-                    )
-                  } }
+                            validate={ validateForm }
+                            initialValues={valorInicial}
+                            mutators={{
+                              setFieldTouched: (args, state, tools) => {
+                                //fixme: arrumar, se criar outro form ele funciona
+                                const [name, touched] = args
+                                const field = state.fields[name]
+                                if (field) {
+                                  field.touched = !!touched
+                                }
+                              },
+                            }}
+                            render={ ({ handleSubmit }) => {
+                              return (
+                                <form noValidate onSubmit={ handleSubmit }>
+                                  <SaveForm debounce={1000} formName={NomesFormularioSistema.CADASTRO_INICIAL}/>
+                                  <Steps />
+                                  <SignUpFooter formErros={formErros} />
+                                </form>
+                              );
+                            } }
             />
           </WithMargin>
         </Grid>

@@ -1,16 +1,16 @@
 import React from 'react';
 
 import Cleave from 'cleave.js/react';
-import { TextField, TextFieldProps } from 'mui-rff';
 import { CleaveOptions } from 'cleave.js/options';
+import { TextField, TextFieldProps } from 'mui-rff';
+import { InputProps as MuiInputProps } from '@material-ui/core';
 
-type Props = TextFieldProps & { options: CleaveOptions };
-
-export default function MaskedTextField({ options, ...rest }: Props) {
+export default function VetMaskedTextField({ options, InputProps, ...rest }: Props) {
   return (
     <TextField
       { ...rest }
       InputProps={ {
+        ...InputProps,
         inputComponent: ({ inputRef, ...rest }) => (
           <Cleave
             htmlRef={ inputRef }
@@ -22,3 +22,5 @@ export default function MaskedTextField({ options, ...rest }: Props) {
     />
   );
 }
+
+type Props = TextFieldProps & { options: CleaveOptions, InputProps?: Partial<MuiInputProps> };
