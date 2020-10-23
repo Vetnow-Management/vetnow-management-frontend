@@ -18,24 +18,6 @@ jobs:
         env:
           CI: false
 
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - id: deploy
-        name: Deploy to dokku
-        uses: idoberko2/dokku-deploy-github-action@v1
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          dokku-host: ${{ secrets.DOKKU_HOST }}
-          app-name: 'vetnow-management-frontend'
-          remote-branch: 'master'
-          git-push-flags: '--force'
-
   tag:
     name: Tag
     needs: deploy
