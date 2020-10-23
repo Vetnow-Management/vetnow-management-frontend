@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: BUILD
+    name: CI
     runs-on: ubuntu-latest
     steps:
       - name: CHECKOUT
@@ -15,8 +15,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: yarn install
-      - run: yarn build
+      - name: BUILD
+        run: |
+          yarn install
+          yarn build
         env:
           CI: false
       - name: DEPLOY
@@ -27,8 +29,8 @@ jobs:
           heroku_email: "vetnowcontato@gmail.com"
       - name: RELEASE
         run: |
-          git config --global user.email "ci@vetnow.com.vc"
-          git config --global user.name "Vetnow CI"
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config --global user.name "$GITHUB_ACTOR"
           yarn version --patch
           git push --tags && git push
 
