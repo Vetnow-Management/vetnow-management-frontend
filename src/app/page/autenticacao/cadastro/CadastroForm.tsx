@@ -112,21 +112,20 @@ function CadastroForm(): ReactElement {
   }
 
   function onSubmit(payload: Cadastro): void {
-    console.log('Pay: ', payload);
-    // PessoaRestService
-    //   .cadastrarResponsavel(payload)
-    //   .pipe(
-    //     toggleBlockUIPipeable,
-    //     finalize(toggleBlockUI),
-    //   )
-    //   .subscribe(
-    //     async () => {
-    //       snackBarStore.mostrarSucesso('Cadastro realizado com sucesso');
-    //       irParaEntrar();
-    //       await formStateFromDB.remover();
-    //     },
-    //     handleRequestError('Algo deu errado ao realizar seu cadastro')
-    //   );
+    PessoaRestService
+      .cadastrarResponsavel(payload)
+      .pipe(
+        toggleBlockUIPipeable,
+        finalize(toggleBlockUI),
+      )
+      .subscribe(
+        async () => {
+          snackBarStore.mostrarSucesso('Cadastro realizado com sucesso');
+          irParaEntrar();
+          await formStateFromDB.remover();
+        },
+        handleRequestError('Algo deu errado ao realizar seu cadastro')
+      );
   }
 
   return (
