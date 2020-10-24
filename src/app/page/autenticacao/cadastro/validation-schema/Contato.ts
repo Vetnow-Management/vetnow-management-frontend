@@ -4,7 +4,6 @@ import {debounce} from 'lodash-es';
 import {CellPhoneNumberCustomMessage, Validation, Verify} from '@vetnow-management/essentials';
 import {SchemaMessages} from '../../../../util';
 import ValidacaoRestService from "../../../../service/validacao/ValidacaoRestService";
-import IValidacaoQuery from "../../../../service/validacao/domain/ValidacaoQuery";
 
 const {
   required,
@@ -17,6 +16,8 @@ const phoneValidationCustomMessage: CellPhoneNumberCustomMessage = {
   whenDDDIsInvalid: 'DDD inválido',
   whenDDIIsInvalid: 'DDI inválido',
 }
+
+const REGEX_EMAIL: RegExp = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
 
 const ContatoValidationSchema = yup.object().shape({
   celular: yup
@@ -80,7 +81,7 @@ const ContatoValidationSchema = yup.object().shape({
           await ValidacaoRestService.validarInformacoes({email}).toPromise()
             .then(res => resolve(res.emailValido))
             .catch(() => resolve(false))
-        return executeWithDebounce(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i, email as string, validacaoResquest)
+        return executeWithDebounce(REGEX_EMAIL, email as string, validacaoResquest)
       }
     )
 });
