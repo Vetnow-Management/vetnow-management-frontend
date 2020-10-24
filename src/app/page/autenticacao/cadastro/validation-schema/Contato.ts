@@ -76,18 +76,14 @@ const ContatoValidationSchema = yup.object().shape({
       'email',
       'E-mail ja cadastrado',
       function (email: string): Promise<boolean> {
-       return validarEmail(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i, {email})
+        const validacaoResquest = async (valor: string, resolve: any) =>
+          await ValidacaoRestService.validarInformacoes({email}).toPromise()
+            .then(res => resolve(res.emailValido))
+            .catch(() => resolve(false))
+        return executeWithDebounce(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i, email as string, validacaoResquest)
       }
     )
 });
-
-function validarEmail(regex: RegExp, {email}: IValidacaoQuery): Promise<boolean> {
-  const validacaoResquest = async (valor: string, resolve: any) =>
-    await ValidacaoRestService.validarInformacoes({email}).toPromise()
-      .then(res => resolve(res.emailValido))
-      .catch(() => resolve(false))
-  return executeWithDebounce(regex, email as string, validacaoResquest)
-}
 
 function executeWithDebounce(regex: RegExp, valor: string, validation: (valor: string, resolve: any) => Promise<void>): Promise<boolean>{
   if(regex.test(valor)){
