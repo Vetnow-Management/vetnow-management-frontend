@@ -5,10 +5,8 @@ import { CleaveOptions } from 'cleave.js/options';
 import { TextField, TextFieldProps } from 'mui-rff';
 import { InputProps as MuiInputProps } from '@material-ui/core';
 
-import deepFreeze from '../util/DeepFreeze';
-
 export default function VetMaskedTextField({ mascara, InputProps, ...rest }: Props) {
-  const options: CleaveOptions = typeof mascara === 'string'
+  const options = typeof mascara === 'string'
     ? OPCOES_MASCARA[mascara]
     : mascara;
 
@@ -29,7 +27,7 @@ export default function VetMaskedTextField({ mascara, InputProps, ...rest }: Pro
   );
 }
 
-const OPCOES_MASCARA: Readonly<IOpcoesMascara> = deepFreeze({
+const OPCOES_MASCARA: IOpcoesMascara = {
   celular: {
     delimiters: ['(', ')', ' ', '-'],
     blocks: [0, 2, 0, 5, 4],
@@ -50,7 +48,7 @@ const OPCOES_MASCARA: Readonly<IOpcoesMascara> = deepFreeze({
     blocks: [5, 3],
     numericOnly: true,
   },
-});
+};
 
 type IOpcoesMascara = {
   celular: CleaveOptions,
