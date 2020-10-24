@@ -48,8 +48,7 @@ const ContatoValidationSchema = yup.object().shape({
       'Telefone inválido',
       function (value: string | undefined) {
         if (Verify.isBlank(value)) return true;
-        // @ts-ignore: n sei pq ts reclama
-        if (value?.length < 14) return false;
+        if (value!.length < 14) return false;
 
         const validation = Validation.cellPhoneNumber(
           value,

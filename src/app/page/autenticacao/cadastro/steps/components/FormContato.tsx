@@ -1,14 +1,13 @@
 import React, { ReactElement } from 'react';
 
-import { Grid } from '@material-ui/core';
 import { TextField } from 'mui-rff';
 import { observer } from 'mobx-react';
+import { Grid } from '@material-ui/core';
 
 import { FormContainer } from './index';
-import { MaskedTextField } from '../../../../../component';
+import { VetMaskedTextField } from '../../../../../component';
 
 function FormContato({ objeto }: { objeto?: string }): ReactElement {
-
   function getName(name: string): string {
     const root = `contato.${ name }`;
 
@@ -28,26 +27,18 @@ function FormContato({ objeto }: { objeto?: string }): ReactElement {
           />
         </Grid>
         <Grid item xs={ 12 } md={3}>
-          <MaskedTextField fullWidth
-                           required
-                           name={ getName('celular') }
-                           label='Celular'
-                           options={ {
-                             delimiters: ['(', ')', ' ', '-'],
-                             blocks: [0, 2, 0, 5, 4],
-                             numericOnly: true,
-                           } }
+          <VetMaskedTextField fullWidth
+                              required
+                              name={ getName('celular') }
+                              label='Celular'
+                              mascara='celular'
           />
         </Grid>
         <Grid item xs={ 12 } md={3}>
-          <MaskedTextField fullWidth
-                           name={ getName('telefone') }
-                           label='Telefone'
-                           options={ {
-                             delimiters: ['(', ')', ' ', '-'],
-                             blocks: [0, 2, 0, 4, 4],
-                             numericOnly: true,
-                           } }
+          <VetMaskedTextField fullWidth
+                              name={ getName('telefone') }
+                              label='Telefone'
+                              mascara='telefone'
           />
         </Grid>
       </Grid>

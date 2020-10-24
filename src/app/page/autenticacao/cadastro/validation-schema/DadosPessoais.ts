@@ -34,7 +34,6 @@ const DadosPessoaisValidationSchema = yup.object({
       cpf,
       Validation.isCPF,
     ),
-  tipoPessoa: yup.string().required(),
   contato: ContatoValidationSchema.defined(),
   endereco: EnderecoValidationSchema.defined(),
 }).defined()
