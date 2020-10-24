@@ -9,6 +9,7 @@ import useAppContext from '../../../AppContext';
 import { BtnCadastro, VetSenhaInput } from '../../../component';
 import { handleRequestError } from '../../../util';
 import { LocalStorageChaves, LocalStorageService, Token, KeycloakRestService } from '../../../service';
+import { finalize } from 'rxjs/operators';
 
 const useStyles = makeStyles({
   root: {
@@ -25,10 +26,14 @@ function realizarLogin(token: Token): void {
 export default function EntrarForm(): ReactElement {
   const classes = useStyles();
   const { irParaCadastro, irParaSolicitarAlteracao } = useRoutes();
-  const { snackBarStore: { mostrarSucesso }} = useAppContext();
+  const { snackBarStore: { mostrarSucesso }, blockUIStore: { togglePipeable, naoMostrar }} = useAppContext();
 
   function onSubmit({ senha, usuario }: FormData): void {
       KeycloakRestService.obterToken(senha, usuario)
+        .pipe(
+          togglePipeable,
+          finalize(naoMostrar),
+        )
         .subscribe(
           token => {
             realizarLogin(token);

@@ -6,24 +6,30 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: CI
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: CHECKOUT
+        uses: actions/checkout@v2
+      - name: NODE
+        uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: yarn install
-      - run: yarn build
+      - run: |
+          yarn install
+          yarn build
         env:
           CI: false
+      - name: DEPLOY
+        uses: akhileshns/heroku-deploy@v3.6.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "vetnow-management-frontend"
+          heroku_email: "vetnowcontato@gmail.com"
+      - name: RELEASE
+        run: |
+          git config --global user.email "vetnowcontato@gmail.com"
+          git config --global user.name "VETNOW CI"
+          yarn version --patch
+          git pull && git push --tags && git push
 
-  tag:
-    name: Tag
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com" && git config --global user.name "$GITHUB_ACTOR"
-      - run: yarn version --patch
-      - run: git push --tags && git push
