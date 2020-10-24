@@ -31,22 +31,14 @@ function FormContato({ objeto }: { objeto?: string }): ReactElement {
                               required
                               name={ getName('celular') }
                               label='Celular'
-                              options={ {
-                                delimiters: ['(', ')', ' ', '-'],
-                                blocks: [0, 2, 0, 5, 4],
-                                numericOnly: true,
-                              } }
+                              mascara='celular'
           />
         </Grid>
         <Grid item xs={ 12 } md={3}>
           <VetMaskedTextField fullWidth
                               name={ getName('telefone') }
                               label='Telefone'
-                              options={ {
-                                delimiters: ['(', ')', ' ', '-'],
-                                blocks: [0, 2, 0, 4, 4],
-                                numericOnly: true,
-                              } }
+                              mascara='telefone'
           />
         </Grid>
       </Grid>

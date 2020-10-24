@@ -35,14 +35,10 @@ function DadosPessoaisStep(): ReactElement {
                                 required
                                 name='documento'
                                 label='CPF'
+                                mascara='cpf'
                                 fieldProps={{
                                   parse: Sanitizer.cpf,
                                 }}
-                                options={{
-                               delimiters: ['.', '.', '-'],
-                               blocks: [3, 3, 3, 2],
-                               numericOnly: true,
-                             }}
             />
           </Grid>
         </Grid>

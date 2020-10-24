@@ -101,8 +101,9 @@ export default function FormEndereco({ objeto }: { objeto?: string }): ReactElem
         <Grid item xs={ 12 } sm={ 3 }>
           <VetMaskedTextField fullWidth
                               required
-                              name={ cep }
                               label='CEP'
+                              mascara='cep'
+                              name={ cep }
                               onBlur={ onBlurCEP }
                               InputProps={{
                                 endAdornment: (
@@ -115,11 +116,6 @@ export default function FormEndereco({ objeto }: { objeto?: string }): ReactElem
                                     )}
                                   </InputAdornment>
                                 )
-                              }}
-                              options={{
-                                delimiter: '-',
-                                blocks: [5, 3],
-                                numericOnly: true,
                               }}
           />
         </Grid>
