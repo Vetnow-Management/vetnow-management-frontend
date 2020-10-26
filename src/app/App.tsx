@@ -1,11 +1,12 @@
 import React, { ReactElement } from 'react';
 
 import { Router } from 'react-router-dom';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import { ptBR } from 'date-fns/esm/locale';
+import DateFnsUtils from '@date-io/date-fns';
 import { SnackbarProvider } from 'notistack';
+
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import {
   MuiThemeProvider,
   StylesProvider,
@@ -13,15 +14,15 @@ import {
   createGenerateClassName
 } from '@material-ui/core';
 
-import 'mobx-react-lite/batchingForReactDom'
-import 'react-block-ui/style.css';
 import 'react-loaders'
+import 'react-block-ui/style.css';
 import 'loaders.css/loaders.min.css';
+import 'mobx-react-lite/batchingForReactDom'
 
-import { HistoryConfig, MateriaUIConfig } from './config';
 import Routes from './Routes';
 import { Environment } from './util';
 import { BlockUI } from './component';
+import { HistoryConfig, MateriaUIConfig } from './config';
 import useAppContext, { AppContextProvider } from './AppContext';
 
 const generateClassName = createGenerateClassName({

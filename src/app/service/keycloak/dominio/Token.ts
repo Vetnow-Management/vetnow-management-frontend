@@ -3,4 +3,5 @@ export default interface Token {
   refreshJWT: string;
   expiresIn: Date;
   tokenType: string;
+  usuario: string;
 }

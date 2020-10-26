@@ -1,15 +1,14 @@
-import {AbstractRestService} from "../AbstractRestService";
 import {Observable} from "rxjs";
-import ICadastroValidacao from "./domain/ICadastroValidacao";
-import IValidacaoQuery from "./domain/ValidacaoQuery";
+
+import {AbstractRestService} from "../AbstractRestService";
+import { ValidacaoQuery , ICadastroValidacao } from "./dominio";
 
 class ValidacaoRestService extends AbstractRestService {
-
   public constructor() {
     super('validacao');
   }
 
-  public validarInformacoes(validacao: IValidacaoQuery): Observable<ICadastroValidacao> {
+  public validarInformacoes(validacao: ValidacaoQuery): Observable<ICadastroValidacao> {
     return this.get(this.createUrlWithQueryParams('/informacoes', validacao));
   }
 

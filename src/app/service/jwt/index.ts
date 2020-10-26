@@ -1,1 +1,2 @@
-export {default as JwtService} from './JWTService';
+export * from './dominio';
+export { default as JWTService } from './JWTService';

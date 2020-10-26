@@ -1,8 +1,8 @@
 export {
   default as AutenticacaoRotas,
-  ENTRAR_PATH,
+  ENTRAR_ROTA,
   AUTENTICACAO_PREFIXO,
-  CADASTRO_PATH,
+  CADASTRO_ROTA,
 } from './AutenticacaoRotas';
 
 export * from './entrar';

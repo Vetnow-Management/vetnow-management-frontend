@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import { observer } from 'mobx-react';
 import { Form } from 'react-final-form'
 import { Grid } from '@material-ui/core';
 import { finalize } from 'rxjs/operators';
+import { observer } from 'mobx-react-lite';
 import { get as _get, set as _set } from 'lodash-es';
 import { ValidationError as YupValidationError } from 'yup';
 

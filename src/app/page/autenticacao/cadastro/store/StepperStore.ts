@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
 interface Steps {
   label: string,
@@ -12,30 +12,28 @@ export default class StepperStore {
     { label: 'Dados de Usuario', id: 2 },
   ];
 
-  @observable
+  public constructor() {
+    makeAutoObservable(this);
+  }
+
   public currentStep: number = 0;
 
-  @action.bound
-  public proximoStep(): void {
+  public proximoStep = (): void => {
     this.currentStep++;
   }
 
-  @action.bound
-  public voltarStep(): void {
+  public voltarStep = (): void => {
     this.currentStep--;
   }
 
-  @action.bound
-  public irParaPrimeiroStep(): void {
+  public irParaPrimeiroStep = (): void => {
     this.currentStep = 0;
   }
 
-  @computed
   public get estaNoPrimeiroStep(): boolean {
     return this.currentStep === 0;
   }
 
-  @computed
   public get estaNoUltimoStep(): boolean {
     return this.currentStep === this.stepsAvailable.length - 1;
   }

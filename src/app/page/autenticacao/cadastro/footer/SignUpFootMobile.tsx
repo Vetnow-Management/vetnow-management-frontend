@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import { Button } from '@material-ui/core';
 import {
   DeleteForever as DeleteForeverIcon,
@@ -9,8 +9,8 @@ import {
   Save as SaveIcon
 } from '@material-ui/icons';
 
-import { VetFooter } from '../../../../component';
 import { SignUpFooterProps } from './types';
+import { VetFooter } from '../../../../component';
 import useSignUpFooterHelper from './useSignUpFooterHelper';
 
 function SignUpFootMobile(props: SignUpFooterProps): ReactElement {

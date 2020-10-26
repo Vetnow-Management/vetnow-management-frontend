@@ -1,11 +1,12 @@
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import queryString from 'querystring';
 import { addSeconds } from 'date-fns';
+import { Func } from '@vetnow-management/essentials';
 
-import { AbstractRestService } from '../AbstractRestService';
-import { Environment } from '../../util';
-import { map } from 'rxjs/operators';
 import { Token } from './dominio';
-import { Observable } from 'rxjs';
+import { Environment } from '../../util';
+import { AbstractRestService } from '../AbstractRestService';
 
 class KeycloakRestService extends AbstractRestService {
   public constructor() {
@@ -31,24 +32,27 @@ class KeycloakRestService extends AbstractRestService {
           },
         },
       ),
-    ).pipe(map(this.mapToToken));
+    ).pipe(map(this.mapToToken(usuario)));
   }
 
-  private mapToToken = (value: LoginResponse): Token => {
-    const currentDate = new Date();
-    const {
-      expires_in,
-      access_token,
-      token_type,
-      refresh_token,
-    } = value;
+  private mapToToken = (usuario: string): Func<LoginResponse, Token> => {
+    return (value) => {
+      const currentDate = new Date();
+      const {
+        expires_in,
+        access_token,
+        token_type,
+        refresh_token,
+      } = value;
 
-    return {
-      jwt: access_token,
-      refreshJWT: refresh_token,
-      expiresIn: addSeconds(currentDate, expires_in),
-      tokenType: token_type,
-    };
+      return {
+        usuario,
+        jwt: access_token,
+        refreshJWT: refresh_token,
+        expiresIn: addSeconds(currentDate, expires_in),
+        tokenType: token_type,
+      };
+    }
   }
 }
 

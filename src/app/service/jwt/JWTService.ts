@@ -1,23 +1,29 @@
-import {Observable, of} from "rxjs";
-import jwtDecode from "jwt-decode";
+import { isAfter } from 'date-fns';
+import jwtDecode from 'jwt-decode';
+
+import { Token } from '../keycloak/dominio';
+import { LocalStorageChaves, LocalStorageService } from '../local-storage';
 
 class JWTService {
-
-  public descriptar(token: string): Observable<TokenRecuperacaoInterface> {
-    return of(jwtDecode(token));
+  public decriptar = <T>(token: string): T => {
+    return jwtDecode(token);
   }
 
-}
+  public isAuthorizationJWTValid = (): boolean => {
+    return LocalStorageService.obter<Token>(LocalStorageChaves.TOKEN)
+      .map(({ expiresIn, jwt }) => this.validarToken(expiresIn, jwt))
+      .orElse(false);
+  }
 
-export interface Recuperacao {
-  usuario: string;
-  emailRecuperacao: string;
-}
-
-export interface TokenRecuperacaoInterface {
-  recuperacao: Recuperacao;
-  exp: number;
-  iat: number;
+  private validarToken = (dataExpiracao: Date, jwt: string): boolean => {
+    try {
+      const dataAtual = new Date();
+      this.decriptar(jwt);
+      return isAfter(dataExpiracao, dataAtual)
+    } catch (err) {
+      return false;
+    }
+  }
 }
 
 export default new JWTService();

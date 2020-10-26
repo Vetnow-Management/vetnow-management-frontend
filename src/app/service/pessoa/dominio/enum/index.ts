@@ -1,0 +1,1 @@
+export { TipoPessoa } from './TipoPessoa';

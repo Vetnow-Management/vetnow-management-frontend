@@ -4,7 +4,7 @@ import {debounce} from 'lodash-es';
 import {CellPhoneNumberCustomMessage, Validation, Verify} from '@vetnow-management/essentials';
 import {SchemaMessages} from '../../../../util';
 import ValidacaoRestService from "../../../../service/validacao/ValidacaoRestService";
-import IValidacaoQuery from "../../../../service/validacao/domain/ValidacaoQuery";
+import IValidacaoQuery from "../../../../service/validacao/dominio/ValidacaoQuery";
 
 const {
   required,
