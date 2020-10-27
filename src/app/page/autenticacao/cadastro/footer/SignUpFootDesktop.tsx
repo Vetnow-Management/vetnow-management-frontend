@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import { Button, Tooltip } from '@material-ui/core';
 
-import { VetFooter } from '../../../../component';
 import { SignUpFooterProps } from './types';
+import { VetFooter } from '../../../../component';
 import useSignUpFooterHelper from './useSignUpFooterHelper';
 
 function SignUpFootDesktop(props: SignUpFooterProps): ReactElement {

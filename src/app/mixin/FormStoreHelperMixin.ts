@@ -1,6 +1,7 @@
-import { action } from 'mobx';
-import { Consumer, ConsumerImpl, Func, Supplier, Verify } from '@vetnow-management/essentials';
 import { ChangeEvent } from 'react';
+
+import { action, makeObservable } from 'mobx';
+import { Consumer, ConsumerImpl, Func, Supplier, Verify } from '@vetnow-management/essentials';
 
 export interface CondicaoReturn {
   podeAtribuir: boolean,
@@ -9,8 +10,13 @@ export interface CondicaoReturn {
 
 // todo: Mover para o @vetnow-management/react-library
 export default abstract class FormStoreHelperMixin {
+ protected constructor() {
+    makeObservable(this, {
+      setCampo: action.bound,
+      setCampoComCondicao: action.bound
+    });
+  }
 
-  @action.bound
   public setCampo({ target: { value, name } }: ChangeEvent<HTMLInputElement>): void {
     if (Object.prototype.hasOwnProperty.call(this, name)) {
       // @ts-ignore: Arrumar no futuro
@@ -18,7 +24,6 @@ export default abstract class FormStoreHelperMixin {
     }
   }
 
-  @action.bound
   public setCampoComCondicao(condicao: Supplier<CondicaoReturn> | Func<string, CondicaoReturn>): Consumer<ChangeEvent<HTMLInputElement>> {
     return (event) => {
       const { podeAtribuir, valorTratado } = condicao(event.target.value);

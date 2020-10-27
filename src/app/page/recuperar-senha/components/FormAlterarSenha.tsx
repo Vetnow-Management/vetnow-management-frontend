@@ -1,19 +1,23 @@
 import React, {ReactElement, useEffect, useState} from "react";
+
+import {Observable, of} from "rxjs";
+import {Form} from "react-final-form";
+import {finalize} from "rxjs/operators";
+import {useParams} from "react-router-dom";
 import {Button, Grid} from "@material-ui/core";
 import {makeValidate, TextField} from "mui-rff";
-import {Form} from "react-final-form";
-import {UsuarioRestService} from "../../../service/usuario";
 import {makeStyles} from "@material-ui/core/styles";
-import {JwtService} from "../../../service/jwt";
-import {TokenRecuperacaoInterface} from "../../../service/jwt/JWTService";
-import {Consumer, UnaryOperator} from "@vetnow-management/essentials";
-import {useParams} from "react-router-dom";
-import {finalize} from "rxjs/operators";
-import useAppContext from "../../../AppContext";
-import ValidacaoRestService from "../../../service/validacao/ValidacaoRestService";
-import {ALTERAR_SENHA, IAlterarSenha} from "../validation-schema";
+import {UnaryOperator} from "@vetnow-management/essentials";
+
 import {useRoutes} from "../../../hook";
-import {Observable, of} from "rxjs";
+import useAppContext from "../../../AppContext";
+import {ALTERAR_SENHA, IAlterarSenha} from "../validation-schema";
+import {
+  JWTService,
+  UsuarioRestService,
+  ValidacaoRestService,
+  TokenRecuperacaoInterface,
+} from "../../../service";
 
 const useStyles = makeStyles({
   root: {
@@ -32,7 +36,8 @@ export default function FormAlterarSenha(): ReactElement {
     snackBarStore: {mostrarSucesso, mostrarErro},
     blockUIStore: {
       togglePipeable,
-      naoMostrar
+      mostrar,
+      naoMostrar,
     }
   } = useAppContext();
 
@@ -78,17 +83,17 @@ export default function FormAlterarSenha(): ReactElement {
 
   useEffect(() => {
     const tokenEncontrado = params.token as string;
-    JwtService.descriptar(tokenEncontrado)
-      .pipe(
-        togglePipeable,
-        finalize(naoMostrar),
-      )
-      .subscribe(loadParamsToken())
+    try {
+      mostrar();
+      const token = JWTService.decriptar<TokenRecuperacaoInterface>(tokenEncontrado);
+      setUsuario(token?.recuperacao?.usuario);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
+    } finally {
+      naoMostrar();
+    }
   }, []);
-
-  function loadParamsToken(): Consumer<TokenRecuperacaoInterface> {
-    return token => setUsuario(token?.recuperacao?.usuario);
-  }
 
   return (
     <Form

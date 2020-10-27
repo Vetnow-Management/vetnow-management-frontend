@@ -6,10 +6,10 @@ import {
   StepLabel,
   makeStyles,
 } from '@material-ui/core';
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
-import { useBreakpoints } from '../../../../hook';
 import { useSignUpContext } from '../context';
+import { useBreakpoints } from '../../../../hook';
 
 const useStyles = makeStyles({
   root: {

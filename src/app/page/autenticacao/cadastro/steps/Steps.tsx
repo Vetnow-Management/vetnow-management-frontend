@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react';
 
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
 import { useSignUpContext } from '../context';
+import DadosUsuarioStep from './DadosUsuarioStep';
 import DadosPessoaisStep from './DadosPessoaisStep';
 import DadosEmpresariaisStep from './DadosEmpresariaisStep';
-import DadosUsuarioStep from './DadosUsuarioStep';
 
 function Steps(): ReactElement {
   const {

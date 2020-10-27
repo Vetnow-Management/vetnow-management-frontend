@@ -1,14 +1,15 @@
-import { action, computed, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Observable, pipe } from 'rxjs';
 
 export default class BlockUIStore {
-
-  @observable
   private _mostrar: boolean = false;
 
-  @action.bound
-  public toggle(): void {
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  public toggle = (): void => {
     this._mostrar = !this._mostrar;
   }
 
@@ -24,23 +25,19 @@ export default class BlockUIStore {
    *   </pre>
    * </p>
    */
-  @action.bound
-  public togglePipeable<A>(source: Observable<A>): Observable<A> {
+  public togglePipeable = <A>(source: Observable<A>): Observable<A> => {
     this.toggle();
     return source;
   }
 
-  @action.bound
-  public mostrar(): void {
+  public mostrar = (): void => {
     this._mostrar = true;
   }
 
-  @action.bound
-  public naoMostrar(): void {
+  public naoMostrar = (): void => {
     this._mostrar = false;
   }
 
-  @computed
   public get estaMostrando(): boolean {
     return this._mostrar;
   }

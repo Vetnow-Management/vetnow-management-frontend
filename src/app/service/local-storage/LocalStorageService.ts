@@ -1,4 +1,7 @@
+import { cloneDeepWith } from 'lodash-es';
+import { isValid, getTime } from 'date-fns';
 import { Optional, Verify } from '@vetnow-management/essentials';
+
 import { LocalStorageChaves } from './LocalStorageChaves';
 
 class LocalStorageService {
@@ -13,7 +16,10 @@ class LocalStorageService {
       return;
     }
 
-    const valorParsed = JSON.stringify(valor);
+    const valorParsed = JSON.stringify(cloneDeepWith(valor, (valorAtual) => {
+      // converte todos Date para timestamp
+      if (isValid(valorAtual)) return getTime(valorAtual);
+    }));
     localStorage.setItem(chave, valorParsed);
   }
 
@@ -23,6 +29,16 @@ class LocalStorageService {
     return Optional
       .from(valor)
       .map(JSON.parse)
+      .map((json) => {
+        return cloneDeepWith(json, (value) => {
+          // converte todos timestamp para Date
+          if (isValid(value)) return new Date(value);
+        });
+      })
+  }
+
+  public remover(chave: LocalStorageChaves): void {
+    localStorage.removeItem(chave);
   }
 }
 

@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 
 import { TextField } from 'mui-rff';
-import { observer } from 'mobx-react';
 import { Grid } from '@material-ui/core';
+import { observer } from 'mobx-react-lite';
 
 import { FormContainer } from './index';
 import { VetMaskedTextField } from '../../../../../component';

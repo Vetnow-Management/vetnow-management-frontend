@@ -4,7 +4,7 @@ import { AppBar, createStyles, Hidden, makeStyles, Theme, Toolbar, Typography } 
 
 import { BtnCadastro } from '.';
 import { useRoutes } from '../hook';
-import { ENTRAR_PATH } from '../page/autenticacao';
+import { ENTRAR_ROTA } from '../page/autenticacao';
 
 const COLOR_GRADIENT = '#FE6B8B';
 
@@ -54,7 +54,7 @@ export default function Bar() {
             <Typography variant="h6" noWrap className={ classes.toolbarTitle }>
               VETNOW ADMIN
             </Typography>
-            { pathname === ENTRAR_PATH &&
+            { pathname === ENTRAR_ROTA &&
             <Hidden xsDown>
               <BtnCadastro
                 onClick={ irParaCadastro }

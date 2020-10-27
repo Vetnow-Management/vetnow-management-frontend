@@ -1,7 +1,7 @@
-import type Usuario from '../../usuario/domain/Usuario';
-import type Endereco from './Endereco';
 import type Contato from './Contato';
-import type Empresa from './Empresa';
+import type Endereco from './Endereco';
+import type { Empresa } from '../../empresa';
+import type { Usuario } from '../../usuario';
 
 export default interface Cadastro {
   nome?: string;

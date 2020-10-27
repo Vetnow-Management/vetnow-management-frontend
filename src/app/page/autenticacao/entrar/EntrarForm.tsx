@@ -2,14 +2,19 @@ import React, { ReactElement } from 'react';
 
 import { TextField } from 'mui-rff';
 import { Form } from 'react-final-form';
+import { finalize } from 'rxjs/operators';
+import { observer } from 'mobx-react-lite';
 import { Button, Grid, Hidden, makeStyles } from '@material-ui/core';
 
 import { useRoutes } from '../../../hook';
 import useAppContext from '../../../AppContext';
-import { BtnCadastro, VetSenhaInput } from '../../../component';
 import { handleRequestError } from '../../../util';
-import { LocalStorageChaves, LocalStorageService, Token, KeycloakRestService } from '../../../service';
-import { finalize } from 'rxjs/operators';
+import { BtnCadastro, VetSenhaInput } from '../../../component';
+import {
+  LocalStorageChaves,
+  LocalStorageService,
+  KeycloakRestService,
+} from '../../../service';
 
 const useStyles = makeStyles({
   root: {
@@ -17,34 +22,30 @@ const useStyles = makeStyles({
   }
 });
 
-function realizarLogin(token: Token): void {
-  LocalStorageService.salvar(LocalStorageChaves.TOKEN, token);
-  const tokenSaved = LocalStorageService.obter(LocalStorageChaves.TOKEN).get();
-  console.log('TOKEN FROM LOCALSTORAGE\n: ', tokenSaved);
-}
-
-export default function EntrarForm(): ReactElement {
+function EntrarForm(): ReactElement {
   const classes = useStyles();
-  const { irParaCadastro, irParaSolicitarAlteracao } = useRoutes();
-  const { snackBarStore: { mostrarSucesso }, blockUIStore: { togglePipeable, naoMostrar }} = useAppContext();
+  const { irParaCadastro, irParaSolicitarAlteracao, irParaDashboard } = useRoutes();
+  const { blockUIStore: { togglePipeable, naoMostrar }} = useAppContext();
 
   function onSubmit({ senha, usuario }: FormData): void {
-      KeycloakRestService.obterToken(senha, usuario)
-        .pipe(
-          togglePipeable,
-          finalize(naoMostrar),
-        )
-        .subscribe(
-          token => {
-            realizarLogin(token);
-            mostrarSucesso('Login realizado com sucesso!')
-          },
-          handleRequestError('Erro ao fazer login')
-        );
+     KeycloakRestService
+       .obterToken(senha, usuario)
+       .pipe(
+         togglePipeable,
+         finalize(naoMostrar),
+       )
+       .subscribe(
+         (token) => {
+           // salvar o username para poder buscar empresa no HandleRedirecionarDashboard
+           LocalStorageService.salvar(LocalStorageChaves.TOKEN, { ...token, usuario });
+           irParaDashboard();
+         },
+         handleRequestError('Erro ao realizar login')
+       )
   }
 
   return (
-    <Form<FormData>
+    <Form
       onSubmit={ onSubmit }
       render={ ({ handleSubmit }) => (
         <form onSubmit={ handleSubmit }>
@@ -111,3 +112,5 @@ type FormData = {
   usuario: string;
   senha: string;
 }
+
+export default observer(EntrarForm);
