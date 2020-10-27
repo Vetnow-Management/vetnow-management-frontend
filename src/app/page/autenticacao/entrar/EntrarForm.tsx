@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 
 function EntrarForm(): ReactElement {
   const classes = useStyles();
-  const { irParaCadastro, irParaSolicitarAlteracao, irParaDashboard } = useRoutes();
+  const { irParaCadastro, irParaSolicitarAlteracao, irParaEmpresa } = useRoutes();
   const { blockUIStore: { togglePipeable, naoMostrar }} = useAppContext();
 
   function onSubmit({ senha, usuario }: FormData): void {
@@ -38,7 +38,7 @@ function EntrarForm(): ReactElement {
          (token) => {
            // salvar o username para poder buscar empresa no HandleRedirecionarDashboard
            LocalStorageService.salvar(LocalStorageChaves.TOKEN, { ...token, usuario });
-           irParaDashboard();
+           irParaEmpresa();
          },
          handleRequestError('Erro ao realizar login')
        )
