@@ -36,7 +36,7 @@ function EntrarForm(): ReactElement {
        )
        .subscribe(
          (token) => {
-           // salvar o username para poder buscar empresa no HandleRedirecionarDashboard
+           // salvar o username para poder buscar empresa no ObterDadosEmpresa.tsx
            LocalStorageService.salvar(LocalStorageChaves.TOKEN, { ...token, usuario });
            irParaEmpresa();
          },
