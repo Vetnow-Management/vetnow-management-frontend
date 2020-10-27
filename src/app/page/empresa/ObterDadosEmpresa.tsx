@@ -59,7 +59,7 @@ function ObterDadosEmpresa({ children }: { children: ReactElement }): ReactEleme
     // se o usuario colocar o endereco na mao (ex: /empresa/1234/animal)
     // tem q mandar ele pra rota digita.
     // isso pode ocorrer se ele atualizar pagina quando tiver na rota /empresa/1234/animal
-    // ai ele vai possar nesse if, ai tem q mandar pra rota original.
+    // ai ele vai possar nesse if, ai tem q mandar pra rota q esta no browser.
     } else {
       push(pathname);
     }
