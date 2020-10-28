@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 
 import { finalize } from 'rxjs/operators';
 import { observer } from 'mobx-react-lite';
@@ -18,7 +18,7 @@ import {
 } from '../../service';
 import { EMPRESA_PREFIXO } from './EmpresaRotas';
 
-function ObterDadosEmpresa({ children }: { children: ReactElement }): ReactElement | null {
+function ObterDadosEmpresa({ children }: { children: ReactNode | ReactNode[] }): ReactNode | null {
   const { path } = useRouteMatch();
   const { push, location: { pathname } } = useHistory();
   const { irParaEntrar, irParaDashboard } = useRoutes();
@@ -94,4 +94,4 @@ function ObterDadosEmpresa({ children }: { children: ReactElement }): ReactEleme
   return children;
 }
 
-export default observer(ObterDadosEmpresa);
+export default observer(ObterDadosEmpresa as any);

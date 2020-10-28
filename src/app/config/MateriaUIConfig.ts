@@ -1,9 +1,21 @@
-import { createMuiTheme, Theme } from '@material-ui/core';
-import { Environment } from '../util';
+import {createMuiTheme, Theme} from '@material-ui/core';
+import {Environment} from '../util';
 
 declare module "@material-ui/core/styles/createBreakpoints" {
   interface BreakpointOverrides {
     smMid: true;
+  }
+}
+
+declare module "@material-ui/core/styles/createMuiTheme" {
+  interface Theme {
+    menuLateral: MenuLateral;
+  }
+  interface ThemeOptions {
+    menuLateral: MenuLateral;
+  }
+  interface MenuLateral {
+    width: string | number;
   }
 }
 
@@ -29,6 +41,9 @@ const materiaUIConfig: Theme = createMuiTheme({
       lg: 1280,
       xl: 1920,
     }
+  },
+  menuLateral: {
+    width: 240,
   }
 });
 

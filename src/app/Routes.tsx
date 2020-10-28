@@ -9,6 +9,8 @@ import { EMPRESA_PREFIXO } from './page/empresa';
 import { AUTENTICACAO_PREFIXO } from './page/autenticacao';
 import { RECUPERAR_SENHA_PREFIXO } from './page/recuperar-senha';
 import { AutenticacaoRotas, EmpresaRotas, RecuperarSenhaRotas } from './page';
+import Menu from "./page/empresa/dashboard/Menu";
+import JWTService from "./service/jwt/JWTService";
 
 function useStyles(appBarHeight: 56 | 64) {
   return makeStyles((theme) => ({
@@ -37,10 +39,14 @@ export default function Routes(): ReactElement {
   const classes = isSm
     ? useStyles(64)
     : useStyles(56);
+  const usuarioLogado = JWTService.isAuthorizationJWTValid();
 
   return (
     <div className={classes.root}>
       <Bar/>
+      {usuarioLogado &&
+        <Menu />
+      }
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container} id='CONTAINER'>
