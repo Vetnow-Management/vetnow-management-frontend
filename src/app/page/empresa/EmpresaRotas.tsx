@@ -6,6 +6,7 @@ import { Dashboard } from './dashboard';
 import { VetRoute } from '../../component';
 import ObterDadosEmpresa from './ObterDadosEmpresa';
 import { EmpresaContextProvider } from './config/context';
+import {TUTOR_PREFIXO, TutorRotas} from "./tutor";
 
 export const EMPRESA_PREFIXO = '/empresa';
 
@@ -20,6 +21,7 @@ function buildRotaDentroEmpresa(path: string): string {
 // todas rotas tem q ter o seguinte padrao:
 // /empresa/:uuid/seu-path
 // so chamar o metodo buildRotaDentroEmpresa q ele monta a sua url padronizada;
+export const TUTOR_ROTA = buildRotaDentroEmpresa(TUTOR_PREFIXO);
 export const DASHBOARD_ROTA = buildRotaDentroEmpresa('dashboard');
 
 export default function EmpresaRotas(): ReactElement {
@@ -31,6 +33,10 @@ export default function EmpresaRotas(): ReactElement {
                     isProtect
                     path={ DASHBOARD_ROTA }
                     component={ Dashboard }
+          />
+          <VetRoute isProtect
+                    path={ TUTOR_ROTA }
+                    component={ TutorRotas }
           />
         </Switch>
       </ObterDadosEmpresa>
