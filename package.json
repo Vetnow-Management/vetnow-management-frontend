@@ -1,6 +1,6 @@
 {
   "name": "@vetnow-management/frontend",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "private": true,
   "main": "server.js",
   "homepage": "http://admin.vetnow.com.vc",
