@@ -1,10 +1,14 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import { AppBar, createStyles, Hidden, makeStyles, Theme, Toolbar, Typography } from '@material-ui/core';
 
-import { BtnCadastro } from '.';
-import { useRoutes } from '../hook';
-import { ENTRAR_ROTA } from '../page/autenticacao';
+import { Route } from 'react-router-dom';
+import {
+  Theme,
+  AppBar,
+  Toolbar,
+  makeStyles,
+  Typography,
+  createStyles,
+} from '@material-ui/core';
 
 const COLOR_GRADIENT = '#FE6B8B';
 
@@ -44,31 +48,15 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export default function Bar() {
   const classes = useStyles();
-  const { irParaCadastro } = useRoutes();
-
   return (
-    <Route render={ ({ history: { location: { pathname } } }) => {
-      return (
-        <AppBar position="absolute" >
-          <Toolbar className={ classes.toolbar }>
-            <Typography variant="h6" noWrap className={ classes.toolbarTitle }>
-              VETNOW ADMIN
-            </Typography>
-            { pathname === ENTRAR_ROTA &&
-            <Hidden xsDown>
-              <BtnCadastro
-                onClick={ irParaCadastro }
-                descricao="EXPERIMENTE GRÁTIS"
-                ButtonProps={{
-                  fullWidth: false,
-                }}
-              />
-            </Hidden>
-            }
-          </Toolbar>
-        </AppBar>
-      )
-    } }
-    />
+    <Route>
+      <AppBar position="absolute" >
+        <Toolbar className={ classes.toolbar }>
+          <Typography variant="h6" noWrap className={ classes.toolbarTitle }>
+            VETNOW ADMIN
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </Route>
   )
 }

@@ -4,7 +4,7 @@ import { HttpStatus } from '@vetnow-management/essentials';
 import { Environment } from '../util';
 import { RespostaErro } from '../domain';
 import DefaultAppContextValue from './DefaultAppContextValue';
-import { LocalStorageChaves, LocalStorageService, Token } from '../service';
+import keycloak from './KeycloakConfig';
 
 export function onBadRequestResponse(request: AxiosResponse<RespostaErro>): void {
   if (request?.status === HttpStatus.BAD_REQUEST) {
@@ -21,12 +21,7 @@ export function addAuthorization(request: AxiosRequestConfig): void {
     && originalURL.startsWith(Environment.API_URL);
 
   if (podeAdicionarToken) {
-    LocalStorageService
-      .obter<Token>(LocalStorageChaves.TOKEN)
-      .map(token => [token.jwt, token.tokenType])
-      .ifPresent(([jwt, bearer]) => {
-        request.headers.Authorization = `${bearer} ${jwt}`;
-      })
+    request.headers.Authorization = `Bearer ${keycloak.token}`
   }
 }
 

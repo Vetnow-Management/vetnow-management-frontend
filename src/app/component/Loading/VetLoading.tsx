@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import Loader, { LoaderType } from 'react-loaders';
-import { Environment } from '../util';
+import { Environment } from '../../util';
 
 interface LoadingProps {
   type?: LoaderType,
@@ -9,7 +9,7 @@ interface LoadingProps {
   active?: boolean,
 }
 
-export default function Loading({
+export default function VetLoading({
                                   type = 'ball-pulse',
                                   color = Environment.PRIMARY_COLOR,
                                   active = true,

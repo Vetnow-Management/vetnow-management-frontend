@@ -1,18 +1,16 @@
 import React, { ReactElement } from 'react';
 
+import { useKeycloak } from '@react-keycloak/web';
 import { Route, RouteProps, Redirect, useRouteMatch } from 'react-router-dom';
-import JWTService from '../service/jwt/JWTService';
+
 import { ENTRAR_ROTA } from '../page/autenticacao';
-import useAppContext from '../AppContext';
 
 export default function VetRoute({ isProtect = false, ...routeProps}: VetRouteProps): ReactElement {
   const match = useRouteMatch();
-  const { snackBarStore: { mostrarAlerta }} = useAppContext();
+  const { keycloak } = useKeycloak();
 
   if (isProtect) {
-    const estaValido = JWTService.isAuthorizationJWTValid();
-    if (!estaValido) {
-      mostrarAlerta('Realize o login novamente')
+    if (!keycloak?.authenticated) {
       return <Redirect to={ENTRAR_ROTA} from={match.path} />
     }
   }
