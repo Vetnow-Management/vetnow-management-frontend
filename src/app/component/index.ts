@@ -9,10 +9,11 @@ export { default as VetMaskedTextField } from './VetMaskedTextField';
 export { default as BlockUI } from './BlockUI';
 export { default as BtnCadastro } from './BtnCadastro';
 export { default as Bar } from './Bar';
-export { default as Loading } from './Loading'
+export { default as VetLoading } from './Loading/VetLoading'
 export { default as SaveForm } from './SaveForm';
 export { default as VetFooter } from './VetFooter';
 export { default as VetButton } from './VetButton';
 export { default as VetSnackBarAction } from './VetSnackBarAction'
 export { default as VetSenhaInput } from './VetSenhaInput';
 export { default as VetRoute } from './VetRoute';
+export { default as LoadingCentralizado } from './LoadingCentralizado';

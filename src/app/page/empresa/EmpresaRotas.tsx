@@ -1,12 +1,14 @@
 import React, { ReactElement } from 'react';
 
-import { Switch } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { Switch, useHistory, Redirect } from 'react-router-dom';
 
-import { Dashboard } from './dashboard';
+import { useRoutes } from '../../hook';
 import { VetRoute } from '../../component';
-import ObterDadosEmpresa from './ObterDadosEmpresa';
-import { EmpresaContextProvider } from './config/context';
 import {TUTOR_PREFIXO, TutorRotas} from "./tutor";
+import ObterDadosEmpresa from './ObterDadosEmpresa';
+import { Dashboard, DASHBOARD_PREFIXO } from './dashboard';
+import { EmpresaContextProvider, useEmpresaContext } from './config/context';
 
 export const EMPRESA_PREFIXO = '/empresa';
 
@@ -22,12 +24,29 @@ function buildRotaDentroEmpresa(path: string): string {
 // /empresa/:uuid/seu-path
 // so chamar o metodo buildRotaDentroEmpresa q ele monta a sua url padronizada;
 export const TUTOR_ROTA = buildRotaDentroEmpresa(TUTOR_PREFIXO);
-export const DASHBOARD_ROTA = buildRotaDentroEmpresa('dashboard');
+export const DASHBOARD_ROTA = buildRotaDentroEmpresa(DASHBOARD_PREFIXO);
+
+const HandleRedirect = observer((): ReactElement | null => {
+    const { location: { pathname } } = useHistory();
+    const { empresaStore: { uuidEmpresa } } = useEmpresaContext();
+
+    if (pathname === EMPRESA_PREFIXO) {
+      const dashboardRotaNormalizada = DASHBOARD_ROTA
+        .replace(':', '')
+        .replace('uuid', uuidEmpresa as string);
+
+      return <Redirect to={ `${ dashboardRotaNormalizada }` }/>
+    }
+
+    return <Redirect to={ `${ pathname }` }/>;
+  }
+);
 
 export default function EmpresaRotas(): ReactElement {
   return (
     <EmpresaContextProvider>
       <ObterDadosEmpresa>
+        <HandleRedirect />
         <Switch>
           <VetRoute exact
                     isProtect

@@ -1,8 +1,7 @@
 import React, { MouseEvent } from 'react';
 
-import { Button, ButtonProps, Theme, makeStyles } from '@material-ui/core';
-import clsx from 'clsx';
 import { Consumer } from '@vetnow-management/essentials';
+import { Button, ButtonProps, Theme, makeStyles } from '@material-ui/core';
 
 const COLOR_GRADIENT = '#FE6B8B';
 
@@ -10,19 +9,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     background: `linear-gradient(45deg, ${COLOR_GRADIENT} 30%, ${theme.palette.secondary.main} 90%)`,
     color: 'white',
-  },
-  link: {
-    [theme.breakpoints.up('sm')]: {
-      margin: theme.spacing(1, 1.5),
-    }
-  },
+  }
 }));
 
 export default function ButtonCadastro(props: ButtonCadastroProps) {
   const classes = useStyles();
   const { descricao, onClick, ButtonProps } = props;
   return (
-    <Button className={clsx(classes.root, classes.link)}
+    <Button className={classes.root}
             onClick={onClick}
             {...ButtonProps}
     >
