@@ -2,13 +2,19 @@ import React from 'react';
 
 import { Route } from 'react-router-dom';
 import {
+  Fade,
+  Menu,
   Theme,
   AppBar,
   Toolbar,
+  MenuItem,
+  IconButton,
   makeStyles,
   Typography,
-  createStyles,
+  createStyles
 } from '@material-ui/core';
+import { AccountCircle } from '@material-ui/icons';
+import { useKeycloak } from '@react-keycloak/web';
 
 const COLOR_GRADIENT = '#FE6B8B';
 
@@ -46,8 +52,46 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
+function useMenuPerfil() {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { keycloak: { logout }} = useKeycloak();
+
+  const menuPerfilEstaAberto = Boolean(anchorEl);
+  const menuId = 'id_menu-perfil-appbar';
+
+  function aoClickMenuPerfil({ currentTarget }: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>): void {
+    setAnchorEl(currentTarget);
+  }
+
+  function aoFecharMenuPerfil(): void {
+    setAnchorEl(null);
+  }
+
+  const menuPerfil = (
+    <Menu open={menuPerfilEstaAberto}
+          anchorEl={anchorEl}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          id={menuId}
+          keepMounted
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          onClose={aoFecharMenuPerfil}
+    >
+      <MenuItem onClick={() => logout()}>Sair</MenuItem>
+    </Menu>
+  );
+
+  return {
+    menuId,
+    aoClickMenuPerfil,
+    menuPerfilComponent: menuPerfil,
+  }
+}
+
 export default function Bar() {
   const classes = useStyles();
+  const { menuId, aoClickMenuPerfil, menuPerfilComponent} = useMenuPerfil();
+  const { keycloak } = useKeycloak();
+
   return (
     <Route>
       <AppBar position="absolute" >
@@ -55,8 +99,20 @@ export default function Bar() {
           <Typography variant="h6" noWrap className={ classes.toolbarTitle }>
             VETNOW ADMIN
           </Typography>
+          <Fade in={keycloak?.authenticated}>
+            <IconButton edge='end'
+                        aria-label='conta do usuario'
+                        aria-controls={menuId}
+                        aria-haspopup="true"
+                        onClick={aoClickMenuPerfil}
+                        color='inherit'
+            >
+              <AccountCircle />
+            </IconButton>
+          </Fade>
         </Toolbar>
       </AppBar>
+      {keycloak?.authenticated && menuPerfilComponent}
     </Route>
   )
 }
