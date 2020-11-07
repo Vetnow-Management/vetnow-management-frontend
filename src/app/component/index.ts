@@ -17,3 +17,4 @@ export { default as VetSnackBarAction } from './VetSnackBarAction'
 export { default as VetSenhaInput } from './VetSenhaInput';
 export { default as VetRoute } from './VetRoute';
 export { default as LoadingCentralizado } from './LoadingCentralizado';
+export { default as VetForm } from './VetForm';
