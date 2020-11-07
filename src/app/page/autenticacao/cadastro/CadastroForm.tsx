@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 import { finalize } from 'rxjs/operators';
 import { observer } from 'mobx-react-lite';
 import { get as _get, set as _set } from 'lodash-es';
-import { ValidationError as YupValidationError } from 'yup';
+import { ValidateOptions, ValidationError as YupValidationError } from 'yup';
 
 import { Steps } from './steps';
 import { SignUpFooter } from './footer';
@@ -32,6 +32,8 @@ function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
     return errors;
   }, {});
 }
+
+const YUP_VALIDATION_OPTIONS: ValidateOptions = { abortEarly: false, strict: true };
 
 function CadastroForm(): ReactElement {
   const formStateFromDB = useBackupFormState<Cadastro>(NomesFormularioSistema.CADASTRO_INICIAL);
@@ -70,7 +72,7 @@ function CadastroForm(): ReactElement {
 
   async function validateForm(values: any) {
     async function validarDadosPessoais(): Promise<void> {
-      await DadosPessoaisValidationSchema.validate(values, { abortEarly: false })
+      await DadosPessoaisValidationSchema.validate(values, YUP_VALIDATION_OPTIONS)
         .catch((err) => {
           setFormErros('isDadosPessoaisValid', false)
           return Promise.reject(err)
@@ -79,7 +81,7 @@ function CadastroForm(): ReactElement {
     }
 
     async function validarDadosEmpresariais(): Promise<void> {
-      await DadosEmpresariaisValidationSchema.validate(values, { abortEarly: false })
+      await DadosEmpresariaisValidationSchema.validate(values, YUP_VALIDATION_OPTIONS)
         .catch((err) => {
           setFormErros('isDadosEmpresariaisValid', false)
           return Promise.reject(err);
@@ -88,7 +90,7 @@ function CadastroForm(): ReactElement {
     }
 
     async function validarDadosUsuario(): Promise<void> {
-      await DadosUsuarioValidationSchema.validate(values, { abortEarly: false })
+      await DadosUsuarioValidationSchema.validate(values, YUP_VALIDATION_OPTIONS)
         .catch((err) => {
           setFormErros('isDadosUsuariosValid', false);
           return Promise.reject(err);

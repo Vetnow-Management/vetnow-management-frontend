@@ -34,8 +34,8 @@ const DadosPessoaisValidationSchema = yup.object({
       cpf,
       Validation.isCPF,
     ),
-  contato: ContatoValidationSchema.defined(),
-  endereco: EnderecoValidationSchema.defined(),
-}).defined()
+  contato: ContatoValidationSchema,
+  endereco: EnderecoValidationSchema,
+})
 
 export default DadosPessoaisValidationSchema;
