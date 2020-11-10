@@ -43,7 +43,10 @@ function requerAtualizarSistema(commits: GitHubTag[]): boolean {
 }
 
 function InitApp(): ReactElement {
-  const { blockUIStore: { estaMostrando }, notificacoesStore: { adicionarNotificacao }} = useAppContext();
+  const {
+    blockUIStore: { estaMostrando },
+    notificacoesStore: { adicionarNotificacao }
+  } = useAppContext();
 
   function aoObterTags(tags: GitHubTag[]): void {
     if (requerAtualizarSistema(tags)) {
