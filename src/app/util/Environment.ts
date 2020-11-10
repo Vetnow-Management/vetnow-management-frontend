@@ -9,6 +9,8 @@ class Environment extends AbstractEnvironmentVariables {
 
   public readonly VIA_CEP_URL: string = this.getVariable('VIA_CEP_URL');
 
+  public readonly GIT_HUB_URL: string = this.getVariable('GIT_HUB_URL');
+
   public readonly PRIMARY_COLOR: string = '#0984E3';
 
   public readonly SECONDARY_COLOR: string = '#E17055';

@@ -5,3 +5,4 @@ export * from './empresa';
 export * from './usuario';
 export * from './validacao';
 export * from './local-storage';
+export * from './github';
