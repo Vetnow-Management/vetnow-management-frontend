@@ -40,7 +40,9 @@ export default function Bar(): ReactElement {
           <Typography variant="h6" noWrap className={ classes.toolbarTitle }>
             VETNOW ADMIN
           </Typography>
-          <NotificacoesButton aoClickNotificacoes={aoClickNotificacoes} />
+          <Fade in={keycloak?.authenticated} unmountOnExit mountOnEnter>
+            <NotificacoesButton aoClickNotificacoes={aoClickNotificacoes} />
+          </Fade>
           <Fade in={keycloak?.authenticated} unmountOnExit mountOnEnter>
             <IconButton edge='end'
                         aria-label='conta do usuario'
