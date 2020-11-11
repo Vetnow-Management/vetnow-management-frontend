@@ -10,8 +10,12 @@ class EmpresaRestService extends AbstractRestService {
   }
 
   @HandleDates()
-  public obter(login: string): Observable<Empresa> {
-    return this.get<Empresa>(`/pessoa/${login}`)
+  public obter(query: { email?: string, username?: string }): Observable<Empresa> {
+    const url = this.createUrlWithQueryParams(
+      '/pessoa',
+      query
+    );
+    return this.get<Empresa>(url);
   }
 }
 

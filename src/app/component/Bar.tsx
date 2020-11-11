@@ -1,22 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
+
 import { Route } from 'react-router-dom';
 import {
+  Fade,
+  Menu,
+  Theme,
   AppBar,
-  createStyles,
-  Hidden,
+  Toolbar,
+  MenuItem,
   IconButton,
   makeStyles,
-  Menu, MenuItem,
-  Theme,
-  Toolbar,
-  Typography
+  Typography,
+  createStyles
 } from '@material-ui/core';
-
-import { BtnCadastro } from '.';
-import { useRoutes } from '../hook';
-import { ENTRAR_ROTA } from '../page/autenticacao';
-import JWTService from "../service/jwt/JWTService";
-import {AccountCircle} from "@material-ui/icons";
+import { AccountCircle } from '@material-ui/icons';
+import { useKeycloak } from '@react-keycloak/web';
 
 const COLOR_GRADIENT = '#FE6B8B';
 
@@ -55,75 +53,67 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
+function useMenuPerfil() {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { keycloak: { logout }} = useKeycloak();
+
+  const menuPerfilEstaAberto = Boolean(anchorEl);
+  const menuId = 'id_menu-perfil-appbar';
+
+  function aoClickMenuPerfil({ currentTarget }: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>): void {
+    setAnchorEl(currentTarget);
+  }
+
+  function aoFecharMenuPerfil(): void {
+    setAnchorEl(null);
+  }
+
+  const menuPerfil = (
+    <Menu open={menuPerfilEstaAberto}
+          anchorEl={anchorEl}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          id={menuId}
+          keepMounted
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          onClose={aoFecharMenuPerfil}
+    >
+      <MenuItem onClick={() => logout()}>Sair</MenuItem>
+    </Menu>
+  );
+
+  return {
+    menuId,
+    aoClickMenuPerfil,
+    menuPerfilComponent: menuPerfil,
+  }
+}
+
 export default function Bar() {
   const classes = useStyles();
-  const usuarioLogado = JWTService.isAuthorizationJWTValid();
-
-  const { irParaCadastro } = useRoutes();
-
-  const [anchorEl, setAnchorEl] = useState<EventTarget & HTMLButtonElement>();
-
-  const handleMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(undefined);
-  };
+  const { menuId, aoClickMenuPerfil, menuPerfilComponent} = useMenuPerfil();
+  const { keycloak } = useKeycloak();
 
   return (
-    <Route render={ ({ history: { location: { pathname } } }) => {
-      return (
-        <AppBar position="absolute" className={`${usuarioLogado ? classes.appBar : ''}`}>
-          <Toolbar className={ classes.toolbar }>
-            <Typography variant="h6" noWrap className={ classes.toolbarTitle }>
-              VETNOW ADMIN
-            </Typography>
-            { pathname === ENTRAR_ROTA &&
-            <Hidden xsDown>
-              <BtnCadastro
-                onClick={ irParaCadastro }
-                descricao="EXPERIMENTE GRÁTIS"
-                ButtonProps={{
-                  fullWidth: false,
-                }}
-              />
-            </Hidden>
-            }
-            {usuarioLogado &&
-            <div>
-              <IconButton
-                aria-label="perfil do usuario logado"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle/>
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Perfil</MenuItem>
-                <MenuItem onClick={handleClose}>Sair</MenuItem>
-              </Menu>
-            </div>}
-          </Toolbar>
-        </AppBar>
-      )
-    } }
-    />
+    <Route>
+      <AppBar position="absolute" >
+        <Toolbar className={ classes.toolbar }>
+          <Typography variant="h6" noWrap className={ classes.toolbarTitle }>
+            VETNOW ADMIN
+          </Typography>
+          <Fade in={keycloak?.authenticated}>
+            <IconButton edge='end'
+                        aria-label='conta do usuario'
+                        aria-controls={menuId}
+                        aria-haspopup="true"
+                        onClick={aoClickMenuPerfil}
+                        color='inherit'
+            >
+              <AccountCircle />
+            </IconButton>
+          </Fade>
+        </Toolbar>
+      </AppBar>
+      {keycloak?.authenticated && menuPerfilComponent}
+    </Route>
   )
 }

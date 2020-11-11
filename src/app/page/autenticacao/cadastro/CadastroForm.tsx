@@ -1,17 +1,16 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 
-import { Form } from 'react-final-form'
 import { Grid } from '@material-ui/core';
 import { finalize } from 'rxjs/operators';
 import { observer } from 'mobx-react-lite';
 import { get as _get, set as _set } from 'lodash-es';
-import { ValidationError as YupValidationError } from 'yup';
+import { ValidateOptions, ValidationError as YupValidationError } from 'yup';
 
 import { Steps } from './steps';
 import { SignUpFooter } from './footer';
 import StepperSignUp from './stepper/StepperSignUp';
 import { NomesFormularioSistema } from '../../../domain';
-import { SaveForm, WithMargin } from '../../../component';
+import { VetForm, WithMargin } from '../../../component';
 import { useBackupFormState, useRoutes } from '../../../hook';
 import { Cadastro, PessoaRestService } from '../../../service';
 import { handleRequestError, TypeSafeGuard } from '../../../util';
@@ -33,7 +32,10 @@ function convertYupErrorsToFieldErrors(yupErrors: YupValidationError) {
   }, {});
 }
 
+const YUP_VALIDATION_OPTIONS: ValidateOptions = { abortEarly: false, strict: true };
+
 function CadastroForm(): ReactElement {
+  const { irParaEntrar } = useRoutes();
   const formStateFromDB = useBackupFormState<Cadastro>(NomesFormularioSistema.CADASTRO_INICIAL);
   const {
     blockUIStore: {
@@ -43,21 +45,11 @@ function CadastroForm(): ReactElement {
     snackBarStore,
   } = useSignUpContext();
 
-  const { irParaEntrar } = useRoutes();
-  const [ valorInicial, setValorInicial ] = useState<Cadastro | undefined>(undefined);
   const [formErros, _setFormErros] = useState({
     isDadosPessoaisValid: false,
     isDadosUsuariosValid: false,
     isDadosEmpresariaisValid: false,
   });
-
-  useEffect(() => {
-    formStateFromDB.obter().then((value) => {
-      value.ifPresent((valuePresent) => {
-        setValorInicial(valuePresent);
-      })
-    });
-  }, []);
 
   function setFormErros(formName: 'isDadosPessoaisValid' | 'isDadosEmpresariaisValid' | 'isDadosUsuariosValid', value: boolean = true): void {
     if (formErros[formName] === value) return; // somente atualizar se necessario
@@ -70,7 +62,7 @@ function CadastroForm(): ReactElement {
 
   async function validateForm(values: any) {
     async function validarDadosPessoais(): Promise<void> {
-      await DadosPessoaisValidationSchema.validate(values, { abortEarly: false })
+      await DadosPessoaisValidationSchema.validate(values, YUP_VALIDATION_OPTIONS)
         .catch((err) => {
           setFormErros('isDadosPessoaisValid', false)
           return Promise.reject(err)
@@ -79,7 +71,7 @@ function CadastroForm(): ReactElement {
     }
 
     async function validarDadosEmpresariais(): Promise<void> {
-      await DadosEmpresariaisValidationSchema.validate(values, { abortEarly: false })
+      await DadosEmpresariaisValidationSchema.validate(values, YUP_VALIDATION_OPTIONS)
         .catch((err) => {
           setFormErros('isDadosEmpresariaisValid', false)
           return Promise.reject(err);
@@ -88,7 +80,7 @@ function CadastroForm(): ReactElement {
     }
 
     async function validarDadosUsuario(): Promise<void> {
-      await DadosUsuarioValidationSchema.validate(values, { abortEarly: false })
+      await DadosUsuarioValidationSchema.validate(values, YUP_VALIDATION_OPTIONS)
         .catch((err) => {
           setFormErros('isDadosUsuariosValid', false);
           return Promise.reject(err);
@@ -136,29 +128,13 @@ function CadastroForm(): ReactElement {
         </Grid>
         <Grid container item alignItems='flex-start' xs={12}>
           <WithMargin margin='10px'>
-            <Form<Cadastro> onSubmit={ onSubmit }
-                            validate={ validateForm }
-                            initialValues={valorInicial}
-                            mutators={{
-                              setFieldTouched: (args, state, tools) => {
-                                //fixme: arrumar, se criar outro form ele funciona
-                                const [name, touched] = args
-                                const field = state.fields[name]
-                                if (field) {
-                                  field.touched = !!touched
-                                }
-                              },
-                            }}
-                            render={ ({ handleSubmit }) => {
-                              return (
-                                <form noValidate onSubmit={ handleSubmit }>
-                                  <SaveForm debounce={1000} formName={NomesFormularioSistema.CADASTRO_INICIAL}/>
-                                  <Steps />
-                                  <SignUpFooter formErros={formErros} />
-                                </form>
-                              );
-                            } }
-            />
+            <VetForm onSubmit={ onSubmit }
+                     validate={ validateForm }
+                     persistir={{ formName: NomesFormularioSistema.CADASTRO_INICIAL, debounce: 1000  }}
+            >
+              <Steps />
+              <SignUpFooter formErros={formErros} />
+            </VetForm>
           </WithMargin>
         </Grid>
       </Grid>

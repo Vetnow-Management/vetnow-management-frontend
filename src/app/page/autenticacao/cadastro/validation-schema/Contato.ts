@@ -72,17 +72,19 @@ const ContatoValidationSchema = yup.object().shape({
     .string()
     .required(required)
     .email(email)
-    .test(
-      'email',
-      'E-mail ja cadastrado',
-      function (email: string): Promise<boolean> {
-        const validacaoResquest = async (valor: string, resolve: any) =>
-          await ValidacaoRestService.validarInformacoes({email}).toPromise()
-            .then(res => resolve(res.emailValido))
-            .catch(() => resolve(false))
-        return executeWithDebounce(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i, email as string, validacaoResquest)
-      }
-    )
+    // fixme: ta fazendo request quando preenche outro campo
+    // o endpoint ta pedindo Authorization ai da 401
+    // .test(
+    //   'email',
+    //   'E-mail ja cadastrado',
+    //   function (email: string): Promise<boolean> {
+    //     const validacaoResquest = async (valor: string, resolve: any) =>
+    //       await ValidacaoRestService.validarInformacoes({email}).toPromise()
+    //         .then(res => resolve(res.emailValido))
+    //         .catch(() => resolve(false))
+    //     return executeWithDebounce(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i, email as string, validacaoResquest)
+    //   }
+    // )
 });
 
 function executeWithDebounce(regex: RegExp, valor: string, validation: (valor: string, resolve: any) => Promise<void>): Promise<boolean>{
