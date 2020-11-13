@@ -1,5 +1,5 @@
-import {createMuiTheme, Theme} from '@material-ui/core';
-import {Environment} from '../util';
+import { createMuiTheme, Theme } from '@material-ui/core';
+import { Environment } from '../util';
 
 declare module "@material-ui/core/styles/createBreakpoints" {
   interface BreakpointOverrides {
