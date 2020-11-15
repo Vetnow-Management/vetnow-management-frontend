@@ -1,11 +1,22 @@
-import React, {ReactElement} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import React from "react";
+import {makeStyles} from "@material-ui/core/styles";
 
-export default function Dashboard(): ReactElement {
+const useStyles = makeStyles((theme) => ({
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(3),
+  },
+}));
+
+export default function Main() {
+  const classes = useStyles();
 
   return (
-    <>
+    <main className={classes.content}>
+      <div className={classes.toolbar}/>
       <Typography paragraph>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
         ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
@@ -84,6 +95,6 @@ export default function Dashboard(): ReactElement {
         nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
         accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
       </Typography>
-    </>
+    </main>
   )
 }

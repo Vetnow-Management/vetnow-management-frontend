@@ -40,9 +40,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     height: 4,
     background: `linear-gradient(45deg, ${ COLOR_GRADIENT } 30%, ${ theme.palette.secondary.main } 90%)`,
   },
-
   appBar: {
     borderBottom: `1px solid ${ theme.palette.divider }`,
+    width: `calc(100% - ${theme.menuLateral.width}px)`,
+    marginLeft: theme.menuLateral.width,
   },
   toolbar: {
     flexWrap: 'wrap',
