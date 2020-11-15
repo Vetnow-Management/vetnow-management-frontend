@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 
+import * as R from 'ramda';
 import { interval } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { Button } from '@material-ui/core';
@@ -28,15 +29,20 @@ function requerAtualizarSistema(commits: GitHubTag[]): boolean {
   const obterMinor = (versao: string) => obterNumeroVersao(versao, 'minor');
   const obterMajor = (versao: string) => obterNumeroVersao(versao, 'major');
 
-  const tagMaisRecente = commits
-    .map((commit) => commit.name)
-    .map((tag) => tag.replace('v', ''))[0]
+  const tagMaisRecente: string = R.pipe<GitHubTag[], string[], string[], string, string>(
+    R.map(R.prop('name')),
+    R.sort((a, b) => a.localeCompare(b, 'en', { numeric: true })),
+    R.last,
+    R.replace('v', '')
+  )(commits);
 
   const isMajorIgual = obterMajor(appVersion) === obterMajor(tagMaisRecente);
   const isMinorIgual = obterMinor(appVersion) === obterMinor(tagMaisRecente);
   const isPatchIgual = obterPatch(appVersion) === obterPatch(tagMaisRecente);
 
-  console.log('Sistema version: ', appVersion);
+  // eslint-disable-next-line no-console
+  console.log('Versao do Sistema: ', appVersion);
+  // eslint-disable-next-line no-console
   console.log('Versao mais recente: ', tagMaisRecente);
 
   return !(isMajorIgual && isMinorIgual && isPatchIgual);
@@ -70,7 +76,7 @@ function InitApp(): ReactElement {
   useEffect(() => {
     // a cada 5min obter tags do github
     interval(300000)
-      .pipe(mergeMap(() => GitHubRestService.obterTags()))
+      .pipe(mergeMap(GitHubRestService.obterTags))
       .subscribe(
         aoObterTags,
         handleRequestError('Erro ao verificar atualizações do sistema')
@@ -83,6 +89,5 @@ function InitApp(): ReactElement {
     </BlockUI>
   )
 }
-
 
 export default observer(InitApp);
