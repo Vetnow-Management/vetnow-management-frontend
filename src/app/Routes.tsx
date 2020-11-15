@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 
 import { useKeycloak } from '@react-keycloak/web';
-import { makeStyles, Container, Fade } from '@material-ui/core';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Container, Fade, makeStyles } from '@material-ui/core';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { useBreakpoints } from './hook';
 import { EMPRESA_PREFIXO } from './page/empresa';
@@ -10,6 +10,7 @@ import { AUTENTICACAO_PREFIXO } from './page/autenticacao';
 import { Bar, LoadingCentralizado, VetRoute } from './component';
 import { RECUPERAR_SENHA_PREFIXO } from './page/recuperar-senha';
 import { AutenticacaoRotas, EmpresaRotas, RecuperarSenhaRotas } from './page';
+import Menu from "./page/empresa/dashboard/Menu";
 
 function useStyles(appBarHeight: 56 | 64) {
   return makeStyles((theme) => ({
@@ -35,7 +36,7 @@ function useStyles(appBarHeight: 56 | 64) {
 
 export default function Routes(): ReactElement {
   const isSm = useBreakpoints().up('sm');
-  const { initialized } = useKeycloak();
+  const { initialized, keycloak } = useKeycloak();
 
   const classes = isSm
     ? useStyles(64)
@@ -49,6 +50,7 @@ export default function Routes(): ReactElement {
     <Fade in={initialized} unmountOnExit mountOnEnter>
       <div className={classes.root}>
         <Bar/>
+        {keycloak.authenticated && <Menu />}
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container} id='CONTAINER'>

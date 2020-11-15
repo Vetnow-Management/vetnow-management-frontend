@@ -7,6 +7,18 @@ declare module "@material-ui/core/styles/createBreakpoints" {
   }
 }
 
+declare module "@material-ui/core/styles/createMuiTheme" {
+  interface Theme {
+    menuLateral: MenuLateral;
+  }
+  interface ThemeOptions {
+    menuLateral: MenuLateral;
+  }
+  interface MenuLateral {
+    width: string | number;
+  }
+}
+
 const materiaUIConfig: Theme = createMuiTheme({
   palette: {
     primary: {
@@ -29,6 +41,9 @@ const materiaUIConfig: Theme = createMuiTheme({
       lg: 1280,
       xl: 1920,
     }
+  },
+  menuLateral: {
+    width: 240,
   }
 });
 

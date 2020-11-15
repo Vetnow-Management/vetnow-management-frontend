@@ -27,6 +27,8 @@ export const useBarStyle = makeStyles((theme: Theme) => createStyles({
 
   appBar: {
     borderBottom: `1px solid ${ theme.palette.divider }`,
+    width: `calc(100% - ${theme.menuLateral.width}px)`,
+    marginLeft: theme.menuLateral.width,
   },
   toolbar: {
     flexWrap: 'wrap',
