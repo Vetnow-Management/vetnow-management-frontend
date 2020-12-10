@@ -3,8 +3,7 @@ import * as yup from 'yup';
 import {debounce} from 'lodash-es';
 import {CellPhoneNumberCustomMessage, Validation, Verify} from '@vetnow-management/essentials';
 import {SchemaMessages} from '../../../../util';
-import ValidacaoRestService from "../../../../service/validacao/ValidacaoRestService";
-import IValidacaoQuery from "../../../../service/validacao/dominio/ValidacaoQuery";
+import {ValidacaoRestService} from "../../../../service/validacao";
 
 const {
   required,
@@ -39,7 +38,7 @@ const ContatoValidationSchema = yup.object().shape({
           },
         ) as string[];
         return Verify.isNotEmpty(validation)
-          ? this.createError({ message: validation[0] })
+          ? this.createError({message: validation[0]})
           : true;
       },
     ),
@@ -64,7 +63,7 @@ const ContatoValidationSchema = yup.object().shape({
           },
         ) as string[];
         return Verify.isNotEmpty(validation)
-          ? this.createError({ message: validation[0] })
+          ? this.createError({message: validation[0]})
           : true;
       },
     ),
@@ -76,9 +75,8 @@ const ContatoValidationSchema = yup.object().shape({
     // o endpoint ta pedindo Authorization ai da 401
     // .test(
     //   'email',
-    //   'E-mail ja cadastrado',
-    //   function (email: string): Promise<boolean> {
-    //     const validacaoResquest = async (valor: string, resolve: any) =>
+    //   'E-mail ja cadastrado', (email: string): Promise<boolean> => {
+    //     const validacaoResquest = async (item: string, resolve: any) =>
     //       await ValidacaoRestService.validarInformacoes({email}).toPromise()
     //         .then(res => resolve(res.emailValido))
     //         .catch(() => resolve(false))
@@ -87,8 +85,8 @@ const ContatoValidationSchema = yup.object().shape({
     // )
 });
 
-function executeWithDebounce(regex: RegExp, valor: string, validation: (valor: string, resolve: any) => Promise<void>): Promise<boolean>{
-  if(regex.test(valor)){
+function executeWithDebounce(regex: RegExp, valor: string, validation: (valor: string, resolve: any) => Promise<void>): Promise<boolean> {
+  if (regex.test(valor)) {
     return new Promise(resolve => debounce(validation, 1000)(valor, resolve))
   }
   return Promise.reject(true);

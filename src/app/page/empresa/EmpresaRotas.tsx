@@ -1,14 +1,12 @@
-import React, { ReactElement } from 'react';
+import React, {ReactElement} from 'react';
 
-import { observer } from 'mobx-react-lite';
-import { Switch, useHistory, Redirect } from 'react-router-dom';
-
-import { useRoutes } from '../../hook';
-import { VetRoute } from '../../component';
+import {observer} from 'mobx-react-lite';
+import {Redirect, Switch, useHistory} from 'react-router-dom';
+import {VetRoute} from '../../component';
 import {TUTOR_PREFIXO, TutorRotas} from "./tutor";
 import ObterDadosEmpresa from './ObterDadosEmpresa';
-import { Dashboard, DASHBOARD_PREFIXO } from './dashboard';
-import { EmpresaContextProvider, useEmpresaContext } from './config/context';
+import {Dashboard, DASHBOARD_PREFIXO} from './dashboard';
+import {EmpresaContextProvider, useEmpresaContext} from './config/context';
 
 export const EMPRESA_PREFIXO = '/empresa';
 
@@ -17,28 +15,25 @@ function buildRotaDentroEmpresa(path: string): string {
     ? path.substring(1)
     : path;
 
-  return `${ EMPRESA_PREFIXO }/:uuid/${pathNormalizado}`;
+  return `${EMPRESA_PREFIXO}/:uuid/${pathNormalizado}`;
 }
 
-// todas rotas tem q ter o seguinte padrao:
-// /empresa/:uuid/seu-path
-// so chamar o metodo buildRotaDentroEmpresa q ele monta a sua url padronizada;
 export const TUTOR_ROTA = buildRotaDentroEmpresa(TUTOR_PREFIXO);
 export const DASHBOARD_ROTA = buildRotaDentroEmpresa(DASHBOARD_PREFIXO);
 
 const HandleRedirect = observer((): ReactElement | null => {
-    const { location: { pathname } } = useHistory();
-    const { empresaStore: { uuidEmpresa } } = useEmpresaContext();
+    const {location: {pathname}} = useHistory();
+    const {empresaStore: {uuidEmpresa}} = useEmpresaContext();
 
     if (pathname === EMPRESA_PREFIXO) {
       const dashboardRotaNormalizada = DASHBOARD_ROTA
         .replace(':', '')
         .replace('uuid', uuidEmpresa as string);
 
-      return <Redirect to={ `${ dashboardRotaNormalizada }` }/>
+      return <Redirect to={`${dashboardRotaNormalizada}`}/>
     }
 
-    return <Redirect to={ `${ pathname }` }/>;
+    return <Redirect to={`${pathname}`}/>;
   }
 );
 
@@ -46,16 +41,16 @@ export default function EmpresaRotas(): ReactElement {
   return (
     <EmpresaContextProvider>
       <ObterDadosEmpresa>
-        <HandleRedirect />
+        <HandleRedirect/>
         <Switch>
           <VetRoute exact
                     isProtect
-                    path={ DASHBOARD_ROTA }
-                    component={ Dashboard }
+                    path={DASHBOARD_ROTA}
+                    component={Dashboard}
           />
           <VetRoute isProtect
-                    path={ TUTOR_ROTA }
-                    component={ TutorRotas }
+                    path={`${TUTOR_ROTA}`}
+                    component={TutorRotas}
           />
         </Switch>
       </ObterDadosEmpresa>

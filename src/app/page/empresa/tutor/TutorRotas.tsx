@@ -1,15 +1,25 @@
 import React, {ReactElement} from "react";
-import {Route, Switch} from 'react-router-dom';
-import TutorConsultar from "./TutorConsultar";
+import {Switch, useRouteMatch} from 'react-router-dom';
+import TutorConsultar from "./components/TutorConsultar";
+import {VetRoute} from "../../../component";
+import {TutorInformacoes} from "./components";
 
 export const TUTOR_PREFIXO: string = '/tutor';
-export const TUTOR_CONSULTA: string = '/';
 
 export default function TutorRotas(): ReactElement {
+
+  const {path} = useRouteMatch();
+
   return (
     <Switch>
-      <Route path={TUTOR_CONSULTA}
-             component={TutorConsultar}
+      <VetRoute exact
+                isProtect
+                path={path}
+                component={TutorConsultar}
+      />
+      <VetRoute isProtect
+                path={`${path}/:uuid/informacoes`}
+                component={TutorInformacoes}
       />
     </Switch>
   )
