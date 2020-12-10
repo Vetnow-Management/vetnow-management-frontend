@@ -3,11 +3,12 @@ import React, { ReactElement } from 'react';
 import { useSnackbar } from 'notistack';
 
 import DefaultAppContextValue from './config/DefaultAppContextValue';
-import { BlockUIStore, SnackBarStore } from './store';
+import { BlockUIStore, SnackBarStore, NotificacoesStore } from './store';
 
 export interface IAppContext {
   blockUIStore: BlockUIStore,
   snackBarStore: SnackBarStore,
+  notificacoesStore: NotificacoesStore,
 }
 
 const appContext = React.createContext<IAppContext>(

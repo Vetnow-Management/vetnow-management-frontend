@@ -1,17 +1,16 @@
 import React, { ReactElement } from 'react';
 
 import { Router } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
 import { ptBR } from 'date-fns/esm/locale';
 import DateFnsUtils from '@date-io/date-fns';
 import { SnackbarProvider } from 'notistack';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import {
-  MuiThemeProvider,
-  StylesProvider,
   CssBaseline,
-  createGenerateClassName
+  StylesProvider,
+  MuiThemeProvider,
+  createGenerateClassName,
 } from '@material-ui/core';
 
 import 'react-loaders'
@@ -19,10 +18,9 @@ import 'react-block-ui/style.css';
 import 'loaders.css/loaders.min.css';
 import 'mobx-react-lite/batchingForReactDom'
 
-import Routes from './Routes';
+import InitApp from './InitApp';
 import { Environment } from './util';
-import { BlockUI } from './component';
-import useAppContext, { AppContextProvider } from './AppContext';
+import { AppContextProvider } from './AppContext';
 import { HistoryConfig, MateriaUIConfig, KeycloakConfig, keycloakOptions } from './config';
 
 const generateClassName = createGenerateClassName({
@@ -30,18 +28,7 @@ const generateClassName = createGenerateClassName({
   seed: Environment.APP_NAME,
 })
 
-const SetUpBlockUI = observer((): ReactElement => {
-    const { blockUIStore: { estaMostrando }} = useAppContext();
-
-    return (
-      <BlockUI isOpen={estaMostrando}>
-        <Routes />
-      </BlockUI>
-    )
-  }
-);
-
-export default function App() {
+export default function App(): ReactElement {
   return (
     <StylesProvider generateClassName={generateClassName}>
       <MuiThemeProvider theme={ MateriaUIConfig }>
@@ -51,7 +38,7 @@ export default function App() {
               <Router history={ HistoryConfig }>
                 <AppContextProvider>
                   <CssBaseline />
-                  <SetUpBlockUI />
+                  <InitApp />
                 </AppContextProvider>
               </Router>
             </SnackbarProvider>
