@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'vetnow-front';
+  public title = '';
+
+  public upper(): void {
+    this.title = this.title.toUpperCase();
+  }
 }
