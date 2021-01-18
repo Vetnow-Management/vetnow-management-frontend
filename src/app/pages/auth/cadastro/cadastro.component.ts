@@ -14,6 +14,10 @@ export class CadastroComponent implements OnInit {
       email: new FormControl(),
       telefone: new FormControl(),
     }),
+    usuario: new FormGroup({
+      usuario: new FormControl(),
+      senha: new FormControl(),
+    }),
   });
 
   constructor() {}

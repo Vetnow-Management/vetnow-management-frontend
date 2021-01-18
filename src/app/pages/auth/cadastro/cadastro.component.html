@@ -20,6 +20,17 @@
       <input type="text" id="telefone" formControlName="telefone" />
     </label>
   </div>
+  <div formGroupName="usuario">
+    <label for="email">
+      Usuário
+      <input type="text" id="usuario" formControlName="usuario" />
+    </label>
+    <br />
+    <label for="telefone">
+      Senha
+      <input type="password" id="senha" formControlName="senha" />
+    </label>
+  </div>
   <input type="submit" value="cadastrar" />
 </form>
 <a [routerLink]="['']">voltar</a>
