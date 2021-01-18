@@ -20,7 +20,7 @@ export class CadastroComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  submit() {
-    console.log('obj', this.cadastroForm.value);
+  cadastrar(): void {
+    console.log('values', this.cadastroForm.value);
   }
 }

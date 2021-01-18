@@ -1,2 +1,12 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="acessar()">
+  <label for="email">
+    E-mail
+    <input type="text" id="email" formControlName="email" />
+  </label>
+  <label for="senha">
+    Senha
+    <input type="password" id="senha" formControlName="senha" />
+  </label>
+  <input type="submit" value="Acessar" />
+</form>
 <a [routerLink]="['cadastro']">Cadastro</a>
