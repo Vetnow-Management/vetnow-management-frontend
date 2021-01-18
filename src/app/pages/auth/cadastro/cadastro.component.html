@@ -1,1 +1,25 @@
-<p>cadastro works!</p>
+<form [formGroup]="cadastroForm" (ngSubmit)="submit()">
+  <label for="razaoSocial">
+    Razão social
+    <input type="text" id="razaoSocial" formControlName="razaoSocial" />
+  </label>
+  <br />
+  <label for="documento">
+    CNPJ
+    <input type="text" id="documento" formControlName="documento" />
+  </label>
+  <br />
+  <div formGroupName="contato">
+    <label for="email">
+      E-mail
+      <input type="text" id="email" formControlName="email" />
+    </label>
+    <br />
+    <label for="telefone">
+      Telefone
+      <input type="text" id="telefone" formControlName="telefone" />
+    </label>
+  </div>
+  <input type="submit" value="cadastrar" />
+</form>
+<a [routerLink]="['']">voltar</a>
