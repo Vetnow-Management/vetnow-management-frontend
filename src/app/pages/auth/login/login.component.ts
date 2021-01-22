@@ -8,7 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({
-    email: new FormControl(),
+    usuario: new FormControl(),
     senha: new FormControl(),
   });
 

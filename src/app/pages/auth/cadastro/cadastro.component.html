@@ -1,4 +1,4 @@
-<div class="p-d-flex p-jc-center" style="width: 100%; height: 100%">
+<div class="cadastro-container p-d-flex p-jc-center">
   <div class="p-col-8 p-mr-2 p-as-center">
     <form [formGroup]="cadastroForm" (ngSubmit)="cadastrar()">
       <div class="p-grid">
@@ -50,12 +50,7 @@
           <p-checkbox class="p-col-12" name="groupname" value="val1" label="Aceito os termos de uso."></p-checkbox>
         </div>
         <div class="p-col-12 p-sm-12 p-md-12">
-          <p-checkbox
-            class="p-col-12"
-            name="groupname"
-            value="val1"
-            label="Desejo receber novidades da plataforma VETNOW."
-          ></p-checkbox>
+          <p-checkbox class="p-col-12" name="groupname" value="val1" label="Desejo receber novidades."></p-checkbox>
         </div>
         <div class="p-col-12 p-sm-12 p-md-12">
           <button
@@ -66,8 +61,8 @@
             label="Cadastrar"
           ></button>
         </div>
-        <div class="p-col-12 p-text-center">
-          <p>
+        <div class="p-d-none p-d-md-inline p-col-12">
+          <p class="p-text-center">
             Após se cadastrar você receberá 30 dias de acesso Grátis para experimentar a plataforma VETNOW completa.
             Aproveite!
           </p>
@@ -75,10 +70,4 @@
       </div>
     </form>
   </div>
-  <!--  <div class="p-sm-8 p-md-8 p-mr-2 p-as-center">-->
-  <!--    &lt;!&ndash;    <app-card>&ndash;&gt;-->
-  <!--    -->
-  <!--    &lt;!&ndash;      <a [routerLink]="['']">voltar</a>&ndash;&gt;-->
-  <!--    &lt;!&ndash;    </app-card>&ndash;&gt;-->
-  <!--  </div>-->
 </div>
