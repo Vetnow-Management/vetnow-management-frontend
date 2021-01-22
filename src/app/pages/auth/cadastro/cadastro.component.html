@@ -1,36 +1,84 @@
-<form [formGroup]="cadastroForm" (ngSubmit)="cadastrar()">
-  <label for="razaoSocial">
-    Razão social
-    <input type="text" id="razaoSocial" formControlName="razaoSocial" />
-  </label>
-  <br />
-  <label for="documento">
-    CNPJ
-    <input type="text" id="documento" formControlName="documento" />
-  </label>
-  <br />
-  <div formGroupName="contato">
-    <label for="email">
-      E-mail
-      <input type="text" id="email" formControlName="email" />
-    </label>
-    <br />
-    <label for="telefone">
-      Telefone
-      <input type="text" id="telefone" formControlName="telefone" />
-    </label>
+<div class="p-d-flex p-jc-center" style="width: 100%; height: 100%">
+  <div class="p-col-8 p-mr-2 p-as-center">
+    <form [formGroup]="cadastroForm" (ngSubmit)="cadastrar()">
+      <div class="p-grid">
+        <div class="p-col-12 p-sm-12 p-md-6">
+          <span class="p-float-label">
+            <input type="text" class="p-col-12" pInputText id="razaoSocial" formControlName="razaoSocial" />
+            <label for="razaoSocial">Razão social</label>
+          </span>
+        </div>
+        <div class="p-col-12 p-sm-12 p-md-6">
+          <span class="p-float-label">
+            <input type="text" class="p-col-12" pInputText id="documento" formControlName="documento" />
+            <label for="documento">CNPJ</label>
+          </span>
+        </div>
+        <div class="p-col-12">
+          <div class="p-grid" formGroupName="contato">
+            <div class="p-col-12 p-sm-12 p-md-6">
+              <span class="p-float-label">
+                <input type="text" class="p-col-12" pInputText id="email" formControlName="email" />
+                <label for="email">E-mail</label>
+              </span>
+            </div>
+            <div class="p-col-12 p-sm-12 p-md-6">
+              <span class="p-float-label">
+                <input type="text" class="p-col-12" pInputText id="telefone" formControlName="telefone" />
+                <label for="telefone">Telefone</label>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="p-col-12">
+          <div class="p-grid" formGroupName="usuario">
+            <div class="p-col-12 p-sm-12 p-md-6">
+              <span class="p-float-label">
+                <input type="text" class="p-col-12" pInputText id="usuario" formControlName="usuario" />
+                <label for="usuario">Usuário</label>
+              </span>
+            </div>
+            <div class="p-col-12 p-sm-12 p-md-6">
+              <span class="p-float-label">
+                <input type="password" class="p-col-12" pInputText id="senha" formControlName="senha" />
+                <label for="senha">Senha</label>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="p-col-12 p-sm-12 p-md-12">
+          <p-checkbox class="p-col-12" name="groupname" value="val1" label="Aceito os termos de uso."></p-checkbox>
+        </div>
+        <div class="p-col-12 p-sm-12 p-md-12">
+          <p-checkbox
+            class="p-col-12"
+            name="groupname"
+            value="val1"
+            label="Desejo receber novidades da plataforma VETNOW."
+          ></p-checkbox>
+        </div>
+        <div class="p-col-12 p-sm-12 p-md-12">
+          <button
+            pButton
+            class="p-col-12"
+            style="background-color: var(--theme-primary-color)"
+            type="submit"
+            label="Cadastrar"
+          ></button>
+        </div>
+        <div class="p-col-12 p-text-center">
+          <p>
+            Após se cadastrar você receberá 30 dias de acesso Grátis para experimentar a plataforma VETNOW completa.
+            Aproveite!
+          </p>
+        </div>
+      </div>
+    </form>
   </div>
-  <div formGroupName="usuario">
-    <label for="email">
-      Usuário
-      <input type="text" id="usuario" formControlName="usuario" />
-    </label>
-    <br />
-    <label for="telefone">
-      Senha
-      <input type="password" id="senha" formControlName="senha" />
-    </label>
-  </div>
-  <input type="submit" value="cadastrar" />
-</form>
-<a [routerLink]="['']">voltar</a>
+  <!--  <div class="p-sm-8 p-md-8 p-mr-2 p-as-center">-->
+  <!--    &lt;!&ndash;    <app-card>&ndash;&gt;-->
+  <!--    -->
+  <!--    &lt;!&ndash;      <a [routerLink]="['']">voltar</a>&ndash;&gt;-->
+  <!--    &lt;!&ndash;    </app-card>&ndash;&gt;-->
+  <!--  </div>-->
+</div>
