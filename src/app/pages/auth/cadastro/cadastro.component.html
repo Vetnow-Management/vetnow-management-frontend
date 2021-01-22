@@ -1,14 +1,14 @@
 <div class="cadastro-container p-d-flex p-jc-center">
-  <div class="p-col-8 p-mr-2 p-as-center">
+  <div class="p-sm-12 p-md-4 p-mr-2 p-as-center">
     <form [formGroup]="cadastroForm" (ngSubmit)="cadastrar()">
       <div class="p-grid">
-        <div class="p-col-12 p-sm-12 p-md-6">
+        <div class="p-col-12 p-sm-12 p-md-12">
           <span class="p-float-label">
             <input type="text" class="p-col-12" pInputText id="razaoSocial" formControlName="razaoSocial" />
             <label for="razaoSocial">Razão social</label>
           </span>
         </div>
-        <div class="p-col-12 p-sm-12 p-md-6">
+        <div class="p-col-12 p-sm-12 p-md-12">
           <span class="p-float-label">
             <input type="text" class="p-col-12" pInputText id="documento" formControlName="documento" />
             <label for="documento">CNPJ</label>
@@ -16,13 +16,13 @@
         </div>
         <div class="p-col-12">
           <div class="p-grid" formGroupName="contato">
-            <div class="p-col-12 p-sm-12 p-md-6">
+            <div class="p-col-12 p-sm-12 p-md-12">
               <span class="p-float-label">
                 <input type="text" class="p-col-12" pInputText id="email" formControlName="email" />
                 <label for="email">E-mail</label>
               </span>
             </div>
-            <div class="p-col-12 p-sm-12 p-md-6">
+            <div class="p-col-12 p-sm-12 p-md-12">
               <span class="p-float-label">
                 <input type="text" class="p-col-12" pInputText id="telefone" formControlName="telefone" />
                 <label for="telefone">Telefone</label>
