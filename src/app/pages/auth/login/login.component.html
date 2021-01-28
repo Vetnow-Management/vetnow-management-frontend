@@ -1,27 +1,36 @@
 <div class="login-container p-d-flex p-jc-center">
   <div class="p-sm-12 p-md-4 p-mr-2 p-as-center">
     <form [formGroup]="loginForm" (ngSubmit)="acessar()">
-      <div class="p-grid">
-        <div class="p-col-12 p-sm-12 p-md-12">
-          <span class="p-float-label">
-            <input type="text" class="p-col-12" pInputText id="usuario" formControlName="usuario" />
-            <label for="usuario">Usuário</label>
-          </span>
-        </div>
-        <div class="p-col-12 p-sm-12 p-md-12">
-          <span class="p-float-label">
-            <input type="password" class="p-col-12" pInputText id="senha" formControlName="senha" />
-            <label for="senha">Senha</label>
-          </span>
-        </div>
-        <div class="p-col-12 p-sm-12 p-md-12">
-          <button
-            pButton
-            class="p-col-12"
-            style="background-color: var(--theme-primary-color)"
-            type="submit"
-            label="Acessar"
-          ></button>
+      <div id="login-wrapper">
+        <div id="login-container">
+          <div class="p-grid p-fluid">
+            <div class="p-col-12">
+              <input
+                type="text"
+                autocomplete="off"
+                pInputText
+                id="usuario"
+                formControlName="usuario"
+                placeholder="Usuário"
+              />
+            </div>
+            <div class="p-col-12">
+              <input
+                type="password"
+                autocomplete="off"
+                pInputText
+                id="senha"
+                formControlName="senha"
+                placeholder="Senha"
+              />
+            </div>
+            <div class="p-col-12">
+              <a href="#">Esqueci minha senha.</a>
+            </div>
+            <div class="p-col-12">
+              <p-button type="submit" label="Acessar" icon="pi pi-user"></p-button>
+            </div>
+          </div>
         </div>
       </div>
     </form>

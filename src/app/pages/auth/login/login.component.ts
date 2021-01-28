@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +14,13 @@ export class LoginComponent implements OnInit {
     senha: new FormControl(),
   });
 
-  constructor() {}
+  constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   ngOnInit(): void {}
 
   acessar() {
-    console.log('values', this.loginForm.value);
+    const { usuario, senha } = this.loginForm.value;
+    this.authenticationService.login(usuario, senha);
+    void this.router.navigate(['dashboard']);
   }
 }

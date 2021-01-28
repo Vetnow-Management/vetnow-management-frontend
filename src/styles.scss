@@ -1,15 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-:root {
-  --theme-primary-color-dark: #1976d2;
-  --theme-primary-color: #2196f3;
-  --theme-primary-color-light: #bbdefb;
-  --theme-primary-color-text: #ffffff;
-  --theme-accent-color: #9e9e9e;
-  --theme-primary-text-color: #212121;
-  --theme-secondary-text-color: #757575;
-  --theme-divider-color: #bdbdbd;
-}
+@import '../node_modules/primeng/resources/primeng.min.css';
+//@import '../node_modules/primeng/resources/themes/saga-blue/theme.css';
+@import '../node_modules/primeflex/primeflex.scss';
+@import '../node_modules/primeicons/primeicons.css';
+@import './assets/layout/css/layout.css';
 
 html body {
   padding: 0;

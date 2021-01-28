@@ -5,10 +5,13 @@ import { MenubarModule } from 'primeng/menubar';
 import { CardComponent } from './card/card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  declarations: [NavBarComponent, CardComponent],
-  imports: [CommonModule, MenubarModule, InputTextModule, ReactiveFormsModule],
-  exports: [NavBarComponent, CardComponent],
+  declarations: [NavBarComponent, CardComponent, SidebarComponent],
+  imports: [CommonModule, MenubarModule, InputTextModule, ReactiveFormsModule, PanelMenuModule, FontAwesomeModule],
+  exports: [NavBarComponent, CardComponent, SidebarComponent],
 })
 export class LayoutModule {}
