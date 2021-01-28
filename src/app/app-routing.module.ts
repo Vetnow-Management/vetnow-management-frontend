@@ -8,9 +8,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'dashboard',
+    path: 'admin',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then((m) => m.DashboardModule),
+    loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminModule),
   },
 ];
 

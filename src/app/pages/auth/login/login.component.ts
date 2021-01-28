@@ -21,6 +21,6 @@ export class LoginComponent implements OnInit {
   acessar() {
     const { usuario, senha } = this.loginForm.value;
     this.authenticationService.login(usuario, senha);
-    void this.router.navigate(['dashboard']);
+    void this.router.navigate(['admin']);
   }
 }
