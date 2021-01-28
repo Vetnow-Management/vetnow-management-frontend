@@ -18,6 +18,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  cadastrar() {
+    void this.router.navigate(['cadastro']);
+  }
+
   acessar() {
     const { usuario, senha } = this.loginForm.value;
     this.authenticationService.login(usuario, senha);

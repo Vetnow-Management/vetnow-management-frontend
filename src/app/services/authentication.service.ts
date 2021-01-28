@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class AuthenticationService {
   public currentUser: Observable<User>;
   private currentUserSubject: BehaviorSubject<User>;
-  private isLogado = new BehaviorSubject<boolean>(false);
+  public isLogado = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser') as string));
@@ -32,7 +32,7 @@ export class AuthenticationService {
       token: 'ksjhdksjhdjkasdhskabdjasbdkj',
     };
 
-    this.isLogado.next(true);
+    // this.isLogado.next(true);
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
 
@@ -52,8 +52,8 @@ export class AuthenticationService {
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
     this.isLogado.next(false);
+    localStorage.removeItem('currentUser');
     this.currentUserSubject.next({});
   }
 }

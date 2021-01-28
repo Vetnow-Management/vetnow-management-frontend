@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CadastroService } from './service/cadastro.service';
 import { EmpresaNovo } from './model/EmpresaNovo';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,9 +23,13 @@ export class CadastroComponent implements OnInit {
     }),
   });
 
-  constructor(private cadastroService: CadastroService) {}
+  constructor(private router: Router, private cadastroService: CadastroService) {}
 
   ngOnInit(): void {}
+
+  acessar(): void {
+    void this.router.navigate(['']);
+  }
 
   cadastrar(): void {
     this.cadastroService

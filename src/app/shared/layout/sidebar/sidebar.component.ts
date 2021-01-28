@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faPaw, faUserTie, faTachometerAlt, faUserNurse } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,7 +17,7 @@ export class SidebarComponent implements OnInit {
   menuClick = false;
   profileActive = false;
 
-  constructor() {}
+  constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   ngOnInit(): void {}
 
@@ -26,5 +28,10 @@ export class SidebarComponent implements OnInit {
 
   onMenuClick() {
     this.menuClick = true;
+  }
+
+  sair() {
+    this.authenticationService.logout();
+    void this.router.navigate(['']);
   }
 }
