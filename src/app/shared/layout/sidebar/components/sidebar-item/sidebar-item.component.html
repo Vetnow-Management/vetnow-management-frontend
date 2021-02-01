@@ -9,5 +9,6 @@
   <fa-icon [icon]="item.icon"></fa-icon>
   <span>{{ item.label }}</span>
   <span class="menuitem-badge" *ngIf="item.badge">{{ item.badge }}</span>
+  <fa-icon class="pi pi-fw pi-angle-right layout-submenu-toggler" *ngIf="!item.items"></fa-icon>
   <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.items"></i>
 </a>
