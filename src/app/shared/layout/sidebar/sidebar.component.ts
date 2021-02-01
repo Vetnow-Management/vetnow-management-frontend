@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+// @ts-ignore bug na importacao
 import { faPaw, faUserTie, faTachometerAlt, faUserNurse } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Router } from '@angular/router';
+import { SidebarService } from './service/sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,12 +14,16 @@ export class SidebarComponent implements OnInit {
   faPaw = faPaw;
   faUserTie = faUserTie;
   faUserNurse = faUserNurse;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   faTachometerAlt = faTachometerAlt;
 
-  menuClick = false;
   profileActive = false;
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) {}
+  constructor(
+    private router: Router,
+    private sidebarService: SidebarService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -27,7 +33,7 @@ export class SidebarComponent implements OnInit {
   }
 
   onMenuClick() {
-    this.menuClick = true;
+    this.sidebarService.menuClick = true;
   }
 
   sair() {

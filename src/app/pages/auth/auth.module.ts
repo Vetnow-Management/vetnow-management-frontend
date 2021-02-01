@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { LayoutModule } from '../../shared/layout/layout.module';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [LoginComponent, CadastroComponent],
@@ -21,6 +22,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     ButtonModule,
     CheckboxModule,
     LayoutModule,
+    NgxMaskModule.forRoot(),
   ],
 })
 export class AuthModule {}

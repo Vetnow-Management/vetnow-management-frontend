@@ -1,48 +1,53 @@
 <div class="cadastro-container p-d-flex p-jc-center">
   <div class="p-sm-12 p-md-4 p-mr-2 p-as-center">
     <form [formGroup]="cadastroForm" (ngSubmit)="cadastrar()">
-      <div class="p-grid">
-        <div class="p-col-12 p-sm-12 p-md-12">
-          <span class="p-float-label">
-            <input type="text" class="p-col-12" pInputText id="razaoSocial" formControlName="razaoSocial" />
-            <label for="razaoSocial">Razão social</label>
-          </span>
+      <div class="p-grid p-fluid">
+        {{ cadastroForm?.errors }}
+        <div class="p-col-12">
+          <input type="text" pInputText id="razaoSocial" formControlName="razaoSocial" placeholder="Razão social" />
         </div>
-        <div class="p-col-12 p-sm-12 p-md-12">
-          <span class="p-float-label">
-            <input type="text" class="p-col-12" pInputText id="documento" formControlName="documento" />
-            <label for="documento">CNPJ</label>
-          </span>
+        <div class="p-col-12">
+          <input type="text" mask="CPF_CNPJ" pInputText id="documento" formControlName="documento" placeholder="CNPJ" />
         </div>
         <div class="p-col-12">
           <div class="p-grid" formGroupName="contato">
-            <div class="p-col-12 p-sm-12 p-md-12">
-              <span class="p-float-label">
-                <input type="text" class="p-col-12" pInputText id="email" formControlName="email" />
-                <label for="email">E-mail</label>
-              </span>
+            <div class="p-col-12">
+              <input type="text" class="p-col-12" pInputText id="email" formControlName="email" placeholder="E-mail" />
             </div>
-            <div class="p-col-12 p-sm-12 p-md-12">
-              <span class="p-float-label">
-                <input type="text" class="p-col-12" pInputText id="telefone" formControlName="telefone" />
-                <label for="telefone">Telefone</label>
-              </span>
+            <div class="p-col-12">
+              <input
+                type="text"
+                class="p-col-12"
+                mask="(00) 0000-0000||(00) 00000-0000"
+                pInputText
+                placeholder="Telefone"
+                id="telefone"
+                formControlName="telefone"
+              />
             </div>
           </div>
         </div>
         <div class="p-col-12">
           <div class="p-grid" formGroupName="usuario">
             <div class="p-col-12 p-sm-12 p-md-6">
-              <span class="p-float-label">
-                <input type="text" class="p-col-12" pInputText id="usuario" formControlName="usuario" />
-                <label for="usuario">Usuário</label>
-              </span>
+              <input
+                type="text"
+                class="p-col-12"
+                pInputText
+                id="usuario"
+                placeholder="Usuário"
+                formControlName="usuario"
+              />
             </div>
             <div class="p-col-12 p-sm-12 p-md-6">
-              <span class="p-float-label">
-                <input type="password" class="p-col-12" pInputText id="senha" formControlName="senha" />
-                <label for="senha">Senha</label>
-              </span>
+              <input
+                type="password"
+                class="p-col-12"
+                pInputText
+                id="senha"
+                placeholder="Senha"
+                formControlName="senha"
+              />
             </div>
           </div>
         </div>
@@ -56,7 +61,13 @@
           <button pButton class="p-col-12" type="submit" label="Cadastrar"></button>
         </div>
         <div class="p-col-12 p-sm-12 p-md-12">
-          <button pButton class="p-button-secondary p-col-12" type="button" label="Acessar" (click)="acessar()"></button>
+          <button
+            pButton
+            class="p-button-secondary p-col-12"
+            type="button"
+            label="Acessar"
+            (click)="acessar()"
+          ></button>
         </div>
         <div class="p-d-none p-d-md-inline p-col-12">
           <p class="p-text-center">

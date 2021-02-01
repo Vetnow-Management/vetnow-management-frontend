@@ -1,15 +1,15 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-import { SidebarComponent } from './shared/layout/sidebar/sidebar.component';
 import { AuthenticationService } from './services/authentication.service';
 import { Observable } from 'rxjs';
+import { SidebarService } from './shared/layout/sidebar/service/sidebar.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
+export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   isLogado: Observable<boolean> = new Observable<boolean>();
 
   menuInactiveDesktop = false;
@@ -32,12 +32,10 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
   documentClickListener: () => void = () => null;
 
-  // @ts-ignore
-  @ViewChild(SidebarComponent) sidebarComponent: SidebarComponent;
-
   constructor(
     public renderer: Renderer2,
     private primengConfig: PrimeNGConfig,
+    private sidebarService: SidebarService,
     private authenticationService: AuthenticationService
   ) {}
 
@@ -49,7 +47,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
   ngAfterViewInit() {
     this.documentClickListener = this.renderer.listen('body', 'click', (event) => {
       if (!this.isDesktop()) {
-        if (!this.sidebarComponent.menuClick) {
+        if (!this.sidebarService.menuClick) {
           this.menuActiveMobile = false;
         }
 
@@ -63,13 +61,13 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
       }
 
       this.configClick = false;
-      this.sidebarComponent.menuClick = false;
+      this.sidebarService.menuClick = false;
       this.topMenuButtonClick = false;
     });
   }
 
   toggleMenu(event: Event) {
-    this.sidebarComponent.menuClick = true;
+    this.sidebarService.menuClick = true;
     if (this.isDesktop()) {
       this.menuInactiveDesktop = !this.menuInactiveDesktop;
       if (this.menuInactiveDesktop) {
