@@ -8,9 +8,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SidebarItemComponent } from './sidebar/components/sidebar-item/sidebar-item.component';
 
 @NgModule({
-  declarations: [NavBarComponent, CardComponent, SidebarComponent],
+  declarations: [NavBarComponent, CardComponent, SidebarComponent, SidebarItemComponent],
   imports: [CommonModule, MenubarModule, InputTextModule, ReactiveFormsModule, PanelMenuModule, FontAwesomeModule],
   exports: [NavBarComponent, CardComponent, SidebarComponent],
 })

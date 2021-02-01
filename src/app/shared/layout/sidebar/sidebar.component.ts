@@ -11,12 +11,7 @@ import { SidebarService } from './service/sidebar.service';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  faPaw = faPaw;
-  faUserTie = faUserTie;
-  faUserNurse = faUserNurse;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  faTachometerAlt = faTachometerAlt;
-
+  model: any[] = [];
   profileActive = false;
 
   constructor(
@@ -25,11 +20,13 @@ export class SidebarComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) {}
 
-  ngOnInit(): void {}
-
-  toggleProfile(event: Event) {
-    this.profileActive = !this.profileActive;
-    event.preventDefault();
+  ngOnInit(): void {
+    this.model = [
+      { label: 'Dashboard', icon: faTachometerAlt, routerLink: ['admin'] },
+      { label: 'Tutor', icon: faUserTie, routerLink: ['admin', 'tutor'] },
+      { label: 'Consulta', icon: faUserNurse, routerLink: ['admin', 'consulta'] },
+      { label: 'Animal', icon: faPaw, routerLink: ['admin', 'animal'] },
+    ];
   }
 
   onMenuClick() {

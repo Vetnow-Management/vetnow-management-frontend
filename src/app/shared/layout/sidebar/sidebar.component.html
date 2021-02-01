@@ -1,43 +1,12 @@
 <div class="sidebar" (click)="onMenuClick()">
   <div class="sidebar-scroll-content">
-    <!--    <div class="logo" routerLink="/" style="outline: none; cursor: pointer">-->
-    <!--      <img src="assets/layout/images/logo.png" alt="" width="113" />-->
-    <!--    </div>-->
-    <div class="profile">
-      <img src="assets/layout/images/profile.png" alt="" />
-      <a id="profile-button" href="#" (click)="toggleProfile($event)">
-        <span class="username">Administrador</span>
-      </a>
-      <ul [@submenu]="profileActive ? 'visible' : 'hidden'">
-        <li>
-          <a [routerLink]="['admin']">
-            <fa-icon [icon]="faTachometerAlt"></fa-icon>
-            <span>Dashboard</span></a
-          >
-        </li>
-        <li>
-          <a [routerLink]="['admin', 'consulta']">
-            <fa-icon [icon]="faUserNurse"></fa-icon>
-            <span>Consulta</span></a
-          >
-        </li>
-        <li>
-          <a [routerLink]="['admin', 'tutor']">
-            <fa-icon [icon]="faUserTie"></fa-icon>
-            <span>Tutor</span></a
-          >
-        </li>
-        <li>
-          <a [routerLink]="['admin', 'animal']">
-            <fa-icon [icon]="faPaw"></fa-icon>
-            <span>Animal</span></a
-          >
-        </li>
-        <li>
-          <a (click)="sair()"><i class="pi pi-fw pi-sign-out"></i><span>Sair</span></a>
-        </li>
+    <div class="logo" routerLink="/" style="outline: none; cursor: pointer">
+      <img src="assets/layout/images/logo.png" alt="" width="113" />
+    </div>
+    <div class="menu">
+      <ul class="layout-menu">
+        <li app-sidebar-item *ngFor="let item of model; let i = index" [item]="item" [index]="i" [root]="true"></li>
       </ul>
     </div>
-    <!--      <app-menu></app-menu>-->
   </div>
 </div>
