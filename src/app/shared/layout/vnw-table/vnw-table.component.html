@@ -1,0 +1,15 @@
+<p-table
+  [value]="data"
+  [paginator]="true"
+  [rows]="10"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="Apresentando {first} até {last} de {totalRecords}"
+  [rowsPerPageOptions]="[10, 25]"
+>
+  <ng-template pTemplate="header">
+    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+    <ng-container *ngTemplateOutlet="bodyTemplate; context: { $implicit: data }"></ng-container>
+  </ng-template>
+</p-table>

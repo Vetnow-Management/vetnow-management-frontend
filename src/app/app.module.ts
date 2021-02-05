@@ -11,6 +11,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IConfig, MaskApplierService, NgxMaskModule } from 'ngx-mask';
+
+export const maskConfig: Partial<IConfig> | (() => Partial<IConfig>) | null = {
+  validation: true,
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,8 +29,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LayoutModule,
     ToastModule,
     BrowserAnimationsModule,
+    NgxMaskModule.forRoot(maskConfig),
   ],
-  providers: [MessageService],
+  providers: [MessageService, MaskApplierService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

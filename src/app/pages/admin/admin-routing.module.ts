@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TutorComponent } from './tutor/tutor.component';
 import { ConsultaComponent } from './consulta/consulta.component';
 import { AnimalComponent } from './animal/animal.component';
 
@@ -16,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'tutor',
-    component: TutorComponent,
+    loadChildren: () => import('./tutor/tutor.module').then((m) => m.TutorModule),
   },
   {
     path: 'animal',
