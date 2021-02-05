@@ -1,0 +1,45 @@
+<p-toolbar styleClass="p-mb-4">
+  <div class="p-grid p-col-12 p-jc-between">
+    <div class="p-col-12 p-sm-12 p-md-2">
+      <button
+        (click)="cadastrar()"
+        pButton
+        pRipple
+        label="Novo"
+        icon="pi pi-plus"
+        class="p-col-12 p-button p-mr-2"
+      ></button>
+    </div>
+    <div class="p-col-12 p-sm-12 p-md-4">
+      <input class="p-col-12" pInputText type="text" placeholder="Buscar" />
+    </div>
+  </div>
+</p-toolbar>
+<app-vnw-table [data]="tutores">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nome</th>
+      <th class="p-d-none p-d-md-flex">Documento</th>
+      <th class="p-text-center">Telefone</th>
+      <th class="p-text-center">Ações</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-tutor>
+    <tr>
+      <td height="50">{{ tutor.nome }}</td>
+      <td height="58" class="p-ai-center p-d-none p-d-md-flex">
+        {{ tutor.documento | mask: '000.000.000-99' }}
+      </td>
+      <td height="50" class="p-text-center">{{ tutor.telefone | mask: '(00) 00000-0000' }}</td>
+      <td height="50" class="p-text-center">
+        <button pButton pRipple icon="pi pi-eye" class="p-button-sm p-button-secondary p-mr-2"></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-sm p-button-danger p-d-none p-d-md-inline-flex"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</app-vnw-table>
