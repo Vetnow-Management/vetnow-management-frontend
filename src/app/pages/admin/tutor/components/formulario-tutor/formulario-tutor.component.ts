@@ -10,6 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class FormularioTutorComponent implements OnInit {
   tutorForm: FormGroup = new FormGroup({});
 
+  @Input() excluirAtivo = false;
+
   @Input() informacoes: ITutor = {};
 
   minDate?: Date;
@@ -40,6 +42,4 @@ export class FormularioTutorComponent implements OnInit {
       }),
     });
   }
-
-  salvar(): void {}
 }

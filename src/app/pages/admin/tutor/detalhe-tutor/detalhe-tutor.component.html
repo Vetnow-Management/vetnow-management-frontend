@@ -1,3 +1,10 @@
 <div class="card">
-  <app-formulario-tutor [informacoes]="tutorDetalhe"></app-formulario-tutor>
+  <app-formulario-tutor [informacoes]="tutorDetalhe" [excluirAtivo]="true">
+    <div class="p-col-12 p-sm-12 p-d-md-none">
+      <button pButton pRipple label="Excluir" class="p-col-12 p-button-danger"></button>
+    </div>
+    <div class="p-col-12 p-sm-12 p-md-2 p-md-offset-10">
+      <button pButton pRipple label="Salvar" class="p-col-12 p-button"></button>
+    </div>
+  </app-formulario-tutor>
 </div>
