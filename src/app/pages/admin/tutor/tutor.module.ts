@@ -10,7 +10,7 @@ import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
 import { LayoutModule } from '../../../shared/layout/layout.module';
 import { ToolbarModule } from 'primeng/toolbar';
-import { TutorNovoComponent } from './components/tutor-novo/tutor-novo.component';
+import { TutorNovoComponent } from './tutor-novo/tutor-novo.component';
 import { TabelaTutorComponent } from './components/tabela-tutor/tabela-tutor.component';
 import { FormularioTutorComponent } from './components/formulario-tutor/formulario-tutor.component';
 import { CalendarModule } from 'primeng/calendar';

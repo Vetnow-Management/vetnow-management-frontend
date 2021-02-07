@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
-import { AppComponent } from '../../../../../app.component';
 import { SidebarService } from '../../service/sidebar.service';
 import { filter } from 'rxjs/operators';
 

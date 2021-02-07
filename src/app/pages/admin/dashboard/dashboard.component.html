@@ -1,3 +1,7 @@
-<div class="dashboard-container">
-  <p>dashboard works!</p>
+<div class="card">
+  <div class="p-grid p-fluid">
+    <div *ngFor="let option of options" class="p-col-12 p-md-4">
+      <app-opcao-rapida [opcao]="option"></app-opcao-rapida>
+    </div>
+  </div>
 </div>

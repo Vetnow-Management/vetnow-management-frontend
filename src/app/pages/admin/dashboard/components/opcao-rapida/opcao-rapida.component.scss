@@ -1,0 +1,32 @@
+.card-opcao {
+  height: 100px;
+  padding: 20px;
+  background-color: transparent;
+  border: 1px solid var(--surface-d);
+  border-radius: 6px;
+}
+
+.card-opcao h4 {
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--text-color-secondary);
+}
+.card-opcao p {
+  margin: 5px 0;
+  color: var(--text-color-secondary);
+}
+
+.card-opcao:hover {
+  border: 1px solid var(--primary-color);
+  margin-top: 2px;
+  margin-left: 5px;
+  * {
+    color: var(--primary-color);
+  }
+}
+
+.icon {
+  background-color: transparent;
+  color: var(--text-color-secondary);
+}

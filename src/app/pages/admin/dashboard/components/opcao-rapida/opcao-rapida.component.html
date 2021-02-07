@@ -1,0 +1,15 @@
+<a [routerLink]="opcao.path">
+  <div class="card-opcao" pTooltip="Operação rápida">
+    <div class="p-d-flex p-jc-between">
+      <div>
+        <h4>
+          {{ opcao.nome }}
+        </h4>
+        <p>{{ opcao.descricao }}</p>
+      </div>
+      <div>
+        <fa-icon [icon]="opcao.icon" class="icon fa-4x"></fa-icon>
+      </div>
+    </div>
+  </div>
+</a>
