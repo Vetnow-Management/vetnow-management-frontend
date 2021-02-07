@@ -1,7 +1,13 @@
 <div class="card">
   <div class="p-grid p-fluid">
+    <p-divider class="p-col-12" align="left" type="dashed">
+      <b class="p-text-secondary">Operações rápidas</b>
+    </p-divider>
     <div *ngFor="let option of options" class="p-col-12 p-md-4">
       <app-opcao-rapida [opcao]="option"></app-opcao-rapida>
     </div>
+    <p-divider class="p-col-12" align="left" type="dashed">
+      <!--      <b class="p-text-secondary">Operações rápidas</b>-->
+    </p-divider>
   </div>
 </div>

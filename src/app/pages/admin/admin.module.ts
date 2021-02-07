@@ -8,9 +8,10 @@ import { AnimalComponent } from './animal/animal.component';
 import { OpcaoRapidaComponent } from './dashboard/components/opcao-rapida/opcao-rapida.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'primeng/tooltip';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [DashboardComponent, ConsultaComponent, AnimalComponent, OpcaoRapidaComponent],
-  imports: [CommonModule, AdminRoutingModule, FontAwesomeModule, TooltipModule],
+  imports: [CommonModule, AdminRoutingModule, FontAwesomeModule, TooltipModule, DividerModule],
 })
 export class AdminModule {}
