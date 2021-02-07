@@ -520,6 +520,10 @@ a {
   padding: 70px 2rem 2rem 2rem;
 }
 
+.wrapper .main .breadcrumb {
+  margin-bottom: 20px;
+}
+
 /*.wrapper .footer {*/
 /*  -moz-transition: margin-left 0.3s;*/
 /*  -o-transition: margin-left 0.3s;*/

@@ -12,10 +12,6 @@ import { SidebarService } from './shared/layout/sidebar/service/sidebar.service'
 export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   isLogado: Observable<boolean> = new Observable<boolean>();
 
-  menuInactiveDesktop = false;
-
-  menuActiveMobile = false;
-
   topMenuActive = false;
 
   topMenuLeaving = false;
@@ -35,7 +31,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   constructor(
     public renderer: Renderer2,
     private primengConfig: PrimeNGConfig,
-    private sidebarService: SidebarService,
+    public sidebarService: SidebarService,
     private authenticationService: AuthenticationService
   ) {}
 
@@ -48,7 +44,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     this.documentClickListener = this.renderer.listen('body', 'click', (event) => {
       if (!this.isDesktop()) {
         if (!this.sidebarService.menuClick) {
-          this.menuActiveMobile = false;
+          this.sidebarService.menuActiveMobile = false;
         }
 
         if (!this.topMenuButtonClick) {
@@ -69,14 +65,14 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   toggleMenu(event: Event) {
     this.sidebarService.menuClick = true;
     if (this.isDesktop()) {
-      this.menuInactiveDesktop = !this.menuInactiveDesktop;
-      if (this.menuInactiveDesktop) {
-        this.menuActiveMobile = false;
+      this.sidebarService.menuInactiveDesktop = !this.sidebarService.menuInactiveDesktop;
+      if (this.sidebarService.menuInactiveDesktop) {
+        this.sidebarService.menuActiveMobile = false;
       }
     } else {
-      this.menuActiveMobile = !this.menuActiveMobile;
-      if (this.menuActiveMobile) {
-        this.menuInactiveDesktop = false;
+      this.sidebarService.menuActiveMobile = !this.sidebarService.menuActiveMobile;
+      if (this.sidebarService.menuActiveMobile) {
+        this.sidebarService.menuInactiveDesktop = false;
       }
     }
 
@@ -89,7 +85,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
 
   toggleTopMenu(event: Event) {
     this.topMenuButtonClick = true;
-    this.menuActiveMobile = false;
+    this.sidebarService.menuActiveMobile = false;
 
     if (this.topMenuActive) {
       this.hideTopMenu();

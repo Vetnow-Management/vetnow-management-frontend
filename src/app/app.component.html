@@ -3,8 +3,8 @@
   <div
     class="wrapper"
     [ngClass]="{
-      'sidebar-inactive-l': menuInactiveDesktop,
-      'sidebar-active-m': menuActiveMobile,
+      'sidebar-inactive-l': sidebarService.menuInactiveDesktop,
+      'sidebar-active-m': sidebarService.menuActiveMobile,
       'p-ripple-disabled': !ripple,
       'p-input-filled': inputStyle === 'filled'
     }"
@@ -30,7 +30,12 @@
     </div>
     <app-sidebar *ngIf="isLogado | async"></app-sidebar>
     <div class="main">
-      <router-outlet></router-outlet>
+      <div class="breadcrumb" *ngIf="isLogado | async">
+        <app-breadcrumb></app-breadcrumb>
+      </div>
+      <div class="card">
+        <router-outlet></router-outlet>
+      </div>
     </div>
     <div class="footer"></div>
   </div>

@@ -30,14 +30,24 @@
       <td height="58" class="p-ai-center p-d-none p-d-md-flex">
         {{ tutor.documento | mask: '000.000.000-99' }}
       </td>
-      <td height="50" class="p-text-center">{{ tutor.telefone | mask: '(00) 00000-0000' }}</td>
+      <td height="50" class="p-text-center">{{ tutor.contato.telefone | mask: '(00) 00000-0000' }}</td>
       <td height="50" class="p-text-center">
-        <button pButton pRipple icon="pi pi-eye" class="p-button-sm p-button-secondary p-mr-2"></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-eye"
+          class="p-button-sm p-button-secondary p-mr-2"
+          (click)="detalhe(tutor.id)"
+          pTooltip="Detalhe"
+          tooltipPosition="top"
+        ></button>
         <button
           pButton
           pRipple
           icon="pi pi-trash"
           class="p-button-sm p-button-danger p-d-none p-d-md-inline-flex"
+          pTooltip="Excluir"
+          tooltipPosition="top"
         ></button>
       </td>
     </tr>

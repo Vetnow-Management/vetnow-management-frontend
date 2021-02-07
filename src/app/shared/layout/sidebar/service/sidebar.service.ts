@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class SidebarService {
+  menuInactiveDesktop = false;
+  menuActiveMobile = false;
   menuClick = false;
 
   private menuSource = new Subject<string>();

@@ -14,9 +14,20 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { NgxMaskModule } from 'ngx-mask';
 import { ToolbarModule } from 'primeng/toolbar';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { CalendarModule } from 'primeng/calendar';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
-  declarations: [NavBarComponent, CardComponent, SidebarComponent, SidebarItemComponent, VnwTableComponent],
+  declarations: [
+    NavBarComponent,
+    CardComponent,
+    SidebarComponent,
+    SidebarItemComponent,
+    VnwTableComponent,
+    BreadcrumbComponent,
+  ],
   imports: [
     CommonModule,
     MenubarModule,
@@ -28,7 +39,10 @@ import { ToolbarModule } from 'primeng/toolbar';
     TableModule,
     NgxMaskModule,
     ToolbarModule,
+    BreadcrumbModule,
+    CalendarModule,
+    TooltipModule,
   ],
-  exports: [NavBarComponent, CardComponent, SidebarComponent, VnwTableComponent],
+  exports: [NavBarComponent, CardComponent, SidebarComponent, VnwTableComponent, BreadcrumbComponent],
 })
 export class LayoutModule {}

@@ -28,12 +28,7 @@ export class SidebarItemComponent implements OnInit {
 
   key = '';
 
-  constructor(
-    public app: AppComponent,
-    public router: Router,
-    private cd: ChangeDetectorRef,
-    private sidebarService: SidebarService
-  ) {
+  constructor(public router: Router, private cd: ChangeDetectorRef, private sidebarService: SidebarService) {
     this.menuSourceSubscription = this.sidebarService.menuSource$.subscribe((key) => {
       // deactivate current active menu
       if (this.active && this.key !== key && key.indexOf(this.key) !== 0) {
@@ -90,7 +85,7 @@ export class SidebarItemComponent implements OnInit {
       this.active = true;
 
       // hide overlay menus
-      this.app.menuActiveMobile = false;
+      this.sidebarService.menuActiveMobile = false;
     }
   }
 
