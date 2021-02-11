@@ -1,0 +1,7 @@
+<div class="card">
+  <app-formulario-tutor (tutorFormEvent)="salvar($event)" [informacoes]="tutorDetalhe" [excluirAtivo]="true">
+    <div class="p-col-12 p-sm-12 p-d-md-none">
+      <button pButton pRipple label="Excluir" (click)="excluir()" class="p-col-12 p-d-md-none p-button-danger"></button>
+    </div>
+  </app-formulario-tutor>
+</div>

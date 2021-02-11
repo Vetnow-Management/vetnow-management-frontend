@@ -23,23 +23,11 @@
       <div class="p-grid">
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="celular">Celular</label>
-          <input
-            id="celular"
-            type="text"
-            pInputText
-            formControlName="celular"
-            [mask]="'(00) 0000-0000||(00) 00000-0000'"
-          />
+          <input id="celular" type="text" pInputText formControlName="celular" [mask]="'(00) 00000-0000'" />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="telefone">Telefone</label>
-          <input
-            id="telefone"
-            type="text"
-            pInputText
-            formControlName="telefone"
-            [mask]="'(00) 0000-0000||(00) 00000-0000'"
-          />
+          <input id="telefone" type="text" pInputText formControlName="telefone" [mask]="'(00) 0000-0000'" />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="email">E-mail</label>
@@ -51,29 +39,60 @@
       <div class="p-grid">
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="cep">CEP</label>
-          <input id="cep" type="text" pInputText formControlName="cep" [mask]="'00000-000'" />
+          <input id="cep" (change)="buscarCep()" type="text" pInputText formControlName="cep" [mask]="'00000-000'" />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="logradouro">Logradouro</label>
-          <input id="logradouro" type="text" pInputText formControlName="logradouro" />
+          <input
+            id="logradouro"
+            [(ngModel)]="cep.logradouro"
+            type="text"
+            pInputText
+            formControlName="logradouro"
+            [attr.disabled]="disabledLogradouro ? '' : null"
+          />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="bairro">Bairro</label>
-          <input id="bairro" type="text" pInputText formControlName="bairro" />
+          <input
+            id="bairro"
+            [(ngModel)]="cep.bairro"
+            type="text"
+            pInputText
+            formControlName="bairro"
+            [attr.disabled]="''"
+          />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="cidade">Cidade</label>
-          <input id="cidade" type="text" pInputText formControlName="cidade" />
+          <input
+            id="cidade"
+            [(ngModel)]="cep.localidade"
+            type="text"
+            pInputText
+            formControlName="cidade"
+            [attr.disabled]="''"
+          />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="estado">Estado</label>
-          <input id="estado" type="text" pInputText formControlName="estado" />
+          <input
+            id="estado"
+            [(ngModel)]="cep.uf"
+            type="text"
+            pInputText
+            formControlName="estado"
+            [attr.disabled]="''"
+          />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="complemento">Complemento</label>
-          <input id="complemento" type="text" pInputText formControlName="complemento" />
+          <input id="complemento" [(ngModel)]="cep.complemento" type="text" pInputText formControlName="complemento" />
         </div>
       </div>
+    </div>
+    <div class="p-col-12 p-sm-12 p-md-2 p-md-offset-10">
+      <button pButton pRipple (click)="salvarTutor()" label="Salvar" class="p-col-12 p-button"></button>
     </div>
     <ng-content></ng-content>
   </div>

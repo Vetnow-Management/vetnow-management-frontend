@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 import { SidebarService } from '../../service/sidebar.service';
@@ -10,7 +10,7 @@ import { filter } from 'rxjs/operators';
   templateUrl: './sidebar-item.component.html',
   styleUrls: ['./sidebar-item.component.scss'],
 })
-export class SidebarItemComponent implements OnInit {
+export class SidebarItemComponent implements OnInit, OnDestroy {
   @Input() item: any;
 
   @Input() index: number = 0;

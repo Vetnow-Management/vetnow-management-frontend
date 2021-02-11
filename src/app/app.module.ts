@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IConfig, MaskApplierService, NgxMaskModule } from 'ngx-mask';
+import { BlockUIModule } from 'ng-block-ui';
 
 export const maskConfig: Partial<IConfig> | (() => Partial<IConfig>) | null = {
   validation: true,
@@ -30,6 +31,7 @@ export const maskConfig: Partial<IConfig> | (() => Partial<IConfig>) | null = {
     ToastModule,
     BrowserAnimationsModule,
     NgxMaskModule.forRoot(maskConfig),
+    BlockUIModule.forRoot(),
   ],
   providers: [MessageService, MaskApplierService],
   bootstrap: [AppComponent],

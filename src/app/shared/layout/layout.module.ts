@@ -18,6 +18,8 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CalendarModule } from 'primeng/calendar';
 import { TooltipModule } from 'primeng/tooltip';
+import { VnwDividerComponent } from './vnw-divider/vnw-divider.component';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { TooltipModule } from 'primeng/tooltip';
     SidebarItemComponent,
     VnwTableComponent,
     BreadcrumbComponent,
+    VnwDividerComponent,
   ],
   imports: [
     CommonModule,
@@ -42,7 +45,15 @@ import { TooltipModule } from 'primeng/tooltip';
     BreadcrumbModule,
     CalendarModule,
     TooltipModule,
+    DividerModule,
   ],
-  exports: [NavBarComponent, CardComponent, SidebarComponent, VnwTableComponent, BreadcrumbComponent],
+  exports: [
+    NavBarComponent,
+    CardComponent,
+    SidebarComponent,
+    VnwTableComponent,
+    BreadcrumbComponent,
+    VnwDividerComponent,
+  ],
 })
 export class LayoutModule {}

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConsultaComponent } from './consulta/consulta.component';
-import { AnimalComponent } from './animal/animal.component';
+import { AnimalComponent } from './tutor/animal/animal.component';
 
 const routes: Routes = [
   {

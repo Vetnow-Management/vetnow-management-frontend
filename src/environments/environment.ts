@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   BASE_URL_API: 'http://localhost:8080',
+  BASE_URL_API_VIA_CEP: 'https://viacep.com.br/ws',
 };
 
 /*

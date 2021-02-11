@@ -56,8 +56,4 @@ export class TabelaTutorComponent implements OnInit {
     this.tutorService.tutorDetalhe = this.tutores.find((t) => t.id === id);
     void this.router.navigate(['admin', 'tutor', id, 'detalhe']);
   }
-
-  cadastrar(): void {
-    void this.router.navigate(['admin', 'tutor', 'cadastro']);
-  }
 }

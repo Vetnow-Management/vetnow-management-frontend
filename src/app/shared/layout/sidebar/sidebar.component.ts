@@ -24,8 +24,7 @@ export class SidebarComponent implements OnInit {
     this.model = [
       { label: 'Dashboard', icon: faTachometerAlt, routerLink: ['admin'] },
       { label: 'Tutor', icon: faUserTie, routerLink: ['admin', 'tutor'] },
-      { label: 'Consulta', icon: faUserNurse, routerLink: ['admin', 'consulta'] },
-      { label: 'Animal', icon: faPaw, routerLink: ['admin', 'animal'] },
+      // { label: 'Consulta', icon: faUserNurse, routerLink: ['admin', 'consulta'] },
     ];
   }
 

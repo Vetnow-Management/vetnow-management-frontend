@@ -10,13 +10,14 @@ import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
 import { LayoutModule } from '../../../shared/layout/layout.module';
 import { ToolbarModule } from 'primeng/toolbar';
-import { TutorNovoComponent } from './tutor-novo/tutor-novo.component';
+import { TutorNovoComponent } from './components/tutor-novo/tutor-novo.component';
 import { TabelaTutorComponent } from './components/tabela-tutor/tabela-tutor.component';
 import { FormularioTutorComponent } from './components/formulario-tutor/formulario-tutor.component';
 import { CalendarModule } from 'primeng/calendar';
-import { DetalheTutorComponent } from './detalhe-tutor/detalhe-tutor.component';
+import { DetalheTutorComponent } from './components/detalhe-tutor/detalhe-tutor.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
+import { AdminModule } from '../admin.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { TooltipModule } from 'primeng/tooltip';
     CalendarModule,
     ReactiveFormsModule,
     TooltipModule,
+    AdminModule,
   ],
 })
 export class TutorModule {}

@@ -1,40 +1,42 @@
-<div class="container-principal">
-  <p-toast></p-toast>
-  <div
-    class="wrapper"
-    [ngClass]="{
-      'sidebar-inactive-l': sidebarService.menuInactiveDesktop,
-      'sidebar-active-m': sidebarService.menuActiveMobile,
-      'p-ripple-disabled': !ripple,
-      'p-input-filled': inputStyle === 'filled'
-    }"
-  >
-    <div class="topbar clearfix" *ngIf="isLogado | async">
-      <a id="omega-menu-button" href="#" (click)="toggleMenu($event)">
-        <span class="pi pi-bars"></span>
-      </a>
-      <span class="topbar-title"></span>
-      <a id="options-menu-button" href="#" (click)="toggleTopMenu($event)">
-        <span class="pi pi-ellipsis-h"></span>
-      </a>
-      <div
-        id="topbar-icons"
-        class="animated"
-        [ngClass]="{ 'topbar-icons-visible flipInX': topMenuActive, flipOutX: topMenuLeaving }"
-      >
-        <a href="#">
-          <span class="topbar-item-text">Usuário</span>
-          <span class="topbar-icon pi pi-user"></span>
+<block-ui>
+  <div class="container-principal">
+    <p-toast></p-toast>
+    <div
+      class="wrapper"
+      [ngClass]="{
+        'sidebar-inactive-l': sidebarService.menuInactiveDesktop,
+        'sidebar-active-m': sidebarService.menuActiveMobile,
+        'p-ripple-disabled': !ripple,
+        'p-input-filled': inputStyle === 'filled'
+      }"
+    >
+      <div class="topbar clearfix" *ngIf="isLogado | async">
+        <a id="omega-menu-button" href="#" (click)="toggleMenu($event)">
+          <span class="pi pi-bars"></span>
         </a>
+        <span class="topbar-title"></span>
+        <a id="options-menu-button" href="#" (click)="toggleTopMenu($event)">
+          <span class="pi pi-ellipsis-h"></span>
+        </a>
+        <div
+          id="topbar-icons"
+          class="animated"
+          [ngClass]="{ 'topbar-icons-visible flipInX': topMenuActive, flipOutX: topMenuLeaving }"
+        >
+          <a href="#">
+            <span class="topbar-item-text">Usuário</span>
+            <span class="topbar-icon pi pi-user"></span>
+          </a>
+        </div>
       </div>
-    </div>
-    <app-sidebar *ngIf="isLogado | async"></app-sidebar>
-    <div class="main">
-      <div class="breadcrumb" *ngIf="isLogado | async">
-        <app-breadcrumb></app-breadcrumb>
+      <app-sidebar *ngIf="isLogado | async"></app-sidebar>
+      <div class="main">
+        <div class="breadcrumb" *ngIf="isLogado | async">
+          <app-breadcrumb></app-breadcrumb>
+        </div>
+        <router-outlet></router-outlet>
       </div>
-      <router-outlet></router-outlet>
+      <div class="footer"></div>
     </div>
-    <div class="footer"></div>
   </div>
-</div>
+</block-ui>

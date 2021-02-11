@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TutorService } from '../service/tutor.service';
-import { ITutor } from '../model/ITutor';
+import { TutorService } from '../../service/tutor.service';
+import { ITutor } from '../../model/ITutor';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-detalhe-tutor',
@@ -14,5 +15,13 @@ export class DetalheTutorComponent implements OnInit {
 
   ngOnInit(): void {
     this.tutorDetalhe = this.tutorService.detalheTutorAtual();
+  }
+
+  salvar(tutorForm: FormGroup) {
+    console.log('tutor', tutorForm);
+  }
+
+  excluir() {
+    console.log('tutor', this.tutorDetalhe);
   }
 }
