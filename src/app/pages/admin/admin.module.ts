@@ -20,6 +20,7 @@ import { TabelaAnimalComponent } from './tutor/animal/components/tabela-animal/t
 import { NgxMaskModule } from 'ngx-mask';
 import { ToolbarModule } from 'primeng/toolbar';
 import { RippleModule } from 'primeng/ripple';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { RippleModule } from 'primeng/ripple';
     NgxMaskModule,
     ToolbarModule,
     RippleModule,
+    AutoCompleteModule,
   ],
   exports: [FormularioAnimalComponent, TabelaAnimalComponent, AnimalComponent],
 })

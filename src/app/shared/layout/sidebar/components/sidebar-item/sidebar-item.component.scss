@@ -6,7 +6,9 @@ a {
     margin: 5px;
     color: var(--text-color-secondary);
   }
+  border-top: none !important;
   margin: 4px;
   border-radius: 6px;
-  background-color: var(--surface-d);
+  background-color: var(--surface-a);
+  font-weight: bold;
 }

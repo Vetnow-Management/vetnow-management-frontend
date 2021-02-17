@@ -7,20 +7,20 @@ import { MessageService } from 'primeng/api';
 export class ToastService {
   constructor(private messageService: MessageService) {}
 
-  success(title: string, detalhe: string) {
-    this.show(ToastTypes.SUCCESS, title, detalhe);
+  success(title: string, detalhe?: string) {
+    this.show(ToastTypes.SUCCESS, title, detalhe as string);
   }
 
-  info(title: string, detalhe: string) {
-    this.show(ToastTypes.INFO, title, detalhe);
+  info(title: string, detalhe?: string) {
+    this.show(ToastTypes.INFO, title, detalhe as string);
   }
 
-  warn(title: string, detalhe: string) {
-    this.show(ToastTypes.WARN, title, detalhe);
+  warn(title: string, detalhe?: string) {
+    this.show(ToastTypes.WARN, title, detalhe as string);
   }
 
-  error(title: string, detalhe: string) {
-    this.show(ToastTypes.ERROR, title, detalhe);
+  error(title: string, detalhe?: string) {
+    this.show(ToastTypes.ERROR, title, detalhe as string);
   }
 
   private show(type: ToastTypes, title: string, detalhe: string) {

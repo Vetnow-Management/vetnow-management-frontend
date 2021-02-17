@@ -1,10 +1,11 @@
 <p-table
-  [value]="data"
+  [value]="lista"
   [paginator]="true"
-  [rows]="10"
+  [rows]="tamanhoAtual"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="Apresentando {first} até {last} de {totalRecords}"
   [rowsPerPageOptions]="[10, 25]"
+  (onPage)="pagina($event)"
 >
   <ng-template pTemplate="header">
     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>

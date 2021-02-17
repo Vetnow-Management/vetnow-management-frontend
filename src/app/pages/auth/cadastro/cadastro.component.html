@@ -2,17 +2,40 @@
   <div class="p-sm-12 p-md-4 p-mr-2 p-as-center">
     <form [formGroup]="cadastroForm" (ngSubmit)="cadastrar()">
       <div class="p-grid p-fluid">
-        {{ cadastroForm?.errors }}
         <div class="p-col-12">
-          <input type="text" pInputText id="razaoSocial" formControlName="razaoSocial" placeholder="Razão social" />
+          <input
+            type="text"
+            pInputText
+            id="razaoSocial"
+            formControlName="razaoSocial"
+            placeholder="Razão social"
+            [ngClass]="submitted && cadastro.razaoSocial.errors ? 'ng-invalid ng-dirty' : ''"
+          />
         </div>
         <div class="p-col-12">
-          <input type="text" mask="CPF_CNPJ" pInputText id="documento" formControlName="documento" placeholder="CNPJ" />
+          <input
+            type="text"
+            mask="CPF_CNPJ"
+            pInputText
+            id="documento"
+            formControlName="documento"
+            placeholder="CNPJ"
+            [ngClass]="submitted && cadastro.documento.errors ? 'ng-invalid ng-dirty' : ''"
+          />
         </div>
         <div class="p-col-12">
           <div class="p-grid" formGroupName="contato">
             <div class="p-col-12">
-              <input type="text" class="p-col-12" pInputText id="email" formControlName="email" placeholder="E-mail" />
+              <input
+                type="text"
+                class="p-col-12"
+                pInputText
+                id="email"
+                formControlName="email"
+                placeholder="E-mail"
+                (change)="changeEmail()"
+                [ngClass]="submitted && contato.email.errors ? 'ng-invalid ng-dirty' : ''"
+              />
             </div>
             <div class="p-col-12">
               <input
@@ -23,6 +46,7 @@
                 placeholder="Telefone"
                 id="telefone"
                 formControlName="telefone"
+                [ngClass]="submitted && contato.telefone.errors ? 'ng-invalid ng-dirty' : ''"
               />
             </div>
           </div>
@@ -37,6 +61,8 @@
                 id="usuario"
                 placeholder="Usuário"
                 formControlName="usuario"
+                [attr.disabled]="''"
+                [ngClass]="submitted && usuario.usuario.errors ? 'ng-invalid ng-dirty' : ''"
               />
             </div>
             <div class="p-col-12 p-sm-12 p-md-6">
@@ -47,6 +73,7 @@
                 id="senha"
                 placeholder="Senha"
                 formControlName="senha"
+                [ngClass]="submitted && usuario.senha.errors ? 'ng-invalid ng-dirty' : ''"
               />
             </div>
           </div>

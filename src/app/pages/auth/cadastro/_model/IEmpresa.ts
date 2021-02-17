@@ -1,4 +1,4 @@
-export class Empresa {
+export class IEmpresa {
   id?: string;
   razaoSocial?: string;
   documento?: string;

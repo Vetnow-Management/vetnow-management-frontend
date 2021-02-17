@@ -1,7 +1,34 @@
 <div class="card">
-  <app-formulario-tutor (tutorFormEvent)="salvar($event)" [informacoes]="tutorDetalhe" [excluirAtivo]="true">
+  <app-formulario-tutor (tutorFormEvent)="salvarTutor($event)" [informacoes]="tutor" [excluirAtivo]="true">
     <div class="p-col-12 p-sm-12 p-d-md-none">
       <button pButton pRipple label="Excluir" (click)="excluir()" class="p-col-12 p-d-md-none p-button-danger"></button>
     </div>
   </app-formulario-tutor>
+</div>
+<div class="card">
+  <app-vwn-divider descricao="Animais"></app-vwn-divider>
+  <div class="p-col-12" *ngIf="apresentarAnimalForm">
+    <p-toolbar styleClass="p-mb-4">
+      <div class="p-grid p-col-12 p-jc-between">
+        <div class="p-col-12 p-sm-12 p-md-2">
+          <button
+            pButton
+            pRipple
+            (click)="novoAnimal()"
+            label="Novo"
+            icon="pi pi-plus"
+            class="p-col-12 p-button p-mr-2"
+          ></button>
+        </div>
+      </div>
+    </p-toolbar>
+    <app-tabela-animal [animais]="animais"></app-tabela-animal>
+  </div>
+  <app-formulario-animal
+    [podeSalvarAnimal]="true"
+    *ngIf="!apresentarAnimalForm"
+    (animalFormEvent)="salvarAnimal($event)"
+    (cancelado)="novoAnimal($event)"
+  >
+  </app-formulario-animal>
 </div>

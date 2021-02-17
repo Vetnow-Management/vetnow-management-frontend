@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TutorService } from '../../service/tutor.service';
-import { ITutor } from '../../model/ITutor';
+import { TutorService } from '../../_service/tutor.service';
+import { ITutor } from '../../_model/ITutor';
+import { IPagination } from '../../../../../shared/layout/vnw-table/model/IPagination';
+import { Page } from '../../../../../_services/model/Page';
+import { ToastService } from '../../../../../_services/toast.service';
 
 @Component({
   selector: 'app-tabela-tutor',
@@ -9,51 +12,35 @@ import { ITutor } from '../../model/ITutor';
   styleUrls: ['./tabela-tutor.component.scss'],
 })
 export class TabelaTutorComponent implements OnInit {
-  public tutores: ITutor[] = [
-    {
-      id: '1',
-      nome: 'Renan Ravelli',
-      dataNascimento: '08/11/1996',
-      documento: '05398078186',
-      contato: {
-        telefone: '61 998240215',
-        celular: '61 998240215',
-        email: 'renanravellialves@gmail.com',
-      },
-      endereco: {
-        cep: '73083150',
-        logradouro: 'ES 4B LOTE 11',
-        bairro: 'Setor de Mansões',
-        localidade: 'Sobradinho',
-        unidade: 'DF',
-      },
-    },
-    {
-      id: '2',
-      nome: 'Marcela Souza',
-      dataNascimento: '08/11/1996',
-      documento: '05398078186',
-      contato: {
-        telefone: '61 998240215',
-        celular: '61 998240215',
-        email: 'renanravellialves@gmail.com',
-      },
-      endereco: {
-        cep: '73083150',
-        logradouro: 'ES 4B LOTE 11',
-        bairro: 'Setor de Mansões',
-        localidade: 'Sobradinho',
-        unidade: 'DF',
-      },
-    },
-  ];
+  tutores: Page<ITutor> = {};
 
-  constructor(private router: Router, private tutorService: TutorService) {}
+  constructor(private router: Router, private toastService: ToastService, private tutorService: TutorService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.pesquisar();
+  }
+
+  excluir(id: string) {
+    this.tutorService.desativar(id).subscribe(
+      () => {
+        this.tutores.lista = this.tutores.lista?.filter((t) => t.id !== id);
+        this.toastService.success('Tutor excluido com sucesso.');
+        void this.router.navigate(['admin', 'tutor']);
+      },
+      (error) => this.toastService.error('Não foi possível excluir o tutor. Tente novamente!', error)
+    );
+  }
 
   detalhe(id: string): void {
-    this.tutorService.tutorDetalhe = this.tutores.find((t) => t.id === id);
+    this.tutorService.tutorDetalhe = this.tutores.lista?.find((t) => t.id === id) as ITutor;
     void this.router.navigate(['admin', 'tutor', id, 'detalhe']);
+  }
+
+  paginaAlterada(pagina: IPagination) {
+    this.pesquisar(pagina.first, pagina.rows);
+  }
+
+  pesquisar(pagina?: number, tamanho?: number): void {
+    this.tutorService.pesquisar(tamanho, pagina).subscribe((pagina: Page<ITutor>) => (this.tutores = pagina));
   }
 }

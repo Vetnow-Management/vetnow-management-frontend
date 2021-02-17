@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CadastroService } from './service/cadastro.service';
 import { Router } from '@angular/router';
-import { ToastService } from '../../../services/toast.service';
-import { EmpresaNovo } from './model/EmpresaNovo';
-import { MessageError } from '../../../model/MessageError';
+import { ToastService } from '../../../_services/toast.service';
+import { IEmpresaNovo } from './_model/IEmpresaNovo';
+import { MessageError } from '../../../_services/model/MessageError';
+import { IEmpresa } from './_model/IEmpresa';
 
 @Component({
   selector: 'app-cadastro',
@@ -12,6 +13,7 @@ import { MessageError } from '../../../model/MessageError';
   styleUrls: ['./cadastro.component.scss'],
 })
 export class CadastroComponent implements OnInit {
+  submitted = false;
   cadastroForm: FormGroup = new FormGroup({});
 
   constructor(
@@ -31,7 +33,7 @@ export class CadastroComponent implements OnInit {
         telefone: [null, [required, minLength(11), maxLength(12)]],
       }),
       usuario: this.formBuilder.group({
-        usuario: [null, [required, minLength(5), maxLength(20)]],
+        usuario: [null, [required, minLength(5), maxLength(100)]],
         senha: [null, [required, minLength(5), maxLength(20)]],
       }),
     });
@@ -42,21 +44,45 @@ export class CadastroComponent implements OnInit {
   }
 
   cadastrar(): void {
-    if (this.cadastroForm.valid) {
-      this.cadastroService.cadastrar(this.cadastroForm.value as EmpresaNovo).subscribe(
-        (empresaCadastrada) => {
-          this.toastService.success('Obaaa', `Bem-vindo ${empresaCadastrada.razaoSocial ?? '-'} ao portal VETNOW.`);
-          void this.router.navigate(['']);
-        },
-        (error: MessageError) => {
-          this.toastService.error(
-            'Ooops',
-            'Ocorreu um erro interno, entre em contato com um dos nossos administradores ou tente novamente mais tarde!'
-          );
-        }
-      );
-      return;
-    }
-    this.toastService.warn('Aten\u00E7\u00E3o', 'Verifique se todos os campos est\u00E3o preenchidos corretamente.');
+    this.submitted = true;
+    if (this.cadastroForm.invalid) return;
+    this.cadastroService.cadastrar(this.cadastroForm.value as IEmpresaNovo).subscribe(
+      (empresaCadastrada: IEmpresa) => {
+        this.toastService.success(
+          'Cadastro realizado com sucesso.',
+          ` Bem-vindo(a) ${empresaCadastrada.razaoSocial ?? '-'} ao portal VETNOW.`
+        );
+        void this.router.navigate(['']);
+      },
+      (error: MessageError) => {
+        this.toastService.error(
+          'Ooops',
+          'Ocorreu um erro interno, entre em contato com um dos nossos administradores ou tente novamente mais tarde!'
+        );
+      }
+    );
+  }
+
+  changeEmail() {
+    const usuario = this.group('usuario') as FormGroup;
+    usuario.get('usuario')?.setValue(this.contato.email.value);
+  }
+
+  get cadastro() {
+    return this.cadastroForm.controls;
+  }
+
+  get contato() {
+    const contatoGroup = this.group('contato') as FormGroup;
+    return contatoGroup.controls;
+  }
+
+  get usuario() {
+    const contatoGroup = this.group('usuario') as FormGroup;
+    return contatoGroup.controls;
+  }
+
+  private group(group: string): AbstractControl | null {
+    return this.cadastroForm.get(group);
   }
 }

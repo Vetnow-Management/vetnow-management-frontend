@@ -1,37 +1,79 @@
+<app-vwn-divider descricao="Informações"></app-vwn-divider>
 <form action="" [formGroup]="tutorForm">
   <div class="p-grid p-fluid">
     <div class="p-col-12 p-sm-12 p-md-4">
       <label for="nome">Nome</label>
-      <input id="nome" type="text" pInputText formControlName="nome" />
+      <input
+        id="nome"
+        type="text"
+        [(ngModel)]="informacoes!.nome"
+        [ngClass]="submitted && tutorControls.nome.errors ? 'ng-invalid ng-dirty' : ''"
+        pInputText
+        formControlName="nome"
+      />
     </div>
     <div class="p-col-12 p-sm-12 p-md-4">
-      <label for="dataNascimento">Data de nascimento</label>
+      <label for="dtNascimento">Data de nascimento</label>
       <p-calendar
-        id="dataNascimento"
+        id="dtNascimento"
         [showIcon]="true"
         inputId="icon"
+        formControlName="dtNascimento"
         dateFormat="dd/mm/yy"
-        formControlName="dataNascimento"
+        [dataType]="'string'"
+        [(ngModel)]="informacoes!.dtNascimento"
         [maxDate]="maxDate"
+        [ngClass]="submitted && tutorControls.dtNascimento.errors ? 'ng-invalid ng-dirty' : ''"
       ></p-calendar>
     </div>
     <div class="p-col-12 p-sm-12 p-md-4">
       <label for="documento">Documento</label>
-      <input id="documento" type="text" pInputText formControlName="documento" [mask]="'CPF_CNPJ'" />
+      <input
+        id="documento"
+        type="text"
+        pInputText
+        [(ngModel)]="informacoes!.documento"
+        formControlName="documento"
+        [mask]="'CPF_CNPJ'"
+        [ngClass]="submitted && tutorControls.documento.errors ? 'ng-invalid ng-dirty' : ''"
+      />
     </div>
     <div class="p-col-12" formGroupName="contato">
       <div class="p-grid">
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="celular">Celular</label>
-          <input id="celular" type="text" pInputText formControlName="celular" [mask]="'(00) 00000-0000'" />
+          <input
+            id="celular"
+            type="text"
+            pInputText
+            [(ngModel)]="informacoes.contato!.celular"
+            formControlName="celular"
+            [mask]="'(00) 00000-0000'"
+            [ngClass]="submitted && contato.celular.errors ? 'ng-invalid ng-dirty' : ''"
+          />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="telefone">Telefone</label>
-          <input id="telefone" type="text" pInputText formControlName="telefone" [mask]="'(00) 0000-0000'" />
+          <input
+            id="telefone"
+            type="text"
+            pInputText
+            [(ngModel)]="informacoes.contato!.telefone"
+            formControlName="telefone"
+            [mask]="'(00) 0000-0000'"
+            [ngClass]="submitted && contato.telefone.errors ? 'ng-invalid ng-dirty' : ''"
+          />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="email">E-mail</label>
-          <input id="email" type="text" pInputText formControlName="email" />
+          <input
+            id="email"
+            type="text"
+            [(ngModel)]="informacoes.contato!.email"
+            [ngClass]="submitted && contato.email.errors ? 'ng-invalid ng-dirty' : ''"
+            pInputText
+            formControlName="email"
+          />
         </div>
       </div>
     </div>
@@ -39,16 +81,26 @@
       <div class="p-grid">
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="cep">CEP</label>
-          <input id="cep" (change)="buscarCep()" type="text" pInputText formControlName="cep" [mask]="'00000-000'" />
+          <input
+            id="cep"
+            (change)="buscarCep()"
+            type="text"
+            [(ngModel)]="informacoes.endereco!.cep"
+            pInputText
+            formControlName="cep"
+            [mask]="'00000-000'"
+            [ngClass]="submitted && endereco.cep.errors ? 'ng-invalid ng-dirty' : ''"
+          />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="logradouro">Logradouro</label>
           <input
             id="logradouro"
-            [(ngModel)]="cep.logradouro"
+            [(ngModel)]="cep.logradouro || informacoes.endereco!.logradouro"
             type="text"
             pInputText
             formControlName="logradouro"
+            [ngClass]="submitted && endereco.logradouro.errors ? 'ng-invalid ng-dirty' : ''"
             [attr.disabled]="disabledLogradouro ? '' : null"
           />
         </div>
@@ -56,38 +108,48 @@
           <label for="bairro">Bairro</label>
           <input
             id="bairro"
-            [(ngModel)]="cep.bairro"
+            [(ngModel)]="cep.bairro || informacoes.endereco!.bairro"
             type="text"
             pInputText
             formControlName="bairro"
             [attr.disabled]="''"
+            [ngClass]="submitted && endereco.bairro.errors ? 'ng-invalid ng-dirty' : ''"
           />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
-          <label for="cidade">Cidade</label>
+          <label for="localidade">Cidade</label>
           <input
-            id="cidade"
-            [(ngModel)]="cep.localidade"
+            id="localidade"
+            [(ngModel)]="cep.localidade || informacoes.endereco!.localidade"
             type="text"
             pInputText
-            formControlName="cidade"
+            formControlName="localidade"
             [attr.disabled]="''"
+            [ngClass]="submitted && endereco.localidade.errors ? 'ng-invalid ng-dirty' : ''"
           />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
-          <label for="estado">Estado</label>
+          <label for="uf">Estado</label>
           <input
-            id="estado"
-            [(ngModel)]="cep.uf"
+            id="uf"
+            [(ngModel)]="cep.uf || informacoes.endereco!.uf"
             type="text"
             pInputText
-            formControlName="estado"
+            formControlName="uf"
             [attr.disabled]="''"
+            [ngClass]="submitted && endereco.uf.errors ? 'ng-invalid ng-dirty' : ''"
           />
         </div>
         <div class="p-col-12 p-sm-12 p-md-4">
           <label for="complemento">Complemento</label>
-          <input id="complemento" [(ngModel)]="cep.complemento" type="text" pInputText formControlName="complemento" />
+          <input
+            id="complemento"
+            [(ngModel)]="cep.complemento || informacoes.endereco!.complemento"
+            type="text"
+            pInputText
+            formControlName="complemento"
+            [ngClass]="submitted && endereco.complemento.errors ? 'ng-invalid ng-dirty' : ''"
+          />
         </div>
       </div>
     </div>

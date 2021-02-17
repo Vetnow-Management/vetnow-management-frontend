@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../../services/authentication.service';
+import { AuthenticationService } from '../../../_services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
 
   acessar() {
     const { usuario, senha } = this.loginForm.value;
-    this.authenticationService.login(usuario, senha);
-    void this.router.navigate(['admin']);
+    this.authenticationService.login(usuario, senha).subscribe((usuario) => this.router.navigate(['admin']));
   }
 }

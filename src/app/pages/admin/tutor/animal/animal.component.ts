@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-animal',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./animal.component.scss'],
 })
 export class AnimalComponent implements OnInit {
-  apresentarAnimalForm = false;
+  @Output() animalFormEvent = new EventEmitter<FormGroup>();
+  @Input() apresentarAnimalForm = false;
+  @Input() podeAdicionarAnimal = false;
 
   constructor() {}
 
@@ -16,8 +19,12 @@ export class AnimalComponent implements OnInit {
     this.apresentarAnimalForm = !this.apresentarAnimalForm;
   }
 
-  adicionar(): void {
-    this.apresentarAnimalForm = !this.apresentarAnimalForm;
+  salvar(animalForm: FormGroup): void {
+    this.animalFormEvent.emit(animalForm);
     //todo chamar o servico para adicionar
+  }
+
+  cancelar(cancelado: boolean): void {
+    this.apresentarAnimalForm = cancelado;
   }
 }

@@ -1,4 +1,4 @@
-export interface Contato {
+export interface IContato {
   email?: string;
   celular?: string;
   telefone?: string;

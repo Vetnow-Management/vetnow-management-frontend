@@ -1,9 +1,9 @@
-<app-vnw-table [data]="tutores">
+<app-vnw-table [paginacao]="tutores" (paginaAlteradaEvent)="paginaAlterada($event)">
   <ng-template pTemplate="header">
     <tr>
       <th>Nome</th>
       <th class="p-d-none p-d-md-flex">Documento</th>
-      <th class="p-text-center">Telefone</th>
+      <th class="p-text-center">Celular</th>
       <th class="p-text-center">Ações</th>
     </tr>
   </ng-template>
@@ -13,7 +13,7 @@
       <td height="58" class="p-ai-center p-d-none p-d-md-flex">
         {{ tutor.documento | mask: '000.000.000-99' }}
       </td>
-      <td height="50" class="p-text-center">{{ tutor.contato.telefone | mask: '(00) 00000-0000' }}</td>
+      <td height="50" class="p-text-center">{{ tutor.contato.celular | mask: '(00) 00000-0000' }}</td>
       <td height="50" class="p-text-center">
         <button
           pButton
@@ -31,6 +31,7 @@
           class="p-button-sm p-button-danger p-d-none p-d-md-inline-flex"
           pTooltip="Excluir"
           tooltipPosition="top"
+          (click)="excluir(tutor.id)"
         ></button>
       </td>
     </tr>

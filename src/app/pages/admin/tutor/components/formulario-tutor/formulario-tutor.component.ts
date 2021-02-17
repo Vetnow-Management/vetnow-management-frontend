@@ -1,11 +1,8 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ITutor } from '../../model/ITutor';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import ICep from '../../model/ICep';
-import { CepService } from '../../../../../services/cep.service';
-import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ITutor } from '../../_model/ITutor';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import ICep from '../../_model/ICep';
+import { CepService } from '../../../../../_services/cep.service';
 
 @Component({
   selector: 'app-formulario-tutor',
@@ -13,15 +10,17 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./formulario-tutor.component.scss'],
 })
 export class FormularioTutorComponent implements OnInit {
-  cep: ICep = {};
-
-  tutorForm: FormGroup = new FormGroup({});
-
   @Output() tutorFormEvent = new EventEmitter<FormGroup>();
 
   @Input() excluirAtivo = false;
 
-  @Input() informacoes: ITutor = {};
+  @Input() informacoes: ITutor = { contato: {}, endereco: {} };
+
+  cep: ICep = {};
+
+  submitted = false;
+
+  tutorForm: FormGroup = new FormGroup({});
 
   minDate?: Date;
 
@@ -33,28 +32,47 @@ export class FormularioTutorComponent implements OnInit {
 
   ngOnInit(): void {
     const { required, minLength, maxLength, email } = Validators;
-    const { nome, dataNascimento, documento, contato, endereco } = this.informacoes;
     this.tutorForm = this.formBuilder.group({
-      nome: [nome, [required, maxLength(100)]],
-      dataNascimento: [dataNascimento, [required]],
-      documento: [documento, [required, minLength(11), maxLength(11)]],
+      nome: [null, [required, maxLength(100)]],
+      dtNascimento: [null, [required]],
+      documento: [null, [required, minLength(11), maxLength(11)]],
       contato: this.formBuilder.group({
-        email: [contato?.email, [required, maxLength(50), email]],
-        telefone: [contato?.telefone, [required, minLength(10), maxLength(10)]],
-        celular: [contato?.celular, [required, minLength(11), maxLength(11)]],
+        email: [null, [required, maxLength(50), email]],
+        telefone: [null, [minLength(10), maxLength(10)]],
+        celular: [null, [required, minLength(11), maxLength(11)]],
       }),
       endereco: this.formBuilder.group({
-        cep: [endereco?.cep, [required, maxLength(8), maxLength(8)]],
-        logradouro: [endereco?.logradouro, [required, maxLength(100)]],
-        bairro: [endereco?.bairro, [required, maxLength(100)]],
-        cidade: [endereco?.localidade, [required, maxLength(100)]],
-        estado: [endereco?.uf, [required, maxLength(2)]],
-        complemento: [endereco?.complemento, [required, maxLength(100)]],
+        cep: [null, [required, maxLength(8), maxLength(8)]],
+        logradouro: [null, [required, maxLength(100)]],
+        bairro: [null, [required, maxLength(100)]],
+        localidade: [null, [required, maxLength(100)]],
+        uf: [null, [required, maxLength(2)]],
+        complemento: [null, [maxLength(100)]],
       }),
     });
   }
 
+  get tutorControls() {
+    return this.tutorForm.controls;
+  }
+
+  get endereco() {
+    const enderecoGroup = this.group('endereco') as FormGroup;
+    return enderecoGroup.controls;
+  }
+
+  get contato() {
+    const contatoGroup = this.group('contato') as FormGroup;
+    return contatoGroup.controls;
+  }
+
+  group(group: string): AbstractControl | null {
+    return this.tutorForm.get(group);
+  }
+
   salvarTutor(): void {
+    this.submitted = true;
+    if (this.tutorForm.invalid) return;
     void this.tutorFormEvent.emit(this.tutorForm);
   }
 
@@ -64,5 +82,9 @@ export class FormularioTutorComponent implements OnInit {
       this.cep = cep;
       this.disabledLogradouro = false;
     });
+  }
+
+  field(name: string): AbstractControl | null {
+    return this.tutorForm.get(name);
   }
 }

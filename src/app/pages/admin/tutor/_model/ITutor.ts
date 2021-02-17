@@ -1,8 +1,9 @@
 export interface ITutor {
   id?: string;
   nome?: string;
-  dataNascimento?: string;
+  dtNascimento?: string;
   documento?: string;
+  tipo?: string;
   endereco?: IEndereco;
   contato?: IContato;
 }

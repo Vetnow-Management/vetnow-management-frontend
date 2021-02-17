@@ -1,10 +1,11 @@
 export interface IAnimal {
   id?: string;
+  idTutor?: string;
   nome?: string;
   cor?: string;
-  dtNascimento?: string;
+  dtNascimento?: Date;
   peso?: number;
-  sexo?: ISexo;
+  sexo?: Sexo;
   falecido?: boolean;
   especie?: string;
   raca?: string;
@@ -12,7 +13,7 @@ export interface IAnimal {
   observacao?: string;
 }
 
-enum ISexo {
-  MACHO,
-  FEMEA,
+export enum Sexo {
+  MACHO = 'MACHO',
+  FEMEA = 'FEMEA',
 }

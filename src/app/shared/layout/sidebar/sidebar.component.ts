@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // @ts-ignore bug na importacao
-import { faPaw, faUserTie, faTachometerAlt, faUserNurse } from '@fortawesome/free-solid-svg-icons';
-import { AuthenticationService } from '../../../services/authentication.service';
+import { faTachometerAlt, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from '../../../_services/authentication.service';
 import { Router } from '@angular/router';
 import { SidebarService } from './service/sidebar.service';
 

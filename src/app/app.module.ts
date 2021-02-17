@@ -7,12 +7,14 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { LayoutModule } from './shared/layout/layout.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IConfig, MaskApplierService, NgxMaskModule } from 'ngx-mask';
 import { BlockUIModule } from 'ng-block-ui';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 
 export const maskConfig: Partial<IConfig> | (() => Partial<IConfig>) | null = {
   validation: true,
@@ -33,7 +35,12 @@ export const maskConfig: Partial<IConfig> | (() => Partial<IConfig>) | null = {
     NgxMaskModule.forRoot(maskConfig),
     BlockUIModule.forRoot(),
   ],
-  providers: [MessageService, MaskApplierService],
+  providers: [
+    MessageService,
+    MaskApplierService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

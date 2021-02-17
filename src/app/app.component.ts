@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-import { AuthenticationService } from './services/authentication.service';
+import { AuthenticationService } from './_services/authentication.service';
 import { Observable } from 'rxjs';
 import { SidebarService } from './shared/layout/sidebar/service/sidebar.service';
 
